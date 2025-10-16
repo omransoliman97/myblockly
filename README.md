@@ -76,5 +76,3 @@ media: "/media/",
 - Fork the repo, create a feature branch, open a PR.
 - Please keep UI changes consistent with shadcn styles and project tokens.
 
-## License
-- Add your preferred license (e.g., MIT) and update this section accordingly.

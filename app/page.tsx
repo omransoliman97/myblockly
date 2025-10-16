@@ -1,15 +1,25 @@
 "use client";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun } from "lucide-react";
 
 type UiLang = "en" | "fr";
 
+interface LandingI18n {
+  title: string;
+  subtitle: string;
+  openEditor: string;
+  exploreFeatures: string;
+  features: string[];
+  language: string;
+  theme: string;
+}
+
 export default function Home() {
   const [uiLang, setUiLang] = useState<UiLang>("en");
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [t, setT] = useState<any>({});
+  const [t, setT] = useState<LandingI18n | null>(null);
 
   useEffect(() => {
     // Theme init
@@ -31,11 +41,11 @@ export default function Home() {
     async function load() {
       try {
         const res = await fetch(`/i18n/${uiLang}.json`);
-        const json = await res.json();
+        const json: LandingI18n = await res.json();
         setT(json);
       } catch {
         // fallback
-        setT({
+        const fallback: LandingI18n = {
           title: "Build with Blocks. Learn by Doing.",
           subtitle: "Design programs visually using Blockly. Switch languages, toggle dark mode, and export your projects with a single click.",
           openEditor: "Open Editor",
@@ -48,7 +58,8 @@ export default function Home() {
           ],
           language: "Language",
           theme: "Theme",
-        });
+        };
+        setT(fallback);
       }
     }
     load();
@@ -103,6 +114,7 @@ export default function Home() {
           {t?.title || "Build with Blocks. Learn by Doing."}
         </div>
 
+        <label style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || "Language"}</label>
         <p style={{ opacity: 0.85, maxWidth: 720, fontSize: 16 }}>{t?.subtitle}</p>
 
         <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
@@ -119,6 +131,7 @@ export default function Home() {
             </span>
           ))}
         </div>
+        <label style={{ fontSize: 12, opacity: 0.8 }}>{t?.theme || "Theme"}</label>
       </div>
     </div>
   );
