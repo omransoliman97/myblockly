@@ -1,11 +1,10 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun, Volume2, VolumeX } from "lucide-react";
-import Link from "next/link";
 
 export default function Home() {
   const blocklyDivRef = useRef<HTMLDivElement | null>(null);
@@ -44,7 +43,7 @@ export default function Home() {
     },
   };
 
-  const buildToolboxXml = useCallback((lang: "en" | "fr") => `
+  const buildToolboxXml = (lang: "en" | "fr") => `
     <xml id="toolbox" style="display: none">
       <category name="${CATEGORY_LABELS[lang].logic}" colour="#5C81A6">
         <block type="controls_if"></block>
@@ -131,7 +130,7 @@ export default function Home() {
       <category name="${CATEGORY_LABELS[lang].variables}" colour="#A65C81" custom="VARIABLE"></category>
       <category name="${CATEGORY_LABELS[lang].functions}" colour="#A6745C" custom="PROCEDURE"></category>
     </xml>
-  `, []);
+  `;
 
   useEffect(() => {
     let isMounted = true;
@@ -167,17 +166,16 @@ export default function Home() {
       };
       // Load locale messages BEFORE registering built-in blocks
       try {
-        let messages: unknown;
+        let messages: any;
         if (savedLang === 'fr') {
           try { messages = await import("blockly/msg/fr"); }
           catch { messages = await import("blockly/msg/en"); }
         } else {
           messages = await import("blockly/msg/en");
         }
-        const mod = messages as { default?: Record<string, string> } | Record<string, string>;
-        const msgObj = ("default" in mod ? mod.default : mod);
+        const msgObj = messages.default || messages;
         if (msgObj && typeof msgObj === 'object') {
-          Object.assign(Blockly.Msg, msgObj as Record<string, string>);
+          Object.assign(Blockly.Msg, msgObj);
         }
       } catch {}
       await import("blockly/blocks");
@@ -281,7 +279,7 @@ export default function Home() {
   }, []);
 
   // Generate code based on selected tab (or an override when switching tabs)
-  const updateGeneratedCode = useCallback(async (tabOverride?: Tab) => {
+  const updateGeneratedCode = async (tabOverride?: Tab) => {
     const workspace = workspaceRef.current;
     if (!workspace) return;
     const tab = tabOverride || activeTab;
@@ -314,7 +312,7 @@ export default function Home() {
       console.error("Failed generating code:", err);
       setGeneratedCode("// Failed to generate code");
     }
-  }, [activeTab]);
+  };
 
   const handleDownload = async (format: 'xml' | 'txt') => {
     if (!workspaceRef.current) return;
@@ -403,7 +401,8 @@ export default function Home() {
   // Also regenerate when the active tab changes (e.g., initial mount or state changes)
   useEffect(() => {
     updateGeneratedCode();
-  }, [activeTab, uiLang, updateGeneratedCode, buildToolboxXml]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeTab, uiLang]);
 
   const changeLocaleAndReload = async (lang: "en" | "fr") => {
     try { localStorage.setItem('site-lang', lang); } catch {}
@@ -425,11 +424,10 @@ export default function Home() {
       }
       
       // Apply locale messages
-      const mod2 = messages as { default?: Record<string, string> } | Record<string, string>;
-      const msgObj = ("default" in mod2 ? mod2.default : mod2);
+      const msgObj = messages.default || messages;
       console.log(`Loading locale ${lang}:`, msgObj);
       if (msgObj && typeof msgObj === 'object') {
-        Object.assign(Blockly.Msg, msgObj as Record<string, string>);
+        Object.assign(Blockly.Msg, msgObj);
         console.log(`Applied locale ${lang}, sample message:`, Blockly.Msg.LOGIC_OPERATION_AND || 'not found');
       }
     } catch (e) {
@@ -588,7 +586,7 @@ export default function Home() {
           },
         });
       }
-      // @ts-expect-error setTheme exists on WorkspaceSvg at runtime
+      // @ts-ignore - setTheme exists on WorkspaceSvg
       workspaceRef.current.setTheme(theme);
     }
   } catch {}
@@ -693,7 +691,7 @@ const toggleMute = async () => {
 return (
   <div className="blockly-page" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100vh" }}>
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-      <div style={{ fontWeight: 700, fontSize: 22, lineHeight: "20px", color:"#9810FA"}}><Link href="/">My Blockly</Link></div>
+      <div style={{ fontWeight: 700, fontSize: 22, lineHeight: "20px", color:"#9810FA"}}><a href="/">My Blockly</a></div>
       <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 20 }}>
         <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme" style={{ minWidth: "auto", padding: "8px 12px" }}>
           {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
