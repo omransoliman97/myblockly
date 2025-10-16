@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Script from "next/script";
 import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Moon, Sun, Volume2, VolumeX } from "lucide-react";
+import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save } from "lucide-react";
 
 export default function Home() {
   const blocklyDivRef = useRef<HTMLDivElement | null>(null);
@@ -21,6 +22,7 @@ export default function Home() {
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [filename, setFilename] = useState("blockly_project");
   const [uiLang, setUiLang] = useState<"en" | "fr">("en");
+  const [t, setT] = useState<any>({});
 
   const CATEGORY_LABELS: Record<"en" | "fr", Record<string, string>> = {
     en: {
@@ -277,6 +279,25 @@ export default function Home() {
       if (cleanup) cleanup();
     };
   }, []);
+
+  // Load editor UI translations from public/i18n based on uiLang
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch(`/i18n/${uiLang}.json`);
+        const json = await res.json();
+        setT(json);
+      } catch {
+        setT({
+          language: "Language",
+          runProject: "Run Project",
+          loadProject: "Load Project",
+          saveProject: "Save Project",
+        });
+      }
+    }
+    load();
+  }, [uiLang]);
 
   // Generate code based on selected tab (or an override when switching tabs)
   const updateGeneratedCode = async (tabOverride?: Tab) => {
@@ -690,6 +711,14 @@ const toggleMute = async () => {
 
 return (
   <div className="blockly-page" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100vh" }}>
+    {/* Google Analytics */}
+    <Script src="https://www.googletagmanager.com/gtag/js?id=G-BNLPSLHQHF" strategy="afterInteractive" />
+    <Script id="gtag-init" strategy="afterInteractive">{`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-BNLPSLHQHF');
+    `}</Script>
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
       <div style={{ fontWeight: 700, fontSize: 22, lineHeight: "20px", color:"#9810FA"}}><a href="/">My Blockly</a></div>
       <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 20 }}>
@@ -700,7 +729,7 @@ return (
           {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
         </Button>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>Language</label>
+          <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || 'Language'}</label>
           <Select
             value={uiLang}
             onValueChange={async (newLang: "en" | "fr") => {
@@ -718,9 +747,15 @@ return (
             </SelectContent>
           </Select>
         </div>
-        <Button onClick={handleRun} disabled={!ready}>Run Project</Button>
-        <Button onClick={handleOpenFilePicker}>Load Project</Button>
-        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready}>Save Project</Button>
+        <Button onClick={handleRun} disabled={!ready}>
+          <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run Project'}
+        </Button>
+        <Button onClick={handleOpenFilePicker}>
+          <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load Project'}
+        </Button>
+        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready}>
+          <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save Project'}
+        </Button>
         <input
           ref={fileInputRef}
           type="file"
@@ -821,6 +856,9 @@ return (
           </div>
         </div>
       )}
+      <footer style={{ position: 'fixed', right: 8, bottom: 2, fontSize: 12, opacity: 0.8 }}>
+        © 2025 <a href="https://www.instagram.com/omran.soliman97/" target="_blank" rel="noopener noreferrer">Omran SOLIMAN</a>. All rights reserved.
+      </footer>
     </div>
   );
 }

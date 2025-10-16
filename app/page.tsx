@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useMemo, useState } from "react";
+import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun } from "lucide-react";
@@ -65,6 +66,14 @@ export default function Home() {
 
   return (
     <div className="blockly-page" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {/* Google Analytics */}
+      <Script src="https://www.googletagmanager.com/gtag/js?id=G-BNLPSLHQHF" strategy="afterInteractive" />
+      <Script id="gtag-init" strategy="afterInteractive">{`
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-BNLPSLHQHF');
+      `}</Script>
       {/* Top controls */}
       <div style={{ position: "absolute", top: 16, right: 16, display: "flex", gap: 8, alignItems: "center" }}>
         <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
@@ -120,6 +129,10 @@ export default function Home() {
           ))}
         </div>
       </div>
+      {/* Footer */}
+      <footer style={{ position: "absolute", bottom: 8, left: 0, right: 0, textAlign: "center", fontSize: 12, opacity: 0.8 }}>
+        © 2025 <a href="https://www.instagram.com/omran.soliman97/" target="_blank" rel="noopener noreferrer">Omran SOLIMAN</a>. All rights reserved.
+      </footer>
     </div>
   );
 }

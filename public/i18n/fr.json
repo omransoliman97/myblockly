@@ -11,4 +11,7 @@
   ],
   "language": "Langue",
   "theme": "Thème"
+  , "runProject": "Lancer le projet"
+  , "loadProject": "Charger le projet"
+  , "saveProject": "Enregistrer le projet"
 }
