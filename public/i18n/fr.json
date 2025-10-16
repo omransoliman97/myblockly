@@ -14,4 +14,6 @@
   , "runProject": "Lancer le projet"
   , "loadProject": "Charger le projet"
   , "saveProject": "Enregistrer le projet"
+  , "discardAll": "Jeter tous les blocs"
+  , "confirmDiscard": "Jeter tous les blocs ? Cette action est irréversible."
 }

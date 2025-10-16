@@ -5,7 +5,7 @@ import Script from "next/script";
 import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save } from "lucide-react";
+import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save, Trash2 } from "lucide-react";
 
 export default function Home() {
   const blocklyDivRef = useRef<HTMLDivElement | null>(null);
@@ -709,6 +709,16 @@ const toggleMute = async () => {
   await reinjectWorkspace({ soundsEnabled: !next });
 };
 
+// Discard all blocks from the current workspace
+const handleDiscardAll = async () => {
+  const ws = workspaceRef.current;
+  if (!ws) return;
+  const ok = window.confirm(t?.confirmDiscard || 'Discard all blocks? This cannot be undone.');
+  if (!ok) return;
+  ws.clear();
+  await updateGeneratedCode();
+};
+
 return (
   <div className="blockly-page" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100vh" }}>
     {/* Google Analytics */}
@@ -755,6 +765,9 @@ return (
         </Button>
         <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready}>
           <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save Project'}
+        </Button>
+        <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
+          <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard All'}
         </Button>
         <input
           ref={fileInputRef}

@@ -14,4 +14,6 @@
   , "runProject": "Run Project"
   , "loadProject": "Load Project"
   , "saveProject": "Save Project"
+  , "discardAll": "Discard All"
+  , "confirmDiscard": "Discard all blocks? This cannot be undone."
 }
