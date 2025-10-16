@@ -1,0 +1,14 @@
+{
+  "title": "Construisez avec des blocs. Apprenez en pratiquant.",
+  "subtitle": "Concevez des programmes visuellement avec Blockly. Changez de langue, basculez le thème et exportez vos projets en un clic.",
+  "openEditor": "Ouvrir l'éditeur",
+  "exploreFeatures": "Découvrir les fonctionnalités",
+  "features": [
+    "Glisser-déposer des blocs",
+    "Aperçu du code (JS/Python/PHP)",
+    "Thèmes sombre / clair",
+    "Importer/Exporter XML"
+  ],
+  "language": "Langue",
+  "theme": "Thème"
+}

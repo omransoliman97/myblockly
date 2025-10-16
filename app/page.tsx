@@ -1,103 +1,125 @@
-import Image from "next/image";
+"use client";
+import { useEffect, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Moon, Sun } from "lucide-react";
+
+type UiLang = "en" | "fr";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [uiLang, setUiLang] = useState<UiLang>("en");
+  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [t, setT] = useState<any>({});
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    // Theme init
+    const savedTheme = localStorage.getItem("blockly-theme");
+    const dark = savedTheme === "dark";
+    setIsDarkMode(dark);
+    const root = document.documentElement;
+    root.classList.remove(dark ? "light" : "dark");
+    root.classList.add(dark ? "dark" : "light");
+  }, []);
+
+  useEffect(() => {
+    // Language init
+    const savedLang = (localStorage.getItem("site-lang") as UiLang) || "en";
+    setUiLang(savedLang);
+  }, []);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const res = await fetch(`/i18n/${uiLang}.json`);
+        const json = await res.json();
+        setT(json);
+      } catch {
+        // fallback
+        setT({
+          title: "Build with Blocks. Learn by Doing.",
+          subtitle: "Design programs visually using Blockly. Switch languages, toggle dark mode, and export your projects with a single click.",
+          openEditor: "Open Editor",
+          exploreFeatures: "Explore Features",
+          features: [
+            "Drag & drop blocks",
+            "Code preview (JS/Python/PHP)",
+            "Dark / Light themes",
+            "Import/Export XML",
+          ],
+          language: "Language",
+          theme: "Theme",
+        });
+      }
+    }
+    load();
+  }, [uiLang]);
+
+  const toggleDarkMode = () => {
+    const next = !isDarkMode;
+    setIsDarkMode(next);
+    const root = document.documentElement;
+    root.classList.remove(next ? "light" : "dark");
+    root.classList.add(next ? "dark" : "light");
+    localStorage.setItem("blockly-theme", next ? "dark" : "light");
+  };
+
+  return (
+    <div className="blockly-page" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      {/* Top controls */}
+      <div style={{ position: "absolute", top: 16, right: 16, display: "flex", gap: 8, alignItems: "center" }}>
+        <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
+          {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
+        </Button>
+        <Select
+          value={uiLang}
+          onValueChange={(lang: UiLang) => {
+            setUiLang(lang);
+            localStorage.setItem("site-lang", lang);
+          }}
+        >
+          <SelectTrigger size="sm" aria-label="Language">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent align="end">
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="fr">Français</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      {/* Background accents */}
+      <div aria-hidden="true" style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+        <div style={{ position: "absolute", top: -120, right: -120, width: 380, height: 380, filter: "blur(80px)", opacity: 0.25, background: "radial-gradient(50% 50% at 50% 50%, #9810FA 0%, rgba(152,16,250,0) 70%)" }} />
+        <div style={{ position: "absolute", bottom: -140, left: -140, width: 420, height: 420, filter: "blur(80px)", opacity: 0.22, background: "radial-gradient(50% 50% at 50% 50%, #10B981 0%, rgba(16,185,129,0) 70%)" }} />
+      </div>
+
+      {/* Hero */}
+      <div style={{ position: "relative", zIndex: 1, padding: 24, textAlign: "center", display: "flex", flexDirection: "column", gap: 16, alignItems: "center", maxWidth: 920 }}>
+        <div style={{ fontWeight: 900, fontSize: 42, lineHeight: 1.1, letterSpacing: -0.5,
+          background: "linear-gradient(90deg, #9810FA 0%, #10B981 100%)",
+          WebkitBackgroundClip: "text" as any,
+          backgroundClip: "text",
+          color: "transparent"
+        }}>
+          {t?.title || "Build with Blocks. Learn by Doing."}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <p style={{ opacity: 0.85, maxWidth: 720, fontSize: 16 }}>{t?.subtitle}</p>
+
+        <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", justifyContent: "center" }}>
+          <Button asChild>
+            <a href="/editor" style={{ textDecoration: "none" }}>{t?.openEditor}</a>
+          </Button>
+        </div>
+
+        {/* Feature chips */}
+        <div id="features" style={{ display: "flex", gap: 8, flexWrap: "wrap", justifyContent: "center", marginTop: 12 }}>
+          {(t?.features || []).map((txt: string) => (
+            <span key={txt} style={{ padding: "6px 10px", borderRadius: 999, border: "1px solid rgba(0,0,0,0.12)", fontSize: 12, opacity: 0.9 }}>
+              {txt}
+            </span>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

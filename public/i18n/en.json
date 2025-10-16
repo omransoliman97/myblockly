@@ -1,0 +1,14 @@
+{
+  "title": "Build with Blocks. Learn by Doing.",
+  "subtitle": "Design programs visually using Blockly. Switch languages, toggle dark mode, and export your projects with a single click.",
+  "openEditor": "Open Editor",
+  "exploreFeatures": "Explore Features",
+  "features": [
+    "Drag & drop blocks",
+    "Code preview (JS/Python/PHP)",
+    "Dark / Light themes",
+    "Import/Export XML"
+  ],
+  "language": "Language",
+  "theme": "Theme"
+}
