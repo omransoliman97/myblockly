@@ -90,8 +90,25 @@ export default function Home() {
             <SelectValue />
           </SelectTrigger>
           <SelectContent align="end">
-            <SelectItem value="en">English</SelectItem>
-            <SelectItem value="fr">Français</SelectItem>
+              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="fr">Français</SelectItem>
+              <SelectItem value="es">Español</SelectItem>
+              <SelectItem value="it">Italiano</SelectItem>
+              <SelectItem value="pt">Português</SelectItem>
+              <SelectItem value="de">Deutsch</SelectItem>
+              <SelectItem value="nl">Nederlands</SelectItem>
+              <SelectItem value="tr">Türkçe</SelectItem>
+               <SelectItem value="pl">Polski</SelectItem>
+              <SelectItem value="hi">हिन्दी</SelectItem>
+              <SelectItem value="ru">Русский</SelectItem>
+              <SelectItem value="id">Bahasa Indonesia</SelectItem>
+              <SelectItem value="ja">日本語</SelectItem>
+              <SelectItem value="zh">中文</SelectItem>
+              <SelectItem value="ko">한국어</SelectItem>
+              <SelectItem value="vi">Tiếng Việt</SelectItem>
+              <SelectItem value="th">ไทย</SelectItem>
+              <SelectItem value="uk">Українська</SelectItem>
+              <SelectItem value="ar">العربية</SelectItem>
           </SelectContent>
         </Select>
       </div>

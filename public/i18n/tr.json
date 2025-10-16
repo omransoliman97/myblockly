@@ -1,0 +1,19 @@
+{
+  "title": "Bloklarla İnşa Edin. Yaparak Öğrenin.",
+  "subtitle": "Blockly kullanarak programları görsel olarak tasarlayın. Dilleri değiştirin, karanlık modu açıp kapatın ve projelerinizi tek tıklamayla dışa aktarın.",
+  "openEditor": "Düzenleyiciyi Aç",
+  "exploreFeatures": "Özellikleri Keşfet",
+  "features": [
+    "Blokları sürükle ve bırak",
+    "Kod önizleme (JS/Python/PHP)",
+    "Koyu/Açık temalar",
+    "XML İçe/Dışa Aktarma"
+  ],
+  "language": "Dil",
+  "theme": "Tema",
+  "runProject": "Proje Çalıştır",
+  "loadProject": "Proje Yükle",
+  "saveProject": "Proje Kaydet",
+  "discardAll": "Tümünü At",
+  "confirmDiscard": "Tüm bloklar atılsın mı? Bu işlem geri alınamaz."
+}

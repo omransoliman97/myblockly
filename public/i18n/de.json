@@ -1,0 +1,19 @@
+{
+  "title": "Baue mit Blöcken. Lerne durch Tun.",
+  "subtitle": "Entwerfe Programme visuell mit Blockly. Wechsle Sprachen, schalte den Dunkelmodus um und exportiere deine Projekte mit einem Klick.",
+  "openEditor": "Editor öffnen",
+  "exploreFeatures": "Funktionen erkunden",
+  "features": [
+    "Blöcke ziehen und ablegen",
+    "Code-Vorschau (JS/Python/PHP)",
+    "Dunkle/Helle Themen",
+    "XML Import/Export"
+  ],
+  "language": "Sprache",
+  "theme": "Thema",
+  "runProject": "Projekt ausführen",
+  "loadProject": "Projekt laden",
+  "saveProject": "Projekt speichern",
+  "discardAll": "Alle verwerfen",
+  "confirmDiscard": "Alle Blöcke verwerfen? Dies kann nicht rückgängig gemacht werden."
+}

@@ -373,3 +373,29 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
 }
+[dir="rtl"] .blocklyTreeRow {
+  text-align: right;
+  padding-right: 8px;
+}
+
+[dir="rtl"] .blocklyToolboxDiv {
+  direction: rtl;
+}
+
+[dir="rtl"] .blocklyFlyoutLabel {
+  text-align: right;
+}
+
+[dir="rtl"] .blocklyText {
+  direction: rtl;
+  text-align: right;
+}
+
+/* RTL support for UI elements */
+[dir="rtl"] .blockly-page {
+  direction: rtl;
+}
+
+[dir="rtl"] .blockly-page * {
+  text-align: right;
+}

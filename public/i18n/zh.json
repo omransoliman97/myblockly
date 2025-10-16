@@ -1,0 +1,19 @@
+{
+  "title": "用积木构建。在实践中学习。",
+  "subtitle": "使用Blockly可视化设计程序。切换语言、切换暗黑模式，一键导出您的项目。",
+  "openEditor": "打开编辑器",
+  "exploreFeatures": "探索功能",
+  "features": [
+    "拖放积木块",
+    "代码预览（JS/Python/PHP）",
+    "深色/浅色主题",
+    "导入/导出XML"
+  ],
+  "language": "语言",
+  "theme": "主题",
+  "runProject": "运行项目",
+  "loadProject": "加载项目",
+  "saveProject": "保存项目",
+  "discardAll": "全部丢弃",
+  "confirmDiscard": "丢弃所有积木块？此操作无法撤销。"
+}

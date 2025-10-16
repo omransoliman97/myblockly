@@ -1,0 +1,19 @@
+{
+  "title": "Buduj z Bloków. Ucz się przez Działanie.",
+  "subtitle": "Projektuj programy wizualnie za pomocą Blockly. Zmieniaj języki, przełączaj tryb ciemny i eksportuj swoje projekty jednym kliknięciem.",
+  "openEditor": "Otwórz Edytor",
+  "exploreFeatures": "Poznaj Funkcje",
+  "features": [
+    "Przeciągnij i upuść bloki",
+    "Podgląd kodu (JS/Python/PHP)",
+    "Ciemne/Jasne motywy",
+    "Import/Eksport XML"
+  ],
+  "language": "Język",
+  "theme": "Motyw",
+  "runProject": "Uruchom Projekt",
+  "loadProject": "Załaduj Projekt",
+  "saveProject": "Zapisz Projekt",
+  "discardAll": "Odrzuć Wszystko",
+  "confirmDiscard": "Odrzucić wszystkie bloki? Tej czynności nie można cofnąć."
+}

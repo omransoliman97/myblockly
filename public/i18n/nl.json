@@ -1,0 +1,19 @@
+{
+  "title": "Bouw met Blokken. Leer door te Doen.",
+  "subtitle": "Ontwerp programma's visueel met Blockly. Wissel van taal, schakel donkere modus in en exporteer je projecten met één klik.",
+  "openEditor": "Editor Openen",
+  "exploreFeatures": "Functies Verkennen",
+  "features": [
+    "Blokken slepen en neerzetten",
+    "Codevoorbeeld (JS/Python/PHP)",
+    "Donkere/Lichte thema's",
+    "XML Importeren/Exporteren"
+  ],
+  "language": "Taal",
+  "theme": "Thema",
+  "runProject": "Project Uitvoeren",
+  "loadProject": "Project Laden",
+  "saveProject": "Project Opslaan",
+  "discardAll": "Alles Verwijderen",
+  "confirmDiscard": "Alle blokken verwijderen? Dit kan niet ongedaan worden gemaakt."
+}

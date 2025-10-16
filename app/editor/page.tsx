@@ -21,31 +21,185 @@ export default function Home() {
   const [isMuted, setIsMuted] = useState<boolean>(false);
   const [showSaveModal, setShowSaveModal] = useState(false);
   const [filename, setFilename] = useState("blockly_project");
-  const [uiLang, setUiLang] = useState<"en" | "fr">("en");
+type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "de" | "ja" | "tr" | "ko" | "it" | "vi" | "th" | "nl" | "pl" | "uk";
+  const [uiLang, setUiLang] = useState<Language>("en");
   const [t, setT] = useState<any>({});
 
-  const CATEGORY_LABELS: Record<"en" | "fr", Record<string, string>> = {
-    en: {
-      logic: "Logic",
-      loops: "Loops",
-      math: "Math",
-      text: "Text",
-      lists: "Lists",
-      variables: "Variables",
-      functions: "Functions",
-    },
-    fr: {
-      logic: "Logique",
-      loops: "Boucles",
-      math: "Maths",
-      text: "Texte",
-      lists: "Listes",
-      variables: "Variables",
-      functions: "Fonctions",
-    },
-  };
+  const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
+  en: {
+    logic: "Logic",
+    loops: "Loops", 
+    math: "Math",
+    text: "Text",
+    lists: "Lists",
+    variables: "Variables",
+    functions: "Functions",
+  },
+  zh: {
+    logic: "逻辑",
+    loops: "循环",
+    math: "数学", 
+    text: "文本",
+    lists: "列表",
+    variables: "变量",
+    functions: "函数",
+  },
+  es: {
+    logic: "Lógica",
+    loops: "Bucles",
+    math: "Matemáticas",
+    text: "Texto",
+    lists: "Listas", 
+    variables: "Variables",
+    functions: "Funciones",
+  },
+  hi: {
+    logic: "लॉजिक",
+    loops: "लूप्स",
+    math: "गणित",
+    text: "टेक्स्ट",
+    lists: "सूचियाँ",
+    variables: "वेरिएबल्स",
+    functions: "फ़ंक्शन्स",
+  },
+  ar: {
+    logic: "المنطق",
+    loops: "الحلقات", 
+    math: "الرياضيات",
+    text: "النص",
+    lists: "القوائم",
+    variables: "المتغيرات",
+    functions: "الدوال",
+  },
+  fr: {
+    logic: "Logique",
+    loops: "Boucles",
+    math: "Maths",
+    text: "Texte",
+    lists: "Listes",
+    variables: "Variables",
+    functions: "Fonctions",
+  },
+  ru: {
+    logic: "Логика",
+    loops: "Циклы",
+    math: "Математика",
+    text: "Текст",
+    lists: "Списки",
+    variables: "Переменные",
+    functions: "Функции",
+  },
+  pt: {
+    logic: "Lógica",
+    loops: "Loops",
+    math: "Matemática",
+    text: "Texto",
+    lists: "Listas",
+    variables: "Variáveis",
+    functions: "Funções",
+  },
+  id: {
+    logic: "Logika",
+    loops: "Perulangan",
+    math: "Matematika",
+    text: "Teks",
+    lists: "Daftar",
+    variables: "Variabel",
+    functions: "Fungsi",
+  },
+  de: {
+    logic: "Logik",
+    loops: "Schleifen",
+    math: "Mathematik",
+    text: "Text",
+    lists: "Listen",
+    variables: "Variablen",
+    functions: "Funktionen",
+  },
+  ja: {
+    logic: "ロジック",
+    loops: "ループ",
+    math: "数学",
+    text: "テキスト",
+    lists: "リスト",
+    variables: "変数",
+    functions: "関数",
+  },
+  tr: {
+    logic: "Mantık",
+    loops: "Döngüler",
+    math: "Matematik",
+    text: "Metin",
+    lists: "Listeler",
+    variables: "Değişkenler",
+    functions: "Fonksiyonlar",
+  },
+  ko: {
+    logic: "논리",
+    loops: "반복",
+    math: "수학",
+    text: "텍스트",
+    lists: "목록",
+    variables: "변수",
+    functions: "함수",
+  },
+  it: {
+    logic: "Logica",
+    loops: "Cicli",
+    math: "Matematica",
+    text: "Testo",
+    lists: "Liste",
+    variables: "Variabili",
+    functions: "Funzioni",
+  },
+  vi: {
+    logic: "Logic",
+    loops: "Vòng lặp",
+    math: "Toán học",
+    text: "Văn bản",
+    lists: "Danh sách",
+    variables: "Biến số",
+    functions: "Hàm",
+  },
+  th: {
+    logic: "ตรรกะ",
+    loops: "ลูป",
+    math: "คณิตศาสตร์",
+    text: "ข้อความ",
+    lists: "รายการ",
+    variables: "ตัวแปร",
+    functions: "ฟังก์ชัน",
+  },
+  nl: {
+    logic: "Logica",
+    loops: "Lussen",
+    math: "Wiskunde",
+    text: "Tekst",
+    lists: "Lijsten",
+    variables: "Variabelen",
+    functions: "Functies",
+  },
+  pl: {
+    logic: "Logika",
+    loops: "Pętle",
+    math: "Matematyka",
+    text: "Tekst",
+    lists: "Listy",
+    variables: "Zmienne",
+    functions: "Funkcje",
+  },
+  uk: {
+    logic: "Логіка",
+    loops: "Цикли",
+    math: "Математика",
+    text: "Текст",
+    lists: "Списки",
+    variables: "Змінні",
+    functions: "Функції",
+  },
+};
 
-  const buildToolboxXml = (lang: "en" | "fr") => `
+  const buildToolboxXml = (lang: Language) => `
     <xml id="toolbox" style="display: none">
       <category name="${CATEGORY_LABELS[lang].logic}" colour="#5C81A6">
         <block type="controls_if"></block>
@@ -138,7 +292,7 @@ export default function Home() {
     let isMounted = true;
     let cleanup: (() => void) | null = null;
 
-    const savedLang = (typeof window !== 'undefined' ? (localStorage.getItem('site-lang') as "en" | "fr" | null) : null) || 'en';
+    const savedLang = (typeof window !== 'undefined' ? (localStorage.getItem('site-lang') as Language | null) : null) || 'en';
     if (uiLang !== savedLang) setUiLang(savedLang);
 
     // Read initial mute before injecting (state may lag)
@@ -168,18 +322,33 @@ export default function Home() {
       };
       // Load locale messages BEFORE registering built-in blocks
       try {
-        let messages: any;
-        if (savedLang === 'fr') {
-          try { messages = await import("blockly/msg/fr"); }
-          catch { messages = await import("blockly/msg/en"); }
-        } else {
-          messages = await import("blockly/msg/en");
-        }
-        const msgObj = messages.default || messages;
-        if (msgObj && typeof msgObj === 'object') {
-          Object.assign(Blockly.Msg, msgObj);
-        }
-      } catch {}
+  let messages: any;
+  switch (savedLang) {
+    case 'zh': try { messages = await import("blockly/msg/zh-hans"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'es': try { messages = await import("blockly/msg/es"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'hi': try { messages = await import("blockly/msg/hi"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'ar': try { messages = await import("blockly/msg/ar"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'fr': try { messages = await import("blockly/msg/fr"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'ru': try { messages = await import("blockly/msg/ru"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'pt': try { messages = await import("blockly/msg/pt-br"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'id': try { messages = await import("blockly/msg/id"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'de': try { messages = await import("blockly/msg/de"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'ja': try { messages = await import("blockly/msg/ja"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'tr': try { messages = await import("blockly/msg/tr"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'ko': try { messages = await import("blockly/msg/ko"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'it': try { messages = await import("blockly/msg/it"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'vi': try { messages = await import("blockly/msg/vi"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'th': try { messages = await import("blockly/msg/th"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'nl': try { messages = await import("blockly/msg/nl"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'pl': try { messages = await import("blockly/msg/pl"); } catch { messages = await import("blockly/msg/en"); } break;
+    case 'uk': try { messages = await import("blockly/msg/uk"); } catch { messages = await import("blockly/msg/en"); } break;
+    default: messages = await import("blockly/msg/en");
+  }
+  const msgObj = messages.default || messages;
+  if (msgObj && typeof msgObj === 'object') {
+    Object.assign(Blockly.Msg, msgObj);
+  }
+  } catch {}
       await import("blockly/blocks");
 
       if (!isMounted || !blocklyDivRef.current) return;
@@ -204,6 +373,7 @@ export default function Home() {
         sounds: !initialMuted,
         renderer: "zelos",
         theme,
+        rtl: savedLang === 'ar',
         zoom: {
           controls: true,
           wheel: true,
@@ -298,6 +468,14 @@ export default function Home() {
     }
     load();
   }, [uiLang]);
+
+  useEffect(() => {
+  // Set RTL direction based on current language
+  const direction = uiLang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('dir', direction);
+}, [uiLang]);
+
+
 
   // Generate code based on selected tab (or an override when switching tabs)
   const updateGeneratedCode = async (tabOverride?: Tab) => {
@@ -425,43 +603,56 @@ export default function Home() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, uiLang]);
 
-  const changeLocaleAndReload = async (lang: "en" | "fr") => {
-    try { localStorage.setItem('site-lang', lang); } catch {}
-    if (!workspaceRef.current) return;
-    const Blockly = await import("blockly/core");
-    
-    // Save current workspace
-    const xmlDom = Blockly.Xml.workspaceToDom(workspaceRef.current);
-    const xmlText = Blockly.Xml.domToText(xmlDom);
+  const changeLocaleAndReload = async (lang: Language) => {
+  try { localStorage.setItem('site-lang', lang); } catch {}
+  if (!workspaceRef.current) return;
+  const Blockly = await import("blockly/core");
+  
+  // Save current workspace
+  const xmlDom = Blockly.Xml.workspaceToDom(workspaceRef.current);
+  const xmlText = Blockly.Xml.domToText(xmlDom);
 
-    // Load locale messages
-    try {
-      let messages;
-      if (lang === "fr") {
-        try { messages = await import("blockly/msg/fr"); }
-        catch { messages = await import("blockly/msg/en"); }
-      } else {
-        messages = await import("blockly/msg/en");
-      }
-      
-      // Apply locale messages
-      const msgObj = messages.default || messages;
-      console.log(`Loading locale ${lang}:`, msgObj);
-      if (msgObj && typeof msgObj === 'object') {
-        Object.assign(Blockly.Msg, msgObj);
-        console.log(`Applied locale ${lang}, sample message:`, Blockly.Msg.LOGIC_OPERATION_AND || 'not found');
-      }
-    } catch (e) {
-      console.error("Failed to load locale", lang, e);
-      // Fallback to English if French fails
-      try {
-        const messages = await import("blockly/msg/en");
-        const msgObj = messages.default || messages;
-        if (msgObj && typeof msgObj === 'object') {
-          Object.assign(Blockly.Msg, msgObj);
-        }
-      } catch {}
+  // Load locale messages
+  try {
+  let messages;
+  switch (lang) {
+    case "zh": messages = await import("blockly/msg/zh-hans"); break;
+    case "es": messages = await import("blockly/msg/es"); break;
+    case "hi": messages = await import("blockly/msg/hi"); break;
+    case "ar": messages = await import("blockly/msg/ar"); break;
+    case "fr": messages = await import("blockly/msg/fr"); break;
+    case "ru": messages = await import("blockly/msg/ru"); break;
+    case "pt": messages = await import("blockly/msg/pt-br"); break;
+    case "id": messages = await import("blockly/msg/id"); break;
+    case "de": messages = await import("blockly/msg/de"); break;
+    case "ja": messages = await import("blockly/msg/ja"); break;
+    case "tr": messages = await import("blockly/msg/tr"); break;
+    case "ko": messages = await import("blockly/msg/ko"); break;
+    case "it": messages = await import("blockly/msg/it"); break;
+    case "vi": messages = await import("blockly/msg/vi"); break;
+    case "th": messages = await import("blockly/msg/th"); break;
+    case "nl": messages = await import("blockly/msg/nl"); break;
+    case "pl": messages = await import("blockly/msg/pl"); break;
+    case "uk": messages = await import("blockly/msg/uk"); break;
+    default: messages = await import("blockly/msg/en");
+  }
+  
+  // Apply locale messages
+  const msgObj = messages.default || messages;
+  if (msgObj && typeof msgObj === 'object') {
+    Object.assign(Blockly.Msg, msgObj);
+  }
+} catch (e) {
+  console.error(`Blockly locale "${lang}" not available, falling back to English`, e);
+  // Fallback to English
+  try {
+    const messages = await import("blockly/msg/en");
+    const msgObj = messages.default || messages;
+    if (msgObj && typeof msgObj === 'object') {
+      Object.assign(Blockly.Msg, msgObj);
     }
+  } catch {}
+}
 
     // Re-register blocks with new locale
     await import("blockly/blocks");
@@ -500,6 +691,7 @@ export default function Home() {
 
     const isDark = document.documentElement.classList.contains('dark');
     const newWorkspace = Blockly.inject(blocklyDivRef.current as HTMLDivElement, {
+      rtl: lang === 'ar',
       toolbox: Blockly.utils.xml.textToDom(toolboxXmlRef.current),
       collapse: true,
       comments: true,
@@ -664,6 +856,7 @@ const reinjectWorkspace = async (opts?: { soundsEnabled?: boolean }) => {
     sounds: opts?.soundsEnabled ?? !isMuted,
     renderer: "zelos",
     theme,
+    rtl: uiLang === 'ar',
     zoom: {
       controls: true,
       wheel: true,
@@ -742,7 +935,7 @@ return (
           <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || 'Language'}</label>
           <Select
             value={uiLang}
-            onValueChange={async (newLang: "en" | "fr") => {
+            onValueChange={async (newLang: Language) => {
               setUiLang(newLang);
               localStorage.setItem('site-lang', newLang);
               await changeLocaleAndReload(newLang);
@@ -754,6 +947,23 @@ return (
             <SelectContent align="end">
               <SelectItem value="en">English</SelectItem>
               <SelectItem value="fr">Français</SelectItem>
+              <SelectItem value="es">Español</SelectItem>
+              <SelectItem value="it">Italiano</SelectItem>
+              <SelectItem value="pt">Português</SelectItem>
+              <SelectItem value="de">Deutsch</SelectItem>
+              <SelectItem value="nl">Nederlands</SelectItem>
+              <SelectItem value="tr">Türkçe</SelectItem>
+               <SelectItem value="pl">Polski</SelectItem>
+              <SelectItem value="hi">हिन्दी</SelectItem>
+              <SelectItem value="ru">Русский</SelectItem>
+              <SelectItem value="id">Bahasa Indonesia</SelectItem>
+              <SelectItem value="ja">日本語</SelectItem>
+              <SelectItem value="zh">中文</SelectItem>
+              <SelectItem value="ko">한국어</SelectItem>
+              <SelectItem value="vi">Tiếng Việt</SelectItem>
+              <SelectItem value="th">ไทย</SelectItem>
+              <SelectItem value="uk">Українська</SelectItem>
+              <SelectItem value="ar">العربية</SelectItem>
             </SelectContent>
           </Select>
         </div>

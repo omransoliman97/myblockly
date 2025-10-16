@@ -1,0 +1,19 @@
+{
+  "title": "Costruisci con i Blocchi. Impara Facendo.",
+  "subtitle": "Progetta programmi visivamente usando Blockly. Cambia lingua, alterna la modalità scura ed esporta i tuoi progetti con un clic.",
+  "openEditor": "Apri Editor",
+  "exploreFeatures": "Esplora Funzionalità",
+  "features": [
+    "Trascina e rilascia blocchi",
+    "Anteprima codice (JS/Python/PHP)",
+    "Temi scuro/chiaro",
+    "Importa/Esporta XML"
+  ],
+  "language": "Lingua",
+  "theme": "Tema",
+  "runProject": "Esegui Progetto",
+  "loadProject": "Carica Progetto",
+  "saveProject": "Salva Progetto",
+  "discardAll": "Scarta Tutto",
+  "confirmDiscard": "Scartare tutti i blocchi? Questa azione non può essere annullata."
+}

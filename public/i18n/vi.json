@@ -1,0 +1,19 @@
+{
+  "title": "Xây dựng bằng Khối. Học bằng Thực hành.",
+  "subtitle": "Thiết kế chương trình trực quan bằng Blockly. Chuyển đổi ngôn ngữ, bật/tắt chế độ tối và xuất dự án của bạn bằng một cú nhấp chuột.",
+  "openEditor": "Mở Trình chỉnh sửa",
+  "exploreFeatures": "Khám phá Tính năng",
+  "features": [
+    "Kéo và thả khối",
+    "Xem trước mã (JS/Python/PHP)",
+    "Chủ đề tối/sáng",
+    "Nhập/Xuất XML"
+  ],
+  "language": "Ngôn ngữ",
+  "theme": "Chủ đề",
+  "runProject": "Chạy Dự án",
+  "loadProject": "Tải Dự án",
+  "saveProject": "Lưu Dự án",
+  "discardAll": "Hủy Bỏ Tất cả",
+  "confirmDiscard": "Hủy bỏ tất cả khối? Hành động này không thể hoàn tác."
+}

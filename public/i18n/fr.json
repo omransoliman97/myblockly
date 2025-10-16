@@ -1,19 +1,19 @@
 {
-  "title": "Construisez avec des blocs. Apprenez en pratiquant.",
-  "subtitle": "Concevez des programmes visuellement avec Blockly. Changez de langue, basculez le thème et exportez vos projets en un clic.",
-  "openEditor": "Ouvrir l'éditeur",
-  "exploreFeatures": "Découvrir les fonctionnalités",
+  "title": "Construisez avec des Blocs. Apprenez en Faisant.",
+  "subtitle": "Concevez des programmes visuellement avec Blockly. Changez de langue, alternez le mode sombre et exportez vos projets en un seul clic.",
+  "openEditor": "Ouvrir l'Éditeur",
+  "exploreFeatures": "Explorer les Fonctionnalités",
   "features": [
     "Glisser-déposer des blocs",
     "Aperçu du code (JS/Python/PHP)",
-    "Thèmes sombre / clair",
-    "Importer/Exporter XML"
+    "Thèmes sombre/clair",
+    "Import/Export XML"
   ],
   "language": "Langue",
-  "theme": "Thème"
-  , "runProject": "Lancer le projet"
-  , "loadProject": "Charger le projet"
-  , "saveProject": "Enregistrer le projet"
-  , "discardAll": "Jeter tous les blocs"
-  , "confirmDiscard": "Jeter tous les blocs ? Cette action est irréversible.9"
+  "theme": "Thème",
+  "runProject": "Exécuter le Projet",
+  "loadProject": "Charger le Projet",
+  "saveProject": "Sauvegarder le Projet",
+  "discardAll": "Tout Supprimer",
+  "confirmDiscard": "Supprimer tous les blocs ? Cette action est irréversible."
 }

@@ -1,0 +1,19 @@
+{
+  "title": "블록으로 구축하세요. 실천으로 배우세요.",
+  "subtitle": "Blockly를 사용하여 시각적으로 프로그램을 설계하세요. 언어를 전환하고, 다크 모드를 토글하고, 한 번의 클릭으로 프로젝트를 내보내세요.",
+  "openEditor": "편집기 열기",
+  "exploreFeatures": "기능 탐색",
+  "features": [
+    "블록 드래그 앤 드롭",
+    "코드 미리보기 (JS/Python/PHP)",
+    "다크/라이트 테마",
+    "XML 가져오기/내보내기"
+  ],
+  "language": "언어",
+  "theme": "테마",
+  "runProject": "프로젝트 실행",
+  "loadProject": "프로젝트 불러오기",
+  "saveProject": "프로젝트 저장",
+  "discardAll": "모두 삭제",
+  "confirmDiscard": "모든 블록을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다."
+}

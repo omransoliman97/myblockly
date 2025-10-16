@@ -1,0 +1,19 @@
+{
+  "title": "Bangun dengan Blok. Belajar dengan Melakukan.",
+  "subtitle": "Rancang program secara visual menggunakan Blockly. Ganti bahasa, alihkan mode gelap, dan ekspor proyek Anda dengan satu klik.",
+  "openEditor": "Buka Editor",
+  "exploreFeatures": "Jelajahi Fitur",
+  "features": [
+    "Seret dan lepas blok",
+    "Pratinjau kode (JS/Python/PHP)",
+    "Tema gelap/terang",
+    "Impor/Ekspor XML"
+  ],
+  "language": "Bahasa",
+  "theme": "Tema",
+  "runProject": "Jalankan Proyek",
+  "loadProject": "Muat Proyek",
+  "saveProject": "Simpan Proyek",
+  "discardAll": "Buang Semua",
+  "confirmDiscard": "Buang semua blok? Tindakan ini tidak dapat dibatalkan."
+}
