@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -44,7 +44,7 @@ export default function Home() {
     },
   };
 
-  const buildToolboxXml = (lang: "en" | "fr") => `
+  const buildToolboxXml = useCallback((lang: "en" | "fr") => `
     <xml id="toolbox" style="display: none">
       <category name="${CATEGORY_LABELS[lang].logic}" colour="#5C81A6">
         <block type="controls_if"></block>
@@ -131,7 +131,7 @@ export default function Home() {
       <category name="${CATEGORY_LABELS[lang].variables}" colour="#A65C81" custom="VARIABLE"></category>
       <category name="${CATEGORY_LABELS[lang].functions}" colour="#A6745C" custom="PROCEDURE"></category>
     </xml>
-  `;
+  `, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -281,7 +281,7 @@ export default function Home() {
   }, []);
 
   // Generate code based on selected tab (or an override when switching tabs)
-  const updateGeneratedCode = async (tabOverride?: Tab) => {
+  const updateGeneratedCode = useCallback(async (tabOverride?: Tab) => {
     const workspace = workspaceRef.current;
     if (!workspace) return;
     const tab = tabOverride || activeTab;
@@ -314,7 +314,7 @@ export default function Home() {
       console.error("Failed generating code:", err);
       setGeneratedCode("// Failed to generate code");
     }
-  };
+  }, [activeTab]);
 
   const handleDownload = async (format: 'xml' | 'txt') => {
     if (!workspaceRef.current) return;
