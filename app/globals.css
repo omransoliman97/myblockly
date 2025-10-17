@@ -399,3 +399,38 @@
 [dir="rtl"] .blockly-page * {
   text-align: right;
 }
+
+.mobile-menu-btn {
+        display: none !important;
+      }
+      
+      .mobile-dropdown {
+        display: none;
+        flex-direction: column;
+        gap: 8px;
+        padding: 12px;
+        background: var(--background);
+        border: 1px solid rgba(0,0,0,0.15);
+        border-radius: 8px;
+        margin-top: 8px;
+      }
+      
+      @media (max-width: 768px) {
+        .mobile-menu-btn {
+          display: flex !important;
+        }
+        
+        .controls-container {
+          display: none !important;
+        }
+        
+        .mobile-dropdown-open {
+          display: flex;
+        }
+      }
+
+.controls-container {
+  gap: 8px;
+  padding-right: 16px;
+  padding-top: 12px;
+}

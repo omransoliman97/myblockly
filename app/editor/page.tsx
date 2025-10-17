@@ -6,6 +6,7 @@ import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save, Trash2 } from "lucide-react";
+import { Menu, X } from 'lucide-react'; 
 
 export default function Home() {
   const blocklyDivRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +25,7 @@ export default function Home() {
 type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "de" | "ja" | "tr" | "ko" | "it" | "vi" | "th" | "nl" | "pl" | "uk";
   const [uiLang, setUiLang] = useState<Language>("en");
   const [t, setT] = useState<any>({});
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
   en: {
@@ -922,63 +924,83 @@ return (
       gtag('js', new Date());
       gtag('config', 'G-BNLPSLHQHF');
     `}</Script>
+    
     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
       <div style={{ fontWeight: 700, fontSize: 22, lineHeight: "20px", color:"#9810FA"}}><a href="/">My Blockly</a></div>
-      <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 20 }}>
-        <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme" style={{ minWidth: "auto", padding: "8px 12px" }}>
-          {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-        </Button>
-        <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound" style={{ minWidth: "auto", padding: "8px 12px" }}>
-          {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
-        </Button>
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || 'Language'}</label>
-          <Select
-            value={uiLang}
-            onValueChange={async (newLang: Language) => {
-              setUiLang(newLang);
-              localStorage.setItem('site-lang', newLang);
-              await changeLocaleAndReload(newLang);
-            }}
-          >
-            <SelectTrigger id="ui-lang" size="sm" aria-label="Language">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent align="end">
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-              <SelectItem value="it">Italiano</SelectItem>
-              <SelectItem value="pt">Português</SelectItem>
-              <SelectItem value="de">Deutsch</SelectItem>
-              <SelectItem value="nl">Nederlands</SelectItem>
-              <SelectItem value="tr">Türkçe</SelectItem>
-               <SelectItem value="pl">Polski</SelectItem>
-              <SelectItem value="hi">हिन्दी</SelectItem>
-              <SelectItem value="ru">Русский</SelectItem>
-              <SelectItem value="id">Bahasa Indonesia</SelectItem>
-              <SelectItem value="ja">日本語</SelectItem>
-              <SelectItem value="zh">中文</SelectItem>
-              <SelectItem value="ko">한국어</SelectItem>
-              <SelectItem value="vi">Tiếng Việt</SelectItem>
-              <SelectItem value="th">ไทย</SelectItem>
-              <SelectItem value="uk">Українська</SelectItem>
-              <SelectItem value="ar">العربية</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      
+      {/* Mobile menu button */}
+      <Button 
+        className="mobile-menu-btn"
+        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+        size="icon" 
+        variant="outline" 
+        aria-label="Toggle menu"
+        style={{ minWidth: "auto", padding: "8px 12px" }}
+      >
+        {isMobileMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+      </Button>
+
+      {/* Controls container - visible on desktop, hidden on mobile */}
+      <div className="controls-container">
+       <div style={{ display: "flex",  alignItems: "center",  justifyContent: "flex-end",  gap: 8, paddingBottom: 12 }}>
+    
+    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+      <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || 'Language'}</label>
+      <Select
+        value={uiLang}
+        onValueChange={async (newLang: Language) => {
+          setUiLang(newLang);
+          localStorage.setItem('site-lang', newLang);
+          await changeLocaleAndReload(newLang);
+        }}
+      >
+        <SelectTrigger id="ui-lang" size="sm" aria-label="Language">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent align="end">
+          <SelectItem value="en">English</SelectItem>
+          <SelectItem value="fr">Français</SelectItem>
+          <SelectItem value="es">Español</SelectItem>
+          <SelectItem value="it">Italiano</SelectItem>
+          <SelectItem value="pt">Português</SelectItem>
+          <SelectItem value="de">Deutsch</SelectItem>
+          <SelectItem value="nl">Nederlands</SelectItem>
+          <SelectItem value="tr">Türkçe</SelectItem>
+          <SelectItem value="pl">Polski</SelectItem>
+          <SelectItem value="hi">हिन्दी</SelectItem>
+          <SelectItem value="ru">Русский</SelectItem>
+          <SelectItem value="id">Bahasa Indonesia</SelectItem>
+          <SelectItem value="ja">日本語</SelectItem>
+          <SelectItem value="zh">中文</SelectItem>
+          <SelectItem value="ko">한국어</SelectItem>
+          <SelectItem value="vi">Tiếng Việt</SelectItem>
+          <SelectItem value="th">ไทย</SelectItem>
+          <SelectItem value="uk">Українська</SelectItem>
+          <SelectItem value="ar">العربية</SelectItem>
+        </SelectContent>
+      </Select>
+    </div>
+    <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme" style={{ minWidth: "auto", padding: "8px 12px" }}>
+      {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </Button>
+    <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound" style={{ minWidth: "auto", padding: "8px 12px" }}>
+      {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+    </Button>
+  </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
         <Button onClick={handleRun} disabled={!ready}>
-          <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run Project'}
+          <Play className="size-4"  />{t?.runProject || 'Run Project'}
         </Button>
         <Button onClick={handleOpenFilePicker}>
-          <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load Project'}
+          <FolderOpen className="size-4" />{t?.loadProject || 'Load Project'}
         </Button>
         <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready}>
-          <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save Project'}
+          <Save className="size-4" />{t?.saveProject || 'Save Project'}
         </Button>
         <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
-          <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard All'}
+          <Trash2 className="size-4"  />{t?.discardAll || 'Discard All'}
         </Button>
+        </div>
         <input
           ref={fileInputRef}
           type="file"
@@ -988,6 +1010,68 @@ return (
         />
       </div>
     </div>
+
+    {/* Mobile dropdown menu */}
+    <div className={`mobile-dropdown ${isMobileMenuOpen ? 'mobile-dropdown-open' : ''}`}>
+      <Button onClick={handleRun} disabled={!ready} size="sm">
+        <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run Project'}
+      </Button>
+      <Button onClick={handleOpenFilePicker} size="sm">
+        <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load Project'}
+      </Button>
+      <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} size="sm">
+        <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save Project'}
+      </Button>
+      <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" size="sm">
+        <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard All'}
+      </Button>
+      <Button onClick={toggleDarkMode} size="sm" variant="outline">
+        {isDarkMode ? <Sun className="size-4" style={{ marginRight: 6 }} /> : <Moon className="size-4" style={{ marginRight: 6 }} />}
+        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
+      </Button>
+      <Button onClick={toggleMute} size="sm" variant="outline">
+        {isMuted ? <VolumeX className="size-4" style={{ marginRight: 6 }} /> : <Volume2 className="size-4" style={{ marginRight: 6 }} />}
+        {isMuted ? 'Unmute' : 'Mute'}
+      </Button>
+      <div style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", alignContent: "center" }}>
+        <label htmlFor="mobile-ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>Language</label>
+        <Select
+          value={uiLang}
+          onValueChange={async (newLang: Language) => {
+            setUiLang(newLang);
+            localStorage.setItem('site-lang', newLang);
+            await changeLocaleAndReload(newLang);
+          }}
+        >
+          <SelectTrigger id="mobile-ui-lang" size="sm">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent className="z-50000000">
+            <SelectItem value="en">English</SelectItem>
+            <SelectItem value="fr">Français</SelectItem>
+            <SelectItem value="es">Español</SelectItem>
+            <SelectItem value="it">Italiano</SelectItem>
+            <SelectItem value="pt">Português</SelectItem>
+            <SelectItem value="de">Deutsch</SelectItem>
+            <SelectItem value="nl">Nederlands</SelectItem>
+            <SelectItem value="tr">Türkçe</SelectItem>
+            <SelectItem value="pl">Polski</SelectItem>
+            <SelectItem value="hi">हिन्दी</SelectItem>
+            <SelectItem value="ru">Русский</SelectItem>
+            <SelectItem value="id">Bahasa Indonesia</SelectItem>
+            <SelectItem value="ja">日本語</SelectItem>
+            <SelectItem value="zh">中文</SelectItem>
+            <SelectItem value="ko">한국어</SelectItem>
+            <SelectItem value="vi">Tiếng Việt</SelectItem>
+            <SelectItem value="th">ไทย</SelectItem>
+            <SelectItem value="uk">Українська</SelectItem>
+            <SelectItem value="ar">العربية</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+      
+    </div>
+
     <div style={{ display: "flex", gap: 8 }}>
       {(["blocks","javascript","python","php","xml","json"] as Tab[]).map((tab) => (
         <Button
@@ -1016,72 +1100,74 @@ return (
       )}
     </div>
 
-      {/* Save Modal */}
-      {showSaveModal && (
+    {/* Save Modal */}
+    {showSaveModal && (
+      <div style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000
+      }}>
         <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 1000
+          backgroundColor: 'var(--background)',
+          color: 'var(--foreground)',
+          padding: '24px',
+          borderRadius: '8px',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
+          minWidth: '300px',
+          border: '1px solid rgba(0, 0, 0, 0.1)'
         }}>
-          <div style={{
-            backgroundColor: 'var(--background)',
-            color: 'var(--foreground)',
-            padding: '24px',
-            borderRadius: '8px',
-            boxShadow: '0 4px 20px rgba(0, 0, 0, 0.3)',
-            minWidth: '300px',
-            border: '1px solid rgba(0, 0, 0, 0.1)'
-          }}>
-            <h3 style={{ margin: '0 0 16px 0', fontSize: '18px' }}>Save Project</h3>
-            
-            <div style={{ marginBottom: '16px' }}>
-              <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '500' }}>
-                File name:
-              </label>
-              <input
-                type="text"
-                value={filename}
-                onChange={(e) => setFilename(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '8px 12px',
-                  borderRadius: '4px',
-                  border: '1px solid rgba(0, 0, 0, 0.15)',
-                  backgroundColor: 'var(--background)',
-                  color: 'var(--foreground)',
-                  fontSize: '14px'
-                }}
-                placeholder="blockly_project"
-              />
-            </div>
-            
-            <p style={{ margin: '0 0 20px 0', opacity: 0.8, fontSize: '14px' }}>
-              Choose the file format:
-            </p>
-            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
-              <Button onClick={() => handleDownload('xml')} style={{ flex: 1 }}>
-                Save as XML
-              </Button>
-              <Button onClick={() => handleDownload('txt')} style={{ flex: 1 }}>
-                Save as TXT
-              </Button>
-            </div>
-            <Button onClick={() => setShowSaveModal(false)} style={{ width: '100%', opacity: 0.7 }}>
-              Cancel
+          <h3 style={{ margin: '0 0 16px 0', fontSize: '18px' }}>Save Project</h3>
+          
+          <div style={{ marginBottom: '16px' }}>
+            <label style={{ display: 'block', marginBottom: '6px', fontSize: '14px', fontWeight: '500' }}>
+              File name:
+            </label>
+            <input
+              type="text"
+              value={filename}
+              onChange={(e) => setFilename(e.target.value)}
+              style={{
+                width: '100%',
+                padding: '8px 12px',
+                borderRadius: '4px',
+                border: '1px solid rgba(0, 0, 0, 0.15)',
+                backgroundColor: 'var(--background)',
+                color: 'var(--foreground)',
+                fontSize: '14px'
+              }}
+              placeholder="blockly_project"
+            />
+          </div>
+          
+          <p style={{ margin: '0 0 20px 0', opacity: 0.8, fontSize: '14px' }}>
+            Choose the file format:
+          </p>
+          <div style={{ display: 'flex', gap: '12px', marginBottom: '20px' }}>
+            <Button onClick={() => handleDownload('xml')} style={{ flex: 1 }}>
+              Save as XML
+            </Button>
+            <Button onClick={() => handleDownload('txt')} style={{ flex: 1 }}>
+              Save as TXT
             </Button>
           </div>
+          <Button onClick={() => setShowSaveModal(false)} style={{ width: '100%', opacity: 0.7 }}>
+            Cancel
+          </Button>
         </div>
-      )}
-      <footer style={{ position: 'fixed', right: 8, bottom: 2, fontSize: 12, opacity: 0.8 }}>
-        © 2025 <a href="https://www.instagram.com/omran.soliman97/" target="_blank" rel="noopener noreferrer">Omran SOLIMAN</a>. All rights reserved.
-      </footer>
-    </div>
+      </div>
+    )}
+    
+    <footer style={{ position: 'fixed', right: 8, bottom: 2, fontSize: 12, opacity: 0.8 }}>
+      © 2025 <a href="https://www.instagram.com/omran.soliman97/" target="_blank" rel="noopener noreferrer">Omran SOLIMAN</a>. All rights reserved.
+    </footer>
+
+  </div>
   );
 }
