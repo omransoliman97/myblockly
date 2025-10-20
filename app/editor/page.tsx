@@ -1090,7 +1090,7 @@ return (
             <SelectTrigger id="ui-lang" style={{ width: "140px" }} aria-label="Language">
               <SelectValue />
             </SelectTrigger>
-            <SelectContent align="end">
+            <SelectContent align="end" className="z-50000000">
               <SelectItem value="en">English</SelectItem>
               <SelectItem value="fr">Français</SelectItem>
               <SelectItem value="es">Español</SelectItem>
