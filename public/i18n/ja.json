@@ -15,5 +15,332 @@
   "loadProject": "プロジェクトを読み込み",
   "saveProject": "プロジェクトを保存",
   "discardAll": "すべて破棄",
-  "confirmDiscard": "すべてのブロックを破棄しますか？この操作は元に戻せません。"
+  "confirmDiscard": "すべてのブロックを破棄しますか？この操作は元に戻せません。",
+  "docs": {
+      "title": "MyBlockly ドキュメント",
+      "subtitle": "利用可能なすべてのブロックとプロジェクトでの使用方法について学びましょう。",
+      "home": "ホーム",
+      "editor": "エディター",
+      "docs": "ドキュメント",
+      "categories": "カテゴリー",
+      "visualBlock": "ビジュアルブロック:",
+      "copyXML": "XMLをコピー",
+      "showXMLCode": "XMLコードを表示",
+      "generatedCode": "生成されたコード:",
+      "example": "例:",
+      "couldNotRenderBlock": "ブロックを表示できませんでした",
+      "loadingBlock": "ブロックを読み込み中...",
+      "blockCategories": {
+        "logic": "論理",
+        "loops": "ループ",
+        "math": "数学",
+        "variables": "変数",
+        "functions": "関数",
+        "lists": "リスト",
+        "text": "テキスト"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "もし",
+            "description": "条件が真の場合にコードを実行します",
+            "code": "if (条件) {\n  // 実行するコード\n}",
+            "example": "数値が正かどうかをチェックする"
+          },
+          "ifElse": {
+            "name": "もし・それ以外",
+            "description": "条件が真の場合と偽の場合で異なるコードを実行します",
+            "code": "if (条件) {\n  // 真の場合のコード\n} else {\n  // 偽の場合のコード\n}"
+          },
+          "comparison": {
+            "name": "比較",
+            "description": "2つの値を比較します",
+            "code": "a == b  // 等しい\na != b  // 等しくない\na < b   // より小さい\na > b   // より大きい\na <= b  // 以下\na >= b  // 以上"
+          },
+          "logicalOperators": {
+            "name": "論理演算子",
+            "description": "複数の条件を組み合わせます",
+            "code": "条件1 && 条件2  // AND（かつ）\n条件1 || 条件2  // OR（または）\n!条件          // NOT（ではない）"
+          },
+          "boolean": {
+            "name": "ブーリアン",
+            "description": "真または偽の値",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "空または存在しない値を表します",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "三項演算子",
+            "description": "条件が真の場合は1つの値を、偽の場合は別の値を返します",
+            "code": "条件 ? 真の場合の値 : 偽の場合の値"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "繰り返し",
+            "description": "指定した回数だけコードを繰り返します",
+            "code": "for (let i = 0; i < 回数; i++) {\n  // 繰り返すコード\n}"
+          },
+          "while": {
+            "name": "whileループ",
+            "description": "条件が真の間、コードを繰り返します",
+            "code": "while (条件) {\n  // 繰り返すコード\n}"
+          },
+          "repeatUntil": {
+            "name": "繰り返す・まで",
+            "description": "条件が真になるまでコードを繰り返します",
+            "code": "do {\n  // 繰り返すコード\n} while (!条件);"
+          },
+          "countWith": {
+            "name": "カウント",
+            "description": "開始から終了までカウンター変数でループします",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // 繰り返すコード\n}"
+          },
+          "forEach": {
+            "name": "各要素に対して",
+            "description": "リスト内のアイテムを反復処理します",
+            "code": "for (let アイテム of リスト) {\n  // 各アイテムに対して実行するコード\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "ループを抜ける",
+            "description": "現在のループから抜け出します",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "ループを続行",
+            "description": "ループの次の反復にスキップします",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "数値",
+            "description": "数値",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "算術演算",
+            "description": "基本的な算術演算",
+            "code": "a + b  // 加算\na - b  // 減算\na * b  // 乗算\na / b  // 除算\na % b  // 剰余"
+          },
+          "mathFunctions": {
+            "name": "数学関数",
+            "description": "一般的な数学関数",
+            "code": "Math.abs(x)     // 絶対値\nMath.sqrt(x)    // 平方根\nMath.pow(x, y)  // xのy乗\nMath.round(x)   // 最も近い整数に丸める\nMath.random()   // 0から1の乱数"
+          },
+          "trigFunctions": {
+            "name": "三角関数",
+            "description": "三角関数",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "定数",
+            "description": "数学定数",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "数値のプロパティ",
+            "description": "数値のプロパティをチェックします",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "丸め",
+            "description": "数値を丸めます",
+            "code": "Math.round(x)  // 四捨五入\nMath.ceil(x)   // 切り上げ\nMath.floor(x)  // 切り捨て"
+          },
+          "constrain": {
+            "name": "制限",
+            "description": "数値を範囲内に制限します",
+            "code": "Math.max(最小, Math.min(最大, x))"
+          },
+          "randomInteger": {
+            "name": "ランダムな整数",
+            "description": "2つの値の間のランダムな整数を生成します",
+            "code": "Math.floor(Math.random() * (最大 - 最小 + 1)) + 最小"
+          },
+          "randomFraction": {
+            "name": "ランダムな小数",
+            "description": "0から1の乱数を生成します",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "変数を作成",
+            "description": "新しい変数を作成します",
+            "code": "let 変数名 = 値;"
+          },
+          "setVariable": {
+            "name": "変数を設定",
+            "description": "変数の値を変更します",
+            "code": "変数名 = 新しい値;"
+          },
+          "getVariable": {
+            "name": "変数を取得",
+            "description": "変数の値を取得します",
+            "code": "変数名"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "関数を定義",
+            "description": "再利用可能な関数を作成します",
+            "code": "function 関数名(パラメータ1, パラメータ2) {\n  // 関数本体\n  return 結果;\n}"
+          },
+          "callFunction": {
+            "name": "関数を呼び出し",
+            "description": "関数を実行します",
+            "code": "関数名(引数1, 引数2);"
+          },
+          "returnValue": {
+            "name": "値を返す",
+            "description": "関数から値を返します",
+            "code": "return 値;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "空のリストを作成",
+            "description": "新しい空のリストを作成します",
+            "code": "let 私のリスト = [];"
+          },
+          "createList": {
+            "name": "リストを作成",
+            "description": "アイテムを含む新しいリストを作成します",
+            "code": "let 私のリスト = [アイテム1, アイテム2, アイテム3];"
+          },
+          "createListWith": {
+            "name": "リストを作成（指定要素で）",
+            "description": "繰り返し要素でリストを作成します",
+            "code": "Array(個数).fill(アイテム)"
+          },
+          "listLength": {
+            "name": "リストの長さ",
+            "description": "リスト内のアイテム数を取得します",
+            "code": "私のリスト.length"
+          },
+          "listIsEmpty": {
+            "name": "リストが空",
+            "description": "リストにアイテムがないかチェックします",
+            "code": "私のリスト.length === 0"
+          },
+          "findItemInList": {
+            "name": "リスト内でアイテムを検索",
+            "description": "リスト内のアイテムの位置を検索します",
+            "code": "私のリスト.indexOf(アイテム)\n私のリスト.lastIndexOf(アイテム)"
+          },
+          "getItem": {
+            "name": "アイテムを取得",
+            "description": "インデックスでリストからアイテムを取得します",
+            "code": "let アイテム = 私のリスト[インデックス];  // インデックスは0から開始"
+          },
+          "setItem": {
+            "name": "アイテムを設定",
+            "description": "リスト内のアイテムの値を変更します",
+            "code": "私のリスト[インデックス] = 新しい値;"
+          },
+          "getAndRemoveItem": {
+            "name": "アイテムを取得して削除",
+            "description": "アイテムを取得してリストから削除します",
+            "code": "let アイテム = 私のリスト.splice(インデックス, 1)[0];"
+          },
+          "removeItem": {
+            "name": "アイテムを削除",
+            "description": "リストからアイテムを削除します",
+            "code": "私のリスト.splice(インデックス, 1);"
+          },
+          "getSublist": {
+            "name": "サブリストを取得",
+            "description": "リストの一部を取得します",
+            "code": "私のリスト.slice(開始, 終了)"
+          },
+          "splitTextIntoList": {
+            "name": "テキストをリストに分割",
+            "description": "テキストを分割してリストに変換します",
+            "code": "テキスト.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "リストをテキストに結合",
+            "description": "リストを結合してテキストに変換します",
+            "code": "私のリスト.join(\",\")"
+          },
+          "sortList": {
+            "name": "リストをソート",
+            "description": "リストをソートします",
+            "code": "私のリスト.sort()  // 数値 昇順\n私のリスト.sort().reverse()  // 数値 降順\n私のリスト.sort()  // アルファベット 昇順\n私のリスト.sort().reverse()  // アルファベット 降順"
+          },
+          "reverseList": {
+            "name": "リストを反転",
+            "description": "リスト内のアイテムの順序を反転します",
+            "code": "私のリスト.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "テキストを作成",
+            "description": "テキスト文字列を作成します",
+            "code": "let テキスト = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "テキストを結合",
+            "description": "テキスト文字列を結合します",
+            "code": "let 結合済み = テキスト1 + テキスト2;"
+          },
+          "appendText": {
+            "name": "テキストを追加",
+            "description": "変数の末尾にテキストを追加します",
+            "code": "テキスト += \"追加テキスト\";"
+          },
+          "textLength": {
+            "name": "テキストの長さ",
+            "description": "テキスト文字列の長さを取得します",
+            "code": "テキスト.length"
+          },
+          "textIsEmpty": {
+            "name": "テキストが空",
+            "description": "テキストが空かどうかをチェックします",
+            "code": "テキスト.length === 0"
+          },
+          "findText": {
+            "name": "テキストを検索",
+            "description": "テキスト内のテキストの位置を検索します",
+            "code": "テキスト.indexOf(\"検索\")\nテキスト.lastIndexOf(\"検索\")"
+          },
+          "getCharacter": {
+            "name": "文字を取得",
+            "description": "テキストから特定の文字を取得します",
+            "code": "テキスト.charAt(インデックス)"
+          },
+          "substring": {
+            "name": "部分文字列",
+            "description": "テキストの一部を取得します",
+            "code": "テキスト.substring(開始, 終了)"
+          },
+          "changeCase": {
+            "name": "大文字・小文字を変更",
+            "description": "テキストを大文字または小文字に変換します",
+            "code": "テキスト.toUpperCase()\nテキスト.toLowerCase()\nテキスト.charAt(0).toUpperCase() + テキスト.slice(1)"
+          },
+          "trimText": {
+            "name": "テキストをトリム",
+            "description": "テキストの両側からスペースを削除します",
+            "code": "テキスト.trim()\nテキスト.trimLeft()\nテキスト.trimRight()"
+          },
+          "print": {
+            "name": "印刷",
+            "description": "テキストをコンソールに出力します",
+            "code": "console.log(テキスト);"
+          },
+          "prompt": {
+            "name": "プロンプト",
+            "description": "ユーザーにテキスト入力を求めます",
+            "code": "prompt(\"テキストを入力:\")"
+          }
+        }
+      }
+    }
+  
 }

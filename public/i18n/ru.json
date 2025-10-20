@@ -15,5 +15,332 @@
   "loadProject": "Загрузить проект",
   "saveProject": "Сохранить проект",
   "discardAll": "Удалить всё",
-  "confirmDiscard": "Удалить все блоки? Это действие нельзя отменить."
+  "confirmDiscard": "Удалить все блоки? Это действие нельзя отменить.",
+  "docs": {
+      "title": "Документация MyBlockly",
+      "subtitle": "Узнайте обо всех доступных блоках и о том, как использовать их в ваших проектах.",
+      "home": "Главная",
+      "editor": "Редактор",
+      "docs": "Документация",
+      "categories": "Категории",
+      "visualBlock": "Визуальный блок:",
+      "copyXML": "Копировать XML",
+      "showXMLCode": "Показать XML код",
+      "generatedCode": "Сгенерированный код:",
+      "example": "Пример:",
+      "couldNotRenderBlock": "Не удалось отобразить блок",
+      "loadingBlock": "Загрузка блока...",
+      "blockCategories": {
+        "logic": "Логика",
+        "loops": "Циклы",
+        "math": "Математика",
+        "variables": "Переменные",
+        "functions": "Функции",
+        "lists": "Списки",
+        "text": "Текст"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "если",
+            "description": "Выполняет код, если условие истинно",
+            "code": "if (condition) {\n  // код для выполнения\n}",
+            "example": "Проверить, является ли число положительным"
+          },
+          "ifElse": {
+            "name": "если-иначе",
+            "description": "Выполняет один блок кода, если условие истинно, и другой, если ложно",
+            "code": "if (condition) {\n  // код если истина\n} else {\n  // код если ложь\n}"
+          },
+          "comparison": {
+            "name": "сравнение",
+            "description": "Сравнивает два значения",
+            "code": "a == b  // равно\na != b  // не равно\na < b   // меньше чем\na > b   // больше чем\na <= b  // меньше или равно\na >= b  // больше или равно"
+          },
+          "logicalOperators": {
+            "name": "логические операторы",
+            "description": "Объединяет несколько условий",
+            "code": "condition1 && condition2  // И\ncondition1 || condition2  // ИЛИ\n!condition               // НЕ"
+          },
+          "boolean": {
+            "name": "булево",
+            "description": "Значение Истина или Ложь",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Представляет пустое или несуществующее значение",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "тернарный оператор",
+            "description": "Возвращает одно значение, если условие истинно, другое если ложно",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "повторить",
+            "description": "Повторяет код указанное количество раз",
+            "code": "for (let i = 0; i < times; i++) {\n  // код для повторения\n}"
+          },
+          "while": {
+            "name": "пока",
+            "description": "Повторяет код, пока условие истинно",
+            "code": "while (condition) {\n  // код для повторения\n}"
+          },
+          "repeatUntil": {
+            "name": "повторять до",
+            "description": "Повторяет код, пока условие не станет истинным",
+            "code": "do {\n  // код для повторения\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "считать с",
+            "description": "Циклы с переменной-счетчиком от начала до конца",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // код для повторения\n}"
+          },
+          "forEach": {
+            "name": "для каждого",
+            "description": "Перебирает элементы в списке",
+            "code": "for (let item of list) {\n  // код для выполнения для каждого элемента\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "выйти из цикла",
+            "description": "Выходит из текущего цикла",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "продолжить цикл",
+            "description": "Переходит к следующей итерации цикла",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "число",
+            "description": "Числовое значение",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "арифметика",
+            "description": "Основные арифметические операции",
+            "code": "a + b  // сложение\na - b  // вычитание\na * b  // умножение\na / b  // деление\na % b  // модуль (остаток)"
+          },
+          "mathFunctions": {
+            "name": "математические функции",
+            "description": "Общие математические функции",
+            "code": "Math.abs(x)     // абсолютное значение\nMath.sqrt(x)    // квадратный корень\nMath.pow(x, y)  // x в степени y\nMath.round(x)   // округлить до ближайшего целого\nMath.random()   // случайное число между 0 и 1"
+          },
+          "trigFunctions": {
+            "name": "тригонометрические функции",
+            "description": "Тригонометрические функции",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "константы",
+            "description": "Математические константы",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "свойство числа",
+            "description": "Проверяет свойства числа",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "округлить",
+            "description": "Округляет число",
+            "code": "Math.round(x)  // округлить\nMath.ceil(x)   // округлить вверх\nMath.floor(x)  // округлить вниз"
+          },
+          "constrain": {
+            "name": "ограничить",
+            "description": "Ограничивает число быть в пределах диапазона",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "случайное целое",
+            "description": "Генерирует случайное целое число между двумя значениями",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "случайная дробь",
+            "description": "Генерирует случайное число между 0 и 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "создать переменную",
+            "description": "Создает новую переменную",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "установить переменную",
+            "description": "Изменяет значение переменной",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "получить переменную",
+            "description": "Получает значение переменной",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "определить функцию",
+            "description": "Создает переиспользуемую функцию",
+            "code": "function functionName(parameter1, parameter2) {\n  // тело функции\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "вызвать функцию",
+            "description": "Выполняет функцию",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "вернуть значение",
+            "description": "Возвращает значение из функции",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "создать пустой список",
+            "description": "Создает новый пустой список",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "создать список",
+            "description": "Создает новый список с элементами",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "создать список с",
+            "description": "Создает список с повторяющимся элементом",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "длина списка",
+            "description": "Получает количество элементов в списке",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "список пуст",
+            "description": "Проверяет, что список не имеет элементов",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "найти элемент в списке",
+            "description": "Находит позицию элемента в списке",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "получить элемент",
+            "description": "Получает элемент из списка по индексу",
+            "code": "let item = myList[index];  // индекс начинается с 0"
+          },
+          "setItem": {
+            "name": "установить элемент",
+            "description": "Изменяет значение элемента в списке",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "получить и удалить элемент",
+            "description": "Получает элемент и удаляет его из списка",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "удалить элемент",
+            "description": "Удаляет элемент из списка",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "получить подсписок",
+            "description": "Получает часть списка",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "разделить текст в список",
+            "description": "Преобразует текст в список путем разделения",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "объединить список в текст",
+            "description": "Преобразует список в текст путем объединения",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "сортировать список",
+            "description": "Сортирует список",
+            "code": "myList.sort()  // числовой по возрастанию\nmyList.sort().reverse()  // числовой по убыванию\nmyList.sort()  // алфавитный по возрастанию\nmyList.sort().reverse()  // алфавитный по убыванию"
+          },
+          "reverseList": {
+            "name": "перевернуть список",
+            "description": "Переворачивает порядок элементов в списке",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "создать текст",
+            "description": "Создает текстовую строку",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "объединить текст",
+            "description": "Объединяет текстовые строки",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "добавить текст",
+            "description": "Добавляет текст в конец переменной",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "длина текста",
+            "description": "Получает длину текстовой строки",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "текст пуст",
+            "description": "Проверяет, пуст ли текст",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "найти текст",
+            "description": "Находит позицию текста внутри текста",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "получить символ",
+            "description": "Получает конкретный символ из текста",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "подстрока",
+            "description": "Получает часть текста",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "изменить регистр",
+            "description": "Преобразует текст в верхний или нижний регистр",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "обрезать текст",
+            "description": "Удаляет пробелы с обеих сторон текста",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "печать",
+            "description": "Выводит текст в консоль",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "запрос",
+            "description": "Запрашивает у пользователя ввод текста",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

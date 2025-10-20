@@ -15,5 +15,332 @@
   "loadProject": "Cargar Proyecto",
   "saveProject": "Guardar Proyecto",
   "discardAll": "Descartar Todo",
-  "confirmDiscard": "¿Descartar todos los bloques? Esto no se puede deshacer."
+  "confirmDiscard": "¿Descartar todos los bloques? Esto no se puede deshacer.",
+  "docs": {
+      "title": "Documentación de MyBlockly",
+      "subtitle": "Aprende sobre todos los bloques disponibles y cómo usarlos en tus proyectos.",
+      "home": "Inicio",
+      "editor": "Editor",
+      "docs": "Documentación",
+      "categories": "Categorías",
+      "visualBlock": "Bloque visual:",
+      "copyXML": "Copiar XML",
+      "showXMLCode": "Mostrar código XML",
+      "generatedCode": "Código generado:",
+      "example": "Ejemplo:",
+      "couldNotRenderBlock": "No se pudo renderizar el bloque",
+      "loadingBlock": "Cargando bloque...",
+      "blockCategories": {
+        "logic": "Lógica",
+        "loops": "Bucles",
+        "math": "Matemáticas",
+        "variables": "Variables",
+        "functions": "Funciones",
+        "lists": "Listas",
+        "text": "Texto"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "si",
+            "description": "Ejecuta código si una condición es verdadera",
+            "code": "if (condition) {\n  // código a ejecutar\n}",
+            "example": "Verificar si un número es positivo"
+          },
+          "ifElse": {
+            "name": "si-sino",
+            "description": "Ejecuta un bloque de código si una condición es verdadera, y otro si es falsa",
+            "code": "if (condition) {\n  // código si verdadero\n} else {\n  // código si falso\n}"
+          },
+          "comparison": {
+            "name": "comparación",
+            "description": "Compara dos valores",
+            "code": "a == b  // igual a\na != b  // no igual a\na < b   // menor que\na > b   // mayor que\na <= b  // menor o igual que\na >= b  // mayor o igual que"
+          },
+          "logicalOperators": {
+            "name": "operadores lógicos",
+            "description": "Combina múltiples condiciones",
+            "code": "condition1 && condition2  // Y\ncondition1 || condition2  // O\n!condition               // NO"
+          },
+          "boolean": {
+            "name": "booleano",
+            "description": "Valor verdadero o falso",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "nulo",
+            "description": "Representa un valor vacío o inexistente",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "operador ternario",
+            "description": "Devuelve un valor si la condición es verdadera, otro si es falsa",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "repetir",
+            "description": "Repite código un número específico de veces",
+            "code": "for (let i = 0; i < times; i++) {\n  // código a repetir\n}"
+          },
+          "while": {
+            "name": "mientras",
+            "description": "Repite código mientras una condición sea verdadera",
+            "code": "while (condition) {\n  // código a repetir\n}"
+          },
+          "repeatUntil": {
+            "name": "repetir hasta",
+            "description": "Repite código hasta que una condición se vuelva verdadera",
+            "code": "do {\n  // código a repetir\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "contar con",
+            "description": "Bucles con una variable contador desde inicio hasta fin",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // código a repetir\n}"
+          },
+          "forEach": {
+            "name": "para cada",
+            "description": "Itera sobre elementos en una lista",
+            "code": "for (let item of list) {\n  // código a ejecutar para cada elemento\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "salir del bucle",
+            "description": "Sale del bucle actual",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "continuar bucle",
+            "description": "Salta a la siguiente iteración del bucle",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "número",
+            "description": "Un valor numérico",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "aritmética",
+            "description": "Operaciones aritméticas básicas",
+            "code": "a + b  // suma\na - b  // resta\na * b  // multiplicación\na / b  // división\na % b  // módulo (resto)"
+          },
+          "mathFunctions": {
+            "name": "funciones matemáticas",
+            "description": "Funciones matemáticas comunes",
+            "code": "Math.abs(x)     // valor absoluto\nMath.sqrt(x)    // raíz cuadrada\nMath.pow(x, y)  // x elevado a la potencia de y\nMath.round(x)   // redondear al entero más cercano\nMath.random()   // número aleatorio entre 0 y 1"
+          },
+          "trigFunctions": {
+            "name": "funciones trigonométricas",
+            "description": "Funciones trigonométricas",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "constantes",
+            "description": "Constantes matemáticas",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "propiedad numérica",
+            "description": "Verificar propiedades de un número",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "redondear",
+            "description": "Redondear un número",
+            "code": "Math.round(x)  // redondear\nMath.ceil(x)   // redondear hacia arriba\nMath.floor(x)  // redondear hacia abajo"
+          },
+          "constrain": {
+            "name": "restringir",
+            "description": "Limitar un número para que esté dentro de un rango",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "entero aleatorio",
+            "description": "Generar un entero aleatorio entre dos valores",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "fracción aleatoria",
+            "description": "Generar un número aleatorio entre 0 y 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "crear variable",
+            "description": "Crear una nueva variable",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "establecer variable",
+            "description": "Cambiar el valor de una variable",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "obtener variable",
+            "description": "Obtener el valor de una variable",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "definir función",
+            "description": "Crear una función reutilizable",
+            "code": "function functionName(parameter1, parameter2) {\n  // cuerpo de la función\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "llamar función",
+            "description": "Ejecutar una función",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "retornar valor",
+            "description": "Retornar un valor desde una función",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "crear lista vacía",
+            "description": "Crear una nueva lista vacía",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "crear lista",
+            "description": "Crear una nueva lista con elementos",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "crear lista con",
+            "description": "Crear una lista con un elemento repetido",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "longitud de lista",
+            "description": "Obtener el número de elementos en una lista",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "lista está vacía",
+            "description": "Verificar si la lista no tiene elementos",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "encontrar elemento en lista",
+            "description": "Encontrar la posición de un elemento en una lista",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "obtener elemento",
+            "description": "Obtener un elemento de una lista por índice",
+            "code": "let item = myList[index];  // índice comienza en 0"
+          },
+          "setItem": {
+            "name": "establecer elemento",
+            "description": "Cambiar el valor de un elemento en una lista",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "obtener y remover elemento",
+            "description": "Obtener un elemento y removerlo de la lista",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "remover elemento",
+            "description": "Remover un elemento de una lista",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "obtener sublista",
+            "description": "Obtener una porción de una lista",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "dividir texto en lista",
+            "description": "Convertir texto en una lista dividiendo",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "unir lista en texto",
+            "description": "Convertir una lista en texto uniendo",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "ordenar lista",
+            "description": "Ordenar una lista",
+            "code": "myList.sort()  // numérico ascendente\nmyList.sort().reverse()  // numérico descendente\nmyList.sort()  // alfabético ascendente\nmyList.sort().reverse()  // alfabético descendente"
+          },
+          "reverseList": {
+            "name": "revertir lista",
+            "description": "Revertir el orden de elementos en una lista",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "crear texto",
+            "description": "Crear una cadena de texto",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "unir texto",
+            "description": "Combinar cadenas de texto",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "adjuntar texto",
+            "description": "Añadir texto al final de una variable",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "longitud de texto",
+            "description": "Obtener la longitud de una cadena de texto",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "texto está vacío",
+            "description": "Verificar si el texto está vacío",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "encontrar texto",
+            "description": "Encontrar la posición de texto dentro de texto",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "obtener carácter",
+            "description": "Obtener un carácter específico del texto",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "subcadena",
+            "description": "Obtener una porción de texto",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "cambiar caso",
+            "description": "Convertir texto a mayúsculas o minúsculas",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "recortar texto",
+            "description": "Remover espacios de ambos lados del texto",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "imprimir",
+            "description": "Salida de texto a consola",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "prompt",
+            "description": "Pedir al usuario entrada de texto",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

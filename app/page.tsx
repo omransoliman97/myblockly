@@ -4,6 +4,9 @@ import Script from "next/script";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun } from "lucide-react";
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from "@radix-ui/react-navigation-menu";
+import Link from "next/link";
+import { navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 type UiLang = "en" | "fr";
 
@@ -65,6 +68,8 @@ export default function Home() {
   };
 
   return (
+    
+    
     <div className="blockly-page" style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center" }}>
       {/* Google Analytics */}
       <Script src="https://www.googletagmanager.com/gtag/js?id=G-BNLPSLHQHF" strategy="afterInteractive" />
@@ -75,10 +80,31 @@ export default function Home() {
         gtag('config', 'G-BNLPSLHQHF');
       `}</Script>
       {/* Top controls */}
+      <div className="absolute mb-8 flex gap-8 top-8 ">
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                <Link href="/">Home</Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                <Link href="/editor">Editor</Link>
+              </NavigationMenuLink>
+              <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
+                <Link href="/docs">Docs</Link>
+              </NavigationMenuLink>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
+        
+      </div>
+      
       <div style={{ position: "absolute", top: 16, right: 16, display: "flex", gap: 8, alignItems: "center" }}>
+        
         <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
           {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
         </Button>
+        
         <Select
           value={uiLang}
           onValueChange={(lang: UiLang) => {

@@ -15,5 +15,332 @@
   "loadProject": "프로젝트 불러오기",
   "saveProject": "프로젝트 저장",
   "discardAll": "모두 삭제",
-  "confirmDiscard": "모든 블록을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다."
+  "confirmDiscard": "모든 블록을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.", 
+  "docs": {
+      "title": "MyBlockly 문서",
+      "subtitle": "사용 가능한 모든 블록과 프로젝트에서 사용하는 방법을 배워보세요.",
+      "home": "홈",
+      "editor": "에디터",
+      "docs": "문서",
+      "categories": "카테고리",
+      "visualBlock": "시각적 블록:",
+      "copyXML": "XML 복사",
+      "showXMLCode": "XML 코드 보기",
+      "generatedCode": "생성된 코드:",
+      "example": "예시:",
+      "couldNotRenderBlock": "블록을 렌더링할 수 없습니다",
+      "loadingBlock": "블록 로딩 중...",
+      "blockCategories": {
+        "logic": "논리",
+        "loops": "반복",
+        "math": "수학",
+        "variables": "변수",
+        "functions": "함수",
+        "lists": "리스트",
+        "text": "텍스트"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "만약",
+            "description": "조건이 참일 때 코드를 실행합니다",
+            "code": "if (조건) {\n  // 실행할 코드\n}",
+            "example": "숫자가 양수인지 확인하기"
+          },
+          "ifElse": {
+            "name": "만약-아니면",
+            "description": "조건이 참일 때 한 블록의 코드를 실행하고, 거짓일 때 다른 코드를 실행합니다",
+            "code": "if (조건) {\n  // 참일 때 코드\n} else {\n  // 거짓일 때 코드\n}"
+          },
+          "comparison": {
+            "name": "비교",
+            "description": "두 값을 비교합니다",
+            "code": "a == b  // 같음\na != b  // 같지 않음\na < b   // 보다 작음\na > b   // 보다 큼\na <= b  // 보다 작거나 같음\na >= b  // 보다 크거나 같음"
+          },
+          "logicalOperators": {
+            "name": "논리 연산자",
+            "description": "여러 조건을 결합합니다",
+            "code": "조건1 && 조건2  // AND (그리고)\n조건1 || 조건2  // OR (또는)\n!조건           // NOT (아님)"
+          },
+          "boolean": {
+            "name": "불리언",
+            "description": "참 또는 거짓 값",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "빈 값 또는 존재하지 않는 값을 나타냅니다",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "삼항 연산자",
+            "description": "조건이 참이면 하나의 값을, 거짓이면 다른 값을 반환합니다",
+            "code": "조건 ? 참일때값 : 거짓일때값"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "반복",
+            "description": "지정된 횟수만큼 코드를 반복합니다",
+            "code": "for (let i = 0; i < 횟수; i++) {\n  // 반복할 코드\n}"
+          },
+          "while": {
+            "name": "while 반복",
+            "description": "조건이 참인 동안 코드를 반복합니다",
+            "code": "while (조건) {\n  // 반복할 코드\n}"
+          },
+          "repeatUntil": {
+            "name": "반복直到",
+            "description": "조건이 참이 될 때까지 코드를 반복합니다",
+            "code": "do {\n  // 반복할 코드\n} while (!조건);"
+          },
+          "countWith": {
+            "name": "카운트 반복",
+            "description": "시작부터 끝까지 카운터 변수로 반복합니다",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // 반복할 코드\n}"
+          },
+          "forEach": {
+            "name": "각 항목에 대해",
+            "description": "리스트의 항목들을 반복합니다",
+            "code": "for (let 항목 of 리스트) {\n  // 각 항목에 대해 실행할 코드\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "반복문 탈출",
+            "description": "현재 반복문을 종료합니다",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "반복문 계속",
+            "description": "반복문의 다음 반복으로 건너뜁니다",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "숫자",
+            "description": "숫자 값",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "산술 연산",
+            "description": "기본 산술 연산",
+            "code": "a + b  // 덧셈\na - b  // 뺄셈\na * b  // 곱셈\na / b  // 나눗셈\na % b  // 나머지"
+          },
+          "mathFunctions": {
+            "name": "수학 함수",
+            "description": "일반적인 수학 함수",
+            "code": "Math.abs(x)     // 절대값\nMath.sqrt(x)    // 제곱근\nMath.pow(x, y)  // x의 y승\nMath.round(x)   // 가장 가까운 정수로 반올림\nMath.random()   // 0과 1 사이의 난수"
+          },
+          "trigFunctions": {
+            "name": "삼각 함수",
+            "description": "삼각함수",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "상수",
+            "description": "수학 상수",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "숫자 속성",
+            "description": "숫자의 속성을 확인합니다",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "반올림",
+            "description": "숫자를 반올림합니다",
+            "code": "Math.round(x)  // 반올림\nMath.ceil(x)   // 올림\nMath.floor(x)  // 내림"
+          },
+          "constrain": {
+            "name": "범위 제한",
+            "description": "숫자를 범위 내로 제한합니다",
+            "code": "Math.max(최소, Math.min(최대, x))"
+          },
+          "randomInteger": {
+            "name": "랜덤 정수",
+            "description": "두 값 사이의 랜덤 정수를 생성합니다",
+            "code": "Math.floor(Math.random() * (최대 - 최소 + 1)) + 최소"
+          },
+          "randomFraction": {
+            "name": "랜덤 소수",
+            "description": "0과 1 사이의 랜덤 숫자를 생성합니다",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "변수 생성",
+            "description": "새 변수를 생성합니다",
+            "code": "let 변수명 = 값;"
+          },
+          "setVariable": {
+            "name": "변수 설정",
+            "description": "변수의 값을 변경합니다",
+            "code": "변수명 = 새값;"
+          },
+          "getVariable": {
+            "name": "변수 가져오기",
+            "description": "변수의 값을 가져옵니다",
+            "code": "변수명"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "함수 정의",
+            "description": "재사용 가능한 함수를 생성합니다",
+            "code": "function 함수명(매개변수1, 매개변수2) {\n  // 함수 본문\n  return 결과;\n}"
+          },
+          "callFunction": {
+            "name": "함수 호출",
+            "description": "함수를 실행합니다",
+            "code": "함수명(인수1, 인수2);"
+          },
+          "returnValue": {
+            "name": "값 반환",
+            "description": "함수에서 값을 반환합니다",
+            "code": "return 값;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "빈 리스트 생성",
+            "description": "새 빈 리스트를 생성합니다",
+            "code": "let 내리스트 = [];"
+          },
+          "createList": {
+            "name": "리스트 생성",
+            "description": "항목들을 가진 새 리스트를 생성합니다",
+            "code": "let 내리스트 = [항목1, 항목2, 항목3];"
+          },
+          "createListWith": {
+            "name": "리스트 생성 (채우기)",
+            "description": "반복 항목으로 리스트를 생성합니다",
+            "code": "Array(개수).fill(항목)"
+          },
+          "listLength": {
+            "name": "리스트 길이",
+            "description": "리스트의 항목 개수를 가져옵니다",
+            "code": "내리스트.length"
+          },
+          "listIsEmpty": {
+            "name": "리스트 비어있음",
+            "description": "리스트에 항목이 없는지 확인합니다",
+            "code": "내리스트.length === 0"
+          },
+          "findItemInList": {
+            "name": "리스트에서 항목 찾기",
+            "description": "리스트에서 항목의 위치를 찾습니다",
+            "code": "내리스트.indexOf(항목)\n내리스트.lastIndexOf(항목)"
+          },
+          "getItem": {
+            "name": "항목 가져오기",
+            "description": "인덱스로 리스트에서 항목을 가져옵니다",
+            "code": "let 항목 = 내리스트[인덱스];  // 인덱스는 0부터 시작"
+          },
+          "setItem": {
+            "name": "항목 설정",
+            "description": "리스트에서 항목의 값을 변경합니다",
+            "code": "내리스트[인덱스] = 새값;"
+          },
+          "getAndRemoveItem": {
+            "name": "항목 가져오기 및 삭제",
+            "description": "항목을 가져오고 리스트에서 삭제합니다",
+            "code": "let 항목 = 내리스트.splice(인덱스, 1)[0];"
+          },
+          "removeItem": {
+            "name": "항목 삭제",
+            "description": "리스트에서 항목을 삭제합니다",
+            "code": "내리스트.splice(인덱스, 1);"
+          },
+          "getSublist": {
+            "name": "하위 리스트 가져오기",
+            "description": "리스트의 일부를 가져옵니다",
+            "code": "내리스트.slice(시작, 끝)"
+          },
+          "splitTextIntoList": {
+            "name": "텍스트를 리스트로 분할",
+            "description": "분할하여 텍스트를 리스트로 변환합니다",
+            "code": "텍스트.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "리스트를 텍스트로 결합",
+            "description": "결합하여 리스트를 텍스트로 변환합니다",
+            "code": "내리스트.join(\",\")"
+          },
+          "sortList": {
+            "name": "리스트 정렬",
+            "description": "리스트를 정렬합니다",
+            "code": "내리스트.sort()  // 숫자 오름차순\n내리스트.sort().reverse()  // 숫자 내림차순\n내리스트.sort()  // 알파벳 오름차순\n내리스트.sort().reverse()  // 알파벳 내림차순"
+          },
+          "reverseList": {
+            "name": "리스트 뒤집기",
+            "description": "리스트의 항목 순서를 뒤집습니다",
+            "code": "내리스트.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "텍스트 생성",
+            "description": "텍스트 문자열을 생성합니다",
+            "code": "let 텍스트 = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "텍스트 결합",
+            "description": "텍스트 문자열을 결합합니다",
+            "code": "let 결합된텍스트 = 텍스트1 + 텍스트2;"
+          },
+          "appendText": {
+            "name": "텍스트 추가",
+            "description": "변수 끝에 텍스트를 추가합니다",
+            "code": "텍스트 += \"더 많은 텍스트\";"
+          },
+          "textLength": {
+            "name": "텍스트 길이",
+            "description": "텍스트 문자열의 길이를 가져옵니다",
+            "code": "텍스트.length"
+          },
+          "textIsEmpty": {
+            "name": "텍스트 비어있음",
+            "description": "텍스트가 비어 있는지 확인합니다",
+            "code": "텍스트.length === 0"
+          },
+          "findText": {
+            "name": "텍스트 찾기",
+            "description": "텍스트 내에서 텍스트의 위치를 찾습니다",
+            "code": "텍스트.indexOf(\"검색\")\n텍스트.lastIndexOf(\"검색\")"
+          },
+          "getCharacter": {
+            "name": "문자 가져오기",
+            "description": "텍스트에서 특정 문자를 가져옵니다",
+            "code": "텍스트.charAt(인덱스)"
+          },
+          "substring": {
+            "name": "부분 문자열",
+            "description": "텍스트의 일부를 가져옵니다",
+            "code": "텍스트.substring(시작, 끝)"
+          },
+          "changeCase": {
+            "name": "대소문자 변경",
+            "description": "텍스트를 대문자 또는 소문자로 변환합니다",
+            "code": "텍스트.toUpperCase()\n텍스트.toLowerCase()\n텍스트.charAt(0).toUpperCase() + 텍스트.slice(1)"
+          },
+          "trimText": {
+            "name": "텍스트 트림",
+            "description": "텍스트 양쪽에서 공백을 제거합니다",
+            "code": "텍스트.trim()\n텍스트.trimLeft()\n텍스트.trimRight()"
+          },
+          "print": {
+            "name": "출력",
+            "description": "텍스트를 콘솔에 출력합니다",
+            "code": "console.log(텍스트);"
+          },
+          "prompt": {
+            "name": "프롬프트",
+            "description": "사용자에게 텍스트 입력을 요청합니다",
+            "code": "prompt(\"텍스트 입력:\")"
+          }
+        }
+      }
+    }
+  
 }

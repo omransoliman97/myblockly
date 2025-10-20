@@ -15,5 +15,332 @@
   "loadProject": "加载项目",
   "saveProject": "保存项目",
   "discardAll": "全部丢弃",
-  "confirmDiscard": "丢弃所有积木块？此操作无法撤销。"
+  "confirmDiscard": "丢弃所有积木块？此操作无法撤销。",
+  "docs": {
+      "title": "MyBlockly 文档",
+      "subtitle": "了解所有可用的积木块以及如何在项目中使用它们。",
+      "home": "首页",
+      "editor": "编辑器",
+      "docs": "文档",
+      "categories": "分类",
+      "visualBlock": "可视化积木：",
+      "copyXML": "复制XML",
+      "showXMLCode": "显示XML代码",
+      "generatedCode": "生成代码：",
+      "example": "示例：",
+      "couldNotRenderBlock": "无法渲染积木块",
+      "loadingBlock": "加载积木块中...",
+      "blockCategories": {
+        "logic": "逻辑",
+        "loops": "循环",
+        "math": "数学",
+        "variables": "变量",
+        "functions": "函数",
+        "lists": "列表",
+        "text": "文本"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "如果",
+            "description": "如果条件为真，则执行代码",
+            "code": "if (条件) {\n  // 要执行的代码\n}",
+            "example": "检查数字是否为正数"
+          },
+          "ifElse": {
+            "name": "如果-否则",
+            "description": "如果条件为真执行一个代码块，为假执行另一个代码块",
+            "code": "if (条件) {\n  // 条件为真时的代码\n} else {\n  // 条件为假时的代码\n}"
+          },
+          "comparison": {
+            "name": "比较",
+            "description": "比较两个值",
+            "code": "a == b  // 等于\na != b  // 不等于\na < b   // 小于\na > b   // 大于\na <= b  // 小于等于\na >= b  // 大于等于"
+          },
+          "logicalOperators": {
+            "name": "逻辑运算符",
+            "description": "组合多个条件",
+            "code": "条件1 && 条件2  // 与（AND）\n条件1 || 条件2  // 或（OR）\n!条件           // 非（NOT）"
+          },
+          "boolean": {
+            "name": "布尔值",
+            "description": "真或假值",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "空值",
+            "description": "表示空值或不存在的值",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "三元运算符",
+            "description": "条件为真返回一个值，为假返回另一个值",
+            "code": "条件 ? 为真时的值 : 为假时的值"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "重复",
+            "description": "重复执行代码指定次数",
+            "code": "for (let i = 0; i < 次数; i++) {\n  // 要重复的代码\n}"
+          },
+          "while": {
+            "name": "当循环",
+            "description": "当条件为真时重复执行代码",
+            "code": "while (条件) {\n  // 要重复的代码\n}"
+          },
+          "repeatUntil": {
+            "name": "重复直到",
+            "description": "重复执行代码直到条件变为真",
+            "code": "do {\n  // 要重复的代码\n} while (!条件);"
+          },
+          "countWith": {
+            "name": "计数循环",
+            "description": "使用计数器变量从开始到结束循环",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // 要重复的代码\n}"
+          },
+          "forEach": {
+            "name": "遍历",
+            "description": "遍历列表中的项目",
+            "code": "for (let 项目 of 列表) {\n  // 为每个项目执行的代码\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "跳出循环",
+            "description": "退出当前循环",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "继续循环",
+            "description": "跳到循环的下一次迭代",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "数字",
+            "description": "数值",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "算术运算",
+            "description": "基本算术运算",
+            "code": "a + b  // 加法\na - b  // 减法\na * b  // 乘法\na / b  // 除法\na % b  // 取模（余数）"
+          },
+          "mathFunctions": {
+            "name": "数学函数",
+            "description": "常用数学函数",
+            "code": "Math.abs(x)     // 绝对值\nMath.sqrt(x)    // 平方根\nMath.pow(x, y)  // x的y次幂\nMath.round(x)   // 四舍五入到最接近的整数\nMath.random()   // 0到1之间的随机数"
+          },
+          "trigFunctions": {
+            "name": "三角函数",
+            "description": "三角函数",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "常量",
+            "description": "数学常量",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "数字属性",
+            "description": "检查数字的属性",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "取整",
+            "description": "对数字进行取整",
+            "code": "Math.round(x)  // 四舍五入\nMath.ceil(x)   // 向上取整\nMath.floor(x)  // 向下取整"
+          },
+          "constrain": {
+            "name": "限制范围",
+            "description": "将数字限制在指定范围内",
+            "code": "Math.max(最小值, Math.min(最大值, x))"
+          },
+          "randomInteger": {
+            "name": "随机整数",
+            "description": "生成两个值之间的随机整数",
+            "code": "Math.floor(Math.random() * (最大值 - 最小值 + 1)) + 最小值"
+          },
+          "randomFraction": {
+            "name": "随机小数",
+            "description": "生成0到1之间的随机数",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "创建变量",
+            "description": "创建新变量",
+            "code": "let 变量名 = 值;"
+          },
+          "setVariable": {
+            "name": "设置变量",
+            "description": "修改变量的值",
+            "code": "变量名 = 新值;"
+          },
+          "getVariable": {
+            "name": "获取变量",
+            "description": "获取变量的值",
+            "code": "变量名"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "定义函数",
+            "description": "创建可重用的函数",
+            "code": "function 函数名(参数1, 参数2) {\n  // 函数体\n  return 结果;\n}"
+          },
+          "callFunction": {
+            "name": "调用函数",
+            "description": "执行函数",
+            "code": "函数名(参数1, 参数2);"
+          },
+          "returnValue": {
+            "name": "返回值",
+            "description": "从函数返回一个值",
+            "code": "return 值;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "创建空列表",
+            "description": "创建新的空列表",
+            "code": "let 我的列表 = [];"
+          },
+          "createList": {
+            "name": "创建列表",
+            "description": "创建包含项目的新列表",
+            "code": "let 我的列表 = [项目1, 项目2, 项目3];"
+          },
+          "createListWith": {
+            "name": "创建填充列表",
+            "description": "创建包含重复项目的列表",
+            "code": "Array(数量).fill(项目)"
+          },
+          "listLength": {
+            "name": "列表长度",
+            "description": "获取列表中的项目数量",
+            "code": "我的列表.length"
+          },
+          "listIsEmpty": {
+            "name": "列表为空",
+            "description": "检查列表是否没有项目",
+            "code": "我的列表.length === 0"
+          },
+          "findItemInList": {
+            "name": "在列表中查找项目",
+            "description": "查找项目在列表中的位置",
+            "code": "我的列表.indexOf(项目)\n我的列表.lastIndexOf(项目)"
+          },
+          "getItem": {
+            "name": "获取项目",
+            "description": "通过索引从列表中获取项目",
+            "code": "let 项目 = 我的列表[索引];  // 索引从0开始"
+          },
+          "setItem": {
+            "name": "设置项目",
+            "description": "更改列表中的项目值",
+            "code": "我的列表[索引] = 新值;"
+          },
+          "getAndRemoveItem": {
+            "name": "获取并删除项目",
+            "description": "获取项目并从列表中删除",
+            "code": "let 项目 = 我的列表.splice(索引, 1)[0];"
+          },
+          "removeItem": {
+            "name": "删除项目",
+            "description": "从列表中删除项目",
+            "code": "我的列表.splice(索引, 1);"
+          },
+          "getSublist": {
+            "name": "获取子列表",
+            "description": "获取列表的一部分",
+            "code": "我的列表.slice(开始, 结束)"
+          },
+          "splitTextIntoList": {
+            "name": "将文本分割为列表",
+            "description": "通过分割将文本转换为列表",
+            "code": "文本.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "将列表连接为文本",
+            "description": "通过连接将列表转换为文本",
+            "code": "我的列表.join(\",\")"
+          },
+          "sortList": {
+            "name": "排序列表",
+            "description": "对列表进行排序",
+            "code": "我的列表.sort()  // 数字升序\n我的列表.sort().reverse()  // 数字降序\n我的列表.sort()  // 字母升序\n我的列表.sort().reverse()  // 字母降序"
+          },
+          "reverseList": {
+            "name": "反转列表",
+            "description": "反转列表中项目的顺序",
+            "code": "我的列表.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "创建文本",
+            "description": "创建文本字符串",
+            "code": "let 文本 = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "连接文本",
+            "description": "组合文本字符串",
+            "code": "let 组合文本 = 文本1 + 文本2;"
+          },
+          "appendText": {
+            "name": "追加文本",
+            "description": "在变量末尾添加文本",
+            "code": "文本 += \"更多文本\";"
+          },
+          "textLength": {
+            "name": "文本长度",
+            "description": "获取文本字符串的长度",
+            "code": "文本.length"
+          },
+          "textIsEmpty": {
+            "name": "文本为空",
+            "description": "检查文本是否为空",
+            "code": "文本.length === 0"
+          },
+          "findText": {
+            "name": "查找文本",
+            "description": "在文本中查找文本的位置",
+            "code": "文本.indexOf(\"搜索内容\")\n文本.lastIndexOf(\"搜索内容\")"
+          },
+          "getCharacter": {
+            "name": "获取字符",
+            "description": "从文本中获取特定字符",
+            "code": "文本.charAt(索引)"
+          },
+          "substring": {
+            "name": "子字符串",
+            "description": "获取文本的一部分",
+            "code": "文本.substring(开始, 结束)"
+          },
+          "changeCase": {
+            "name": "改变大小写",
+            "description": "将文本转换为大写或小写",
+            "code": "文本.toUpperCase()\n文本.toLowerCase()\n文本.charAt(0).toUpperCase() + 文本.slice(1)"
+          },
+          "trimText": {
+            "name": "修剪文本",
+            "description": "从文本两侧删除空格",
+            "code": "文本.trim()\n文本.trimLeft()\n文本.trimRight()"
+          },
+          "print": {
+            "name": "打印",
+            "description": "将文本输出到控制台",
+            "code": "console.log(文本);"
+          },
+          "prompt": {
+            "name": "提示输入",
+            "description": "向用户请求文本输入",
+            "code": "prompt(\"输入文本：\")"
+          }
+        }
+      }
+    }
+  
 }

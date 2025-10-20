@@ -15,5 +15,331 @@
   "loadProject": "تحميل المشروع",
   "saveProject": "حفظ المشروع",
   "discardAll": "تجاهل الكل",
-  "confirmDiscard": "تجاهل كل البلوكات؟ لا يمكن التراجع عن هذا الإجراء."
-}
+  "confirmDiscard": "تجاهل كل البلوكات؟ لا يمكن التراجع عن هذا الإجراء.",
+   "docs": {
+      "title": "وثائق MyBlockly",
+      "subtitle": "تعرف على جميع الكتل المتاحة وكيفية استخدامها في مشاريعك.",
+      "home": "الرئيسية",
+      "editor": "المحرر",
+      "docs": "الوثائق",
+      "categories": "الفئات",
+      "visualBlock": "الكتلة المرئية:",
+      "copyXML": "نسخ XML",
+      "showXMLCode": "عرض كود XML",
+      "generatedCode": "الكود المُنشأ:",
+      "example": "مثال:",
+      "couldNotRenderBlock": "تعذر عرض الكتلة",
+      "loadingBlock": "جاري تحميل الكتلة...",
+      "blockCategories": {
+        "logic": "المنطق",
+        "loops": "الحلقات",
+        "math": "الرياضيات",
+        "variables": "المتغيرات",
+        "functions": "الدوال",
+        "lists": "القوائم",
+        "text": "النص"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "إذا",
+            "description": "ينفذ الكود إذا كان الشرط صحيحاً",
+            "code": "if (condition) {\n  // code to execute\n}",
+            "example": "تحقق إذا كان الرقم موجباً"
+          },
+          "ifElse": {
+            "name": "إذا-وإلا",
+            "description": "ينفذ كتلة كود إذا كان الشرط صحيحاً، وكتلة أخرى إذا كان خطأ",
+            "code": "if (condition) {\n  // code if true\n} else {\n  // code if false\n}"
+          },
+          "comparison": {
+            "name": "مقارنة",
+            "description": "يقارن بين قيمتين",
+            "code": "a == b  // يساوي\na != b  // لا يساوي\na < b   // أصغر من\na > b   // أكبر من\na <= b  // أصغر من أو يساوي\na >= b  // أكبر من أو يساوي"
+          },
+          "logicalOperators": {
+            "name": "المشغلات المنطقية",
+            "description": "دمج عدة شروط",
+            "code": "condition1 && condition2  // AND\ncondition1 || condition2  // OR\n!condition               // NOT"
+          },
+          "boolean": {
+            "name": "قيمة منطقية",
+            "description": "قيمة صحيحة أو خاطئة",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "قيمة فارغة",
+            "description": "تمثل قيمة فارغة أو غير موجودة",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "المشغل الثلاثي",
+            "description": "يرجع قيمة إذا كان الشرط صحيحاً، وقيمة أخرى إذا كان خطأ",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "كرر",
+            "description": "يكرر الكود لعدد محدد من المرات",
+            "code": "for (let i = 0; i < times; i++) {\n  // code to repeat\n}"
+          },
+          "while": {
+            "name": "بينما",
+            "description": "يكرر الكود بينما الشرط صحيح",
+            "code": "while (condition) {\n  // code to repeat\n}"
+          },
+          "repeatUntil": {
+            "name": "كرر حتى",
+            "description": "يكرر الكود حتى يصبح الشرط صحيحاً",
+            "code": "do {\n  // code to repeat\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "عد باستخدام",
+            "description": "حلقات مع متغير عداد من البداية إلى النهاية",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // code to repeat\n}"
+          },
+          "forEach": {
+            "name": "لكل عنصر",
+            "description": "يتكرر على العناصر في القائمة",
+            "code": "for (let item of list) {\n  // code to execute for each item\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "اخرج من الحلقة",
+            "description": "يخرج من الحلقة الحالية",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "تابع الحلقة",
+            "description": "يتخطى إلى التكرار التالي للحلقة",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "رقم",
+            "description": "قيمة رقمية",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "عمليات حسابية",
+            "description": "العمليات الحسابية الأساسية",
+            "code": "a + b  // جمع\na - b  // طرح\na * b  // ضرب\na / b  // قسمة\na % b  // باقي القسمة"
+          },
+          "mathFunctions": {
+            "name": "دوال رياضية",
+            "description": "الدوال الرياضية الشائعة",
+            "code": "Math.abs(x)     // القيمة المطلقة\nMath.sqrt(x)    // الجذر التربيعي\nMath.pow(x, y)  // x أس y\nMath.round(x)   // تقريب إلى أقرب عدد صحيح\nMath.random()   // رقم عشوائي بين 0 و 1"
+          },
+          "trigFunctions": {
+            "name": "دوال مثلثية",
+            "description": "الدوال المثلثية",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "ثوابت",
+            "description": "ثوابت رياضية",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "خصائص الرقم",
+            "description": "تحقق من خصائص الرقم",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "تقريب",
+            "description": "قرب رقم",
+            "code": "Math.round(x)  // تقريب\nMath.ceil(x)   // تقريب لأعلى\nMath.floor(x)  // تقريب لأسفل"
+          },
+          "constrain": {
+            "name": "تقييد",
+            "description": "حدد رقم ليكون ضمن نطاق",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "عدد صحيح عشوائي",
+            "description": "إنشاء عدد صحيح عشوائي بين قيمتين",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "كسر عشوائي",
+            "description": "إنشاء رقم عشوائي بين 0 و 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "إنشاء متغير",
+            "description": "إنشاء متغير جديد",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "تعيين متغير",
+            "description": "تغيير قيمة المتغير",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "الحصول على متغير",
+            "description": "الحصول على قيمة المتغير",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "تحديد دالة",
+            "description": "إنشاء دالة قابلة لإعادة الاستخدام",
+            "code": "function functionName(parameter1, parameter2) {\n  // function body\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "استدعاء دالة",
+            "description": "تنفيذ دالة",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "إرجاع قيمة",
+            "description": "إرجاع قيمة من دالة",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "إنشاء قائمة فارغة",
+            "description": "إنشاء قائمة فارغة جديدة",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "إنشاء قائمة",
+            "description": "إنشاء قائمة جديدة بعناصر",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "إنشاء قائمة بـ",
+            "description": "إنشاء قائمة بعنصر مكرر",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "طول القائمة",
+            "description": "الحصول على عدد العناصر في القائمة",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "القائمة فارغة",
+            "description": "تحقق إذا كانت القائمة لا تحتوي على عناصر",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "ابحث عن عنصر في القائمة",
+            "description": "ابحث عن موقع عنصر في القائمة",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "الحصول على عنصر",
+            "description": "الحصول على عنصر من القائمة حسب الفهرس",
+            "code": "let item = myList[index];  // الفهرس يبدأ من 0"
+          },
+          "setItem": {
+            "name": "تعيين عنصر",
+            "description": "تغيير قيمة عنصر في القائمة",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "الحصول على عنصر وإزالته",
+            "description": "الحصول على عنصر وإزالته من القائمة",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "إزالة عنصر",
+            "description": "إزالة عنصر من القائمة",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "الحصول على قائمة فرعية",
+            "description": "الحصول على جزء من القائمة",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "تقسيم النص إلى قائمة",
+            "description": "تحويل النص إلى قائمة بالتقسيم",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "دمج القائمة إلى نص",
+            "description": "تحويل القائمة إلى نص بالدمج",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "ترتيب القائمة",
+            "description": "ترتيب قائمة",
+            "code": "myList.sort()  // تصاعدي رقمي\nmyList.sort().reverse()  // تنازلي رقمي\nmyList.sort()  // تصاعدي أبجدي\nmyList.sort().reverse()  // تنازلي أبجدي"
+          },
+          "reverseList": {
+            "name": "عكس القائمة",
+            "description": "عكس ترتيب العناصر في القائمة",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "إنشاء نص",
+            "description": "إنشاء سلسلة نصية",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "ربط النص",
+            "description": "دمج السلاسل النصية",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "إلحاق نص",
+            "description": "إضافة نص إلى نهاية متغير",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "طول النص",
+            "description": "الحصول على طول السلسلة النصية",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "النص فارغ",
+            "description": "تحقق إذا كان النص فارغاً",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "ابحث عن نص",
+            "description": "ابحث عن موقع نص داخل نص",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "الحصول على حرف",
+            "description": "الحصول على حرف محدد من النص",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "جزء من النص",
+            "description": "الحصول على جزء من النص",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "تغيير حالة الأحرف",
+            "description": "تحويل النص إلى أحرف كبيرة أو صغيرة",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "قص النص",
+            "description": "إزالة المسافات من جانبي النص",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "طباعة",
+            "description": "إخراج نص إلى وحدة التحكم",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "مطالبة",
+            "description": "اطلب من المستخدم إدخال نص",
+            "code": "prompt(\"أدخل نص:\")"
+          }
+        }
+      }
+    }
+  }

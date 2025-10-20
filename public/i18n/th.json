@@ -15,5 +15,333 @@
   "loadProject": "โหลดโปรเจกต์",
   "saveProject": "บันทึกโปรเจกต์",
   "discardAll": "ทิ้งทั้งหมด",
-  "confirmDiscard": "ทิ้งบล็อกทั้งหมดหรือไม่? การกระทำนี้ไม่สามารถยกเลิกได้"
+  "confirmDiscard": "ทิ้งบล็อกทั้งหมดหรือไม่? การกระทำนี้ไม่สามารถยกเลิกได้",
+  "docs": {
+      "title": "เอกสาร MyBlockly",
+      "subtitle": "เรียนรู้เกี่ยวกับบล็อกทั้งหมดที่มีและวิธีการใช้ในโครงการของคุณ",
+      "home": "หน้าหลัก",
+      "editor": "ตัวแก้ไข",
+      "docs": "เอกสาร",
+      "categories": "หมวดหมู่",
+      "visualBlock": "บล็อกภาพ:",
+      "copyXML": "คัดลอก XML",
+      "showXMLCode": "แสดงโค้ด XML",
+      "generatedCode": "โค้ดที่สร้าง:",
+      "example": "ตัวอย่าง:",
+      "couldNotRenderBlock": "ไม่สามารถแสดงบล็อกได้",
+      "loadingBlock": "กำลังโหลดบล็อก...",
+      "blockCategories": {
+        "logic": "ตรรกะ",
+        "loops": "ลูป",
+        "math": "คณิตศาสตร์",
+        "variables": "ตัวแปร",
+        "functions": "ฟังก์ชัน",
+        "lists": "รายการ",
+        "text": "ข้อความ"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "ถ้า",
+            "description": "ดำเนินการโค้ดหากเงื่อนไขเป็นจริง",
+            "code": "if (เงื่อนไข) {\n  // โค้ดที่จะดำเนินการ\n}",
+            "example": "ตรวจสอบว่าตัวเลขเป็นบวกหรือไม่"
+          },
+          "ifElse": {
+            "name": "ถ้า-มิฉะนั้น",
+            "description": "ดำเนินการบล็อกโค้ดหนึ่งบล็อกหากเงื่อนไขเป็นจริง และอีกบล็อกหากเป็นเท็จ",
+            "code": "if (เงื่อนไข) {\n  // โค้ดหากเป็นจริง\n} else {\n  // โค้ดหากเป็นเท็จ\n}"
+          },
+          "comparison": {
+            "name": "การเปรียบเทียบ",
+            "description": "เปรียบเทียบค่าสองค่า",
+            "code": "a == b  // เท่ากับ\na != b  // ไม่เท่ากับ\na < b   // น้อยกว่า\na > b   // มากกว่า\na <= b  // น้อยกว่าหรือเท่ากับ\na >= b  // มากกว่าหรือเท่ากับ"
+          },
+          "logicalOperators": {
+            "name": "ตัวดำเนินการตรรกะ",
+            "description": "รวมหลายเงื่อนไข",
+            "code": "เงื่อนไข1 && เงื่อนไข2  // AND\nเงื่อนไข1 || เงื่อนไข2  // OR\n!เงื่อนไข               // NOT"
+          },
+          "boolean": {
+            "name": "บูลีน",
+            "description": "ค่าจริงหรือเท็จ",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "แสดงถึงค่าว่างหรือไม่มีอยู่",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "ตัวดำเนินการ ternary",
+            "description": "ส่งคืนค่าหนึ่งหากเงื่อนไขเป็นจริง อีกค่าหากเป็นเท็จ",
+            "code": "เงื่อนไข ? ค่าหากจริง : ค่าหากเท็จ"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "ทำซ้ำ",
+            "description": "ทำซ้ำโค้ดจำนวนครั้งที่กำหนด",
+            "code": "for (let i = 0; i < จำนวนครั้ง; i++) {\n  // โค้ดที่จะทำซ้ำ\n}"
+          },
+          "while": {
+            "name": "ขณะที่",
+            "description": "ทำซ้ำโค้ดในขณะที่เงื่อนไขเป็นจริง",
+            "code": "while (เงื่อนไข) {\n  // โค้ดที่จะทำซ้ำ\n}"
+          },
+          "repeatUntil": {
+            "name": "ทำซ้ำจนกว่า",
+            "description": "ทำซ้ำโค้ดจนกว่าเงื่อนไขจะเป็นจริง",
+            "code": "do {\n  // โค้ดที่จะทำซ้ำ\n} while (!เงื่อนไข);"
+          },
+          "countWith": {
+            "name": "นับด้วย",
+            "description": "ลูปด้วยตัวแปรนับตั้งแต่เริ่มต้นจนสิ้นสุด",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // โค้ดที่จะทำซ้ำ\n}"
+          },
+          "forEach": {
+            "name": "สำหรับแต่ละ",
+            "description": "วนซ้ำผ่านรายการในลิสต์",
+            "code": "for (let รายการ of ลิสต์) {\n  // โค้ดที่จะดำเนินการสำหรับแต่ละรายการ\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "ออกจากลูป",
+            "description": "ออกจากลูปปัจจุบัน",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "ทำลูปต่อไป",
+            "description": "ข้ามไปยังการวนซ้ำครั้งต่อไปของลูป",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "ตัวเลข",
+            "description": "ค่าตัวเลข",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "คณิตศาสตร์",
+            "description": "การดำเนินการคณิตศาสตร์พื้นฐาน",
+            "code": "a + b  // การบวก\na - b  // การลบ\na * b  // การคูณ\na / b  // การหาร\na % b  // โมดูโล (เศษ)"
+          },
+          "mathFunctions": {
+            "name": "ฟังก์ชันคณิตศาสตร์",
+            "description": "ฟังก์ชันคณิตศาสตร์ทั่วไป",
+            "code": "Math.abs(x)     // ค่าสัมบูรณ์\nMath.sqrt(x)    // รากที่สอง\nMath.pow(x, y)  // x ยกกำลัง y\nMath.round(x)   // ปัดเศษเป็นจำนวนเต็มที่ใกล้ที่สุด\nMath.random()   // ตัวเลขสุ่มระหว่าง 0 ถึง 1"
+          },
+          "trigFunctions": {
+            "name": "ฟังก์ชันตรีโกณมิติ",
+            "description": "ฟังก์ชันตรีโกณมิติ",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "ค่าคงที่",
+            "description": "ค่าคงที่ทางคณิตศาสตร์",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "คุณสมบัติตัวเลข",
+            "description": "ตรวจสอบคุณสมบัติของตัวเลข",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "ปัดเศษ",
+            "description": "ปัดเศษตัวเลข",
+            "code": "Math.round(x)  // ปัดเศษ\nMath.ceil(x)   // ปัดเศษขึ้น\nMath.floor(x)  // ปัดเศษลง"
+          },
+          "constrain": {
+            "name": "จำกัดขอบเขต",
+            "description": "จำกัดตัวเลขให้อยู่ในช่วง",
+            "code": "Math.max(ต่ำ, Math.min(สูง, x))"
+          },
+          "randomInteger": {
+            "name": "จำนวนเต็มสุ่ม",
+            "description": "สร้างจำนวนเต็มสุ่มระหว่างสองค่า",
+            "code": "Math.floor(Math.random() * (สูงสุด - ต่ำสุด + 1)) + ต่ำสุด"
+          },
+          "randomFraction": {
+            "name": "เศษส่วนสุ่ม",
+            "description": "สร้างตัวเลขสุ่มระหว่าง 0 ถึง 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "สร้างตัวแปร",
+            "description": "สร้างตัวแปรใหม่",
+            "code": "let ชื่อตัวแปร = ค่า;"
+          },
+          "setVariable": {
+            "name": "ตั้งค่าตัวแปร",
+            "description": "เปลี่ยนค่าของตัวแปร",
+            "code": "ชื่อตัวแปร = ค่าใหม่;"
+          },
+          "getVariable": {
+            "name": "รับตัวแปร",
+            "description": "รับค่าของตัวแปร",
+            "code": "ชื่อตัวแปร"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "กำหนดฟังก์ชัน",
+            "description": "สร้างฟังก์ชันที่ใช้ซ้ำได้",
+            "code": "function ชื่อฟังก์ชัน(พารามิเตอร์1, พารามิเตอร์2) {\n  // เนื้อหาฟังก์ชัน\n  return ผลลัพธ์;\n}"
+          },
+          "callFunction": {
+            "name": "เรียกฟังก์ชัน",
+            "description": "ดำเนินการฟังก์ชัน",
+            "code": "ชื่อฟังก์ชัน(อาร์กิวเมนต์1, อาร์กิวเมนต์2);"
+          },
+          "returnValue": {
+            "name": "ส่งคืนค่า",
+            "description": "ส่งคืนค่าจากฟังก์ชัน",
+            "code": "return ค่า;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "สร้างลิสต์ว่าง",
+            "description": "สร้างลิสต์ว่างใหม่",
+            "code": "let ลิสต์ของฉัน = [];"
+          },
+          "createList": {
+            "name": "สร้างลิสต์",
+            "description": "สร้างลิสต์ใหม่พร้อมรายการ",
+            "code": "let ลิสต์ของฉัน = [รายการ1, รายการ2, รายการ3];"
+          },
+          "createListWith": {
+            "name": "สร้างลิสต์ด้วย",
+            "description": "สร้างลิสต์ด้วยรายการที่ซ้ำ",
+            "code": "Array(จำนวน).fill(รายการ)"
+          },
+          "listLength": {
+            "name": "ความยาวลิสต์",
+            "description": "รับจำนวนรายการในลิสต์",
+            "code": "ลิสต์ของฉัน.length"
+          },
+          "listIsEmpty": {
+            "name": "ลิสต์ว่าง",
+            "description": "ตรวจสอบว่าลิสต์ไม่มีรายการ",
+            "code": "ลิสต์ของฉัน.length === 0"
+          },
+          "findItemInList": {
+            "name": "ค้นหารายการในลิสต์",
+            "description": "ค้นหาตำแหน่งของรายการในลิสต์",
+            "code": "ลิสต์ของฉัน.indexOf(รายการ)\nลิสต์ของฉัน.lastIndexOf(รายการ)"
+          },
+          "getItem": {
+            "name": "รับรายการ",
+            "description": "รับรายการจากลิสต์ตามดัชนี",
+            "code": "let รายการ = ลิสต์ของฉัน[ดัชนี];  // ดัชนีเริ่มต้นที่ 0"
+          },
+          "setItem": {
+            "name": "ตั้งค่ารายการ",
+            "description": "เปลี่ยนค่าของรายการในลิสต์",
+            "code": "ลิสต์ของฉัน[ดัชนี] = ค่าใหม่;"
+          },
+          "getAndRemoveItem": {
+            "name": "รับและลบรายการ",
+            "description": "รับรายการและลบออกจากลิสต์",
+            "code": "let รายการ = ลิสต์ของฉัน.splice(ดัชนี, 1)[0];"
+          },
+          "removeItem": {
+            "name": "ลบรายการ",
+            "description": "ลบรายการออกจากลิสต์",
+            "code": "ลิสต์ของฉัน.splice(ดัชนี, 1);"
+          },
+          "getSublist": {
+            "name": "รับลิสต์ย่อย",
+            "description": "รับส่วนหนึ่งของลิสต์",
+            "code": "ลิสต์ของฉัน.slice(เริ่มต้น, สิ้นสุด)"
+          },
+          "splitTextIntoList": {
+            "name": "แยกข้อความเป็นลิสต์",
+            "description": "แปลงข้อความเป็นลิสต์โดยการแยก",
+            "code": "ข้อความ.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "รวมลิสต์เป็นข้อความ",
+            "description": "แปลงลิสต์เป็นข้อความโดยการรวม",
+            "code": "ลิสต์ของฉัน.join(\",\")"
+          },
+          "sortList": {
+            "name": "เรียงลิสต์",
+            "description": "เรียงลิสต์",
+            "code": "ลิสต์ของฉัน.sort()  // ตัวเลขจากน้อยไปมาก\nลิสต์ของฉัน.sort().reverse()  // ตัวเลขจากมากไปน้อย\nลิสต์ของฉัน.sort()  // ตัวอักษรจากน้อยไปมาก\nลิสต์ของฉัน.sort().reverse()  // ตัวอักษรจากมากไปน้อย"
+          },
+          "reverseList": {
+            "name": "กลับลำดับลิสต์",
+            "description": "กลับลำดับรายการในลิสต์",
+            "code": "ลิสต์ของฉัน.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "สร้างข้อความ",
+            "description": "สร้างสตริงข้อความ",
+            "code": "let ข้อความ = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "ต่อข้อความ",
+            "description": "รวมสตริงข้อความ",
+            "code": "let รวมแล้ว = ข้อความ1 + ข้อความ2;"
+          },
+          "appendText": {
+            "name": "เพิ่มข้อความ",
+            "description": "เพิ่มข้อความต่อท้ายตัวแปร",
+            "code": "ข้อความ += \"ข้อความเพิ่มเติม\";"
+          },
+          "textLength": {
+            "name": "ความยาวข้อความ",
+            "description": "รับความยาวของสตริงข้อความ",
+            "code": "ข้อความ.length"
+          },
+          "textIsEmpty": {
+            "name": "ข้อความว่าง",
+            "description": "ตรวจสอบว่าข้อความว่างหรือไม่",
+            "code": "ข้อความ.length === 0"
+          },
+          "findText": {
+            "name": "ค้นหาข้อความ",
+            "description": "ค้นหาตำแหน่งของข้อความภายในข้อความ",
+            "code": "ข้อความ.indexOf(\"ค้นหา\")\nข้อความ.lastIndexOf(\"ค้นหา\")"
+          },
+          "getCharacter": {
+            "name": "รับอักขระ",
+            "description": "รับอักขระเฉพาะจากข้อความ",
+            "code": "ข้อความ.charAt(ดัชนี)"
+          },
+          "substring": {
+            "name": "สตริงย่อย",
+            "description": "รับส่วนหนึ่งของข้อความ",
+            "code": "ข้อความ.substring(เริ่มต้น, สิ้นสุด)"
+          },
+          "changeCase": {
+            "name": "เปลี่ยนตัวพิมพ์",
+            "description": "แปลงข้อความเป็นตัวพิมพ์ใหญ่หรือตัวพิมพ์เล็ก",
+            "code": "ข้อความ.toUpperCase()\nข้อความ.toLowerCase()\nข้อความ.charAt(0).toUpperCase() + ข้อความ.slice(1)"
+          },
+          "trimText": {
+            "name": "ตัดข้อความ",
+            "description": "ลบช่องว่างจากทั้งสองด้านของข้อความ",
+            "code": "ข้อความ.trim()\nข้อความ.trimLeft()\nข้อความ.trimRight()"
+          },
+          "print": {
+            "name": "พิมพ์",
+            "description": "ส่งออกข้อความไปยังคอนโซล",
+            "code": "console.log(ข้อความ);"
+          },
+          "prompt": {
+            "name": "พรอมต์",
+            "description": "ขอให้ผู้ใช้ป้อนข้อความ",
+            "code": "prompt(\"ป้อนข้อความ:\")"
+          }
+        }
+      }
+    }
+  
+  
 }

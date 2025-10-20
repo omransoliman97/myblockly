@@ -15,5 +15,332 @@
   "loadProject": "Proje Yükle",
   "saveProject": "Proje Kaydet",
   "discardAll": "Tümünü At",
-  "confirmDiscard": "Tüm bloklar atılsın mı? Bu işlem geri alınamaz."
+  "confirmDiscard": "Tüm bloklar atılsın mı? Bu işlem geri alınamaz.",
+  "docs": {
+      "title": "MyBlockly Dokümantasyonu",
+      "subtitle": "Tüm mevcut bloklar ve projelerinizde nasıl kullanılacaklarını öğrenin.",
+      "home": "Ana Sayfa",
+      "editor": "Editör",
+      "docs": "Dokümanlar",
+      "categories": "Kategoriler",
+      "visualBlock": "Görsel Blok:",
+      "copyXML": "XML Kopyala",
+      "showXMLCode": "XML Kodunu Göster",
+      "generatedCode": "Oluşturulan Kod:",
+      "example": "Örnek:",
+      "couldNotRenderBlock": "Blok oluşturulamadı",
+      "loadingBlock": "Blok yükleniyor...",
+      "blockCategories": {
+        "logic": "Mantık",
+        "loops": "Döngüler",
+        "math": "Matematik",
+        "variables": "Değişkenler",
+        "functions": "Fonksiyonlar",
+        "lists": "Listeler",
+        "text": "Metin"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "eğer",
+            "description": "Bir koşul doğruysa kodu çalıştırır",
+            "code": "if (condition) {\n  // çalıştırılacak kod\n}",
+            "example": "Bir sayının pozitif olup olmadığını kontrol et"
+          },
+          "ifElse": {
+            "name": "eğer-değilse",
+            "description": "Bir koşul doğruysa bir kod bloğunu, yanlışsa başka birini çalıştırır",
+            "code": "if (condition) {\n  // doğruysa kod\n} else {\n  // yanlışsa kod\n}"
+          },
+          "comparison": {
+            "name": "karşılaştırma",
+            "description": "İki değeri karşılaştırır",
+            "code": "a == b  // eşittir\na != b  // eşit değildir\na < b   // küçüktür\na > b   // büyüktür\na <= b  // küçük eşittir\na >= b  // büyük eşittir"
+          },
+          "logicalOperators": {
+            "name": "mantıksal operatörler",
+            "description": "Birden fazla koşulu birleştirir",
+            "code": "condition1 && condition2  // VE\ncondition1 || condition2  // VEYA\n!condition               // DEĞİL"
+          },
+          "boolean": {
+            "name": "boolean",
+            "description": "Doğru veya Yanlış değeri",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Boş veya var olmayan bir değeri temsil eder",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "üçlü operatör",
+            "description": "Koşul doğruysa bir değer, yanlışsa başka bir değer döndürür",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "tekrarla",
+            "description": "Kodu belirtilen sayıda tekrarlar",
+            "code": "for (let i = 0; i < times; i++) {\n  // tekrarlanacak kod\n}"
+          },
+          "while": {
+            "name": "iken",
+            "description": "Bir koşul doğruyken kodu tekrarlar",
+            "code": "while (condition) {\n  // tekrarlanacak kod\n}"
+          },
+          "repeatUntil": {
+            "name": "kadar tekrarla",
+            "description": "Bir koşul doğru olana kadar kodu tekrarlar",
+            "code": "do {\n  // tekrarlanacak kod\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "ile say",
+            "description": "Başlangıçtan sona kadar bir sayaç değişkeni ile döngüler",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // tekrarlanacak kod\n}"
+          },
+          "forEach": {
+            "name": "her biri için",
+            "description": "Bir listedeki öğeler üzerinde yineler",
+            "code": "for (let item of list) {\n  // her öğe için çalıştırılacak kod\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "döngüden çık",
+            "description": "Mevcut döngüden çıkar",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "döngüyü devam ettir",
+            "description": "Döngünün bir sonraki yinelemesine atlar",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "sayı",
+            "description": "Sayısal bir değer",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "aritmetik",
+            "description": "Temel aritmetik işlemler",
+            "code": "a + b  // toplama\na - b  // çıkarma\na * b  // çarpma\na / b  // bölme\na % b  // modulo (kalan)"
+          },
+          "mathFunctions": {
+            "name": "matematik fonksiyonları",
+            "description": "Yaygın matematik fonksiyonları",
+            "code": "Math.abs(x)     // mutlak değer\nMath.sqrt(x)    // karekök\nMath.pow(x, y)  // x'in y üssü\nMath.round(x)   // en yakın tam sayıya yuvarla\nMath.random()   // 0 ile 1 arasında rastgele sayı"
+          },
+          "trigFunctions": {
+            "name": "trigonometrik fonksiyonlar",
+            "description": "Trigonometrik fonksiyonlar",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "sabitler",
+            "description": "Matematiksel sabitler",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "sayı özelliği",
+            "description": "Bir sayının özelliklerini kontrol eder",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "yuvarla",
+            "description": "Bir sayıyı yuvarlar",
+            "code": "Math.round(x)  // yuvarla\nMath.ceil(x)   // yukarı yuvarla\nMath.floor(x)  // aşağı yuvarla"
+          },
+          "constrain": {
+            "name": "sınırla",
+            "description": "Bir sayıyı bir aralık içinde olacak şekilde sınırlar",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "rastgele tam sayı",
+            "description": "İki değer arasında rastgele bir tam sayı üretir",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "rastgele kesir",
+            "description": "0 ile 1 arasında rastgele bir sayı üretir",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "değişken oluştur",
+            "description": "Yeni bir değişken oluşturur",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "değişkeni ayarla",
+            "description": "Bir değişkenin değerini değiştirir",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "değişkeni al",
+            "description": "Bir değişkenin değerini alır",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "fonksiyon tanımla",
+            "description": "Yeniden kullanılabilir bir fonksiyon oluşturur",
+            "code": "function functionName(parameter1, parameter2) {\n  // fonksiyon gövdesi\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "fonksiyonu çağır",
+            "description": "Bir fonksiyonu çalıştırır",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "değer döndür",
+            "description": "Bir fonksiyondan değer döndürür",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "boş liste oluştur",
+            "description": "Yeni bir boş liste oluşturur",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "liste oluştur",
+            "description": "Öğelerle yeni bir liste oluşturur",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "ile liste oluştur",
+            "description": "Tekrarlanan bir öğe ile liste oluşturur",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "liste uzunluğu",
+            "description": "Bir listedeki öğe sayısını alır",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "liste boş",
+            "description": "Listenin öğe içermediğini kontrol eder",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "listedeki öğeyi bul",
+            "description": "Bir listedeki bir öğenin konumunu bulur",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "öğeyi al",
+            "description": "İndekse göre bir listeden öğe alır",
+            "code": "let item = myList[index];  // indeks 0'dan başlar"
+          },
+          "setItem": {
+            "name": "öğeyi ayarla",
+            "description": "Bir listedeki bir öğenin değerini değiştirir",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "öğeyi al ve kaldır",
+            "description": "Bir öğe alır ve listeden kaldırır",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "öğeyi kaldır",
+            "description": "Bir listeden öğe kaldırır",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "alt liste al",
+            "description": "Bir listenin bir bölümünü alır",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "metni listeye böl",
+            "description": "Bölerek metni listeye dönüştürür",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "listeyi metne birleştir",
+            "description": "Birleştirerek listeyi metne dönüştürür",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "listeyi sırala",
+            "description": "Bir listeyi sıralar",
+            "code": "myList.sort()  // sayısal artan\nmyList.sort().reverse()  // sayısal azalan\nmyList.sort()  // alfabetik artan\nmyList.sort().reverse()  // alfabetik azalan"
+          },
+          "reverseList": {
+            "name": "listeyi ters çevir",
+            "description": "Bir listedeki öğelerin sırasını tersine çevirir",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "metin oluştur",
+            "description": "Bir metin dizesi oluşturur",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "metni birleştir",
+            "description": "Metin dizelerini birleştirir",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "metni ekle",
+            "description": "Bir değişkenin sonuna metin ekler",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "metin uzunluğu",
+            "description": "Bir metin dizesinin uzunluğunu alır",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "metin boş",
+            "description": "Metnin boş olup olmadığını kontrol eder",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "metni bul",
+            "description": "Metin içindeki metnin konumunu bulur",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "karakter al",
+            "description": "Metinden belirli bir karakter alır",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "alt dize",
+            "description": "Metnin bir bölümünü alır",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "büyük/küçük harf değiştir",
+            "description": "Metni büyük veya küçük harfe dönüştürür",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "metni kırp",
+            "description": "Metnin her iki tarafındaki boşlukları kaldırır",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "yazdır",
+            "description": "Konsola metin çıktısı",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "prompt",
+            "description": "Kullanıcıdan metin girişi ister",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

@@ -15,5 +15,332 @@
   "loadProject": "प्रोजेक्ट लोड करें",
   "saveProject": "प्रोजेक्ट सेव करें",
   "discardAll": "सब छोड़ें",
-  "confirmDiscard": "सभी ब्लॉक्स छोड़ें? यह कार्य वापस नहीं लिया जा सकता।"
+  "confirmDiscard": "सभी ब्लॉक्स छोड़ें? यह कार्य वापस नहीं लिया जा सकता।", 
+  "docs": {
+      "title": "MyBlockly दस्तावेज़ीकरण",
+      "subtitle": "सभी उपलब्ध ब्लॉक्स और अपनी परियोजनाओं में उनका उपयोग कैसे करें, यह सीखें।",
+      "home": "होम",
+      "editor": "संपादक",
+      "docs": "दस्तावेज़",
+      "categories": "श्रेणियाँ",
+      "visualBlock": "विज़ुअल ब्लॉक:",
+      "copyXML": "XML कॉपी करें",
+      "showXMLCode": "XML कोड दिखाएं",
+      "generatedCode": "जनरेट किया गया कोड:",
+      "example": "उदाहरण:",
+      "couldNotRenderBlock": "ब्लॉक रेंडर नहीं किया जा सका",
+      "loadingBlock": "ब्लॉक लोड हो रहा है...",
+      "blockCategories": {
+        "logic": "लॉजिक",
+        "loops": "लूप्स",
+        "math": "गणित",
+        "variables": "वेरिएबल्स",
+        "functions": "फ़ंक्शन्स",
+        "lists": "लिस्ट्स",
+        "text": "टेक्स्ट"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "यदि",
+            "description": "एक शर्त सत्य होने पर कोड निष्पादित करता है",
+            "code": "if (condition) {\n  // निष्पादित करने के लिए कोड\n}",
+            "example": "जांचें कि क्या एक संख्या सकारात्मक है"
+          },
+          "ifElse": {
+            "name": "यदि-अन्यथा",
+            "description": "एक शर्त सत्य होने पर एक कोड ब्लॉक निष्पादित करता है, और गलत होने पर दूसरा",
+            "code": "if (condition) {\n  // यदि सत्य तो कोड\n} else {\n  // यदि गलत तो कोड\n}"
+          },
+          "comparison": {
+            "name": "तुलना",
+            "description": "दो मानों की तुलना करता है",
+            "code": "a == b  // बराबर\na != b  // बराबर नहीं\na < b   // से कम\na > b   // से अधिक\na <= b  // से कम या बराबर\na >= b  // से अधिक या बराबर"
+          },
+          "logicalOperators": {
+            "name": "लॉजिकल ऑपरेटर्स",
+            "description": "कई शर्तों को जोड़ता है",
+            "code": "condition1 && condition2  // और\ncondition1 || condition2  // या\n!condition               // नहीं"
+          },
+          "boolean": {
+            "name": "बूलियन",
+            "description": "सत्य या असत्य मान",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "एक खाली या गैर-मौजूद मान का प्रतिनिधित्व करता है",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "टर्नरी ऑपरेटर",
+            "description": "शर्त सत्य होने पर एक मान लौटाता है, गलत होने पर दूसरा",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "दोहराएं",
+            "description": "कोड को निर्दिष्ट संख्या में दोहराता है",
+            "code": "for (let i = 0; i < times; i++) {\n  // दोहराने के लिए कोड\n}"
+          },
+          "while": {
+            "name": "जबकि",
+            "description": "कोड तब तक दोहराता है जब तक एक शर्त सत्य है",
+            "code": "while (condition) {\n  // दोहराने के लिए कोड\n}"
+          },
+          "repeatUntil": {
+            "name": "दोहराएं जब तक",
+            "description": "कोड तब तक दोहराता है जब तक एक शर्त सत्य नहीं हो जाती",
+            "code": "do {\n  // दोहराने के लिए कोड\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "गिनती के साथ",
+            "description": "शुरुआत से अंत तक काउंटर वेरिएबल के साथ लूप्स",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // दोहराने के लिए कोड\n}"
+          },
+          "forEach": {
+            "name": "प्रत्येक के लिए",
+            "description": "सूची में आइटम्स पर पुनरावृत्ति करता है",
+            "code": "for (let item of list) {\n  // प्रत्येक आइटम के लिए निष्पादित करने के लिए कोड\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "लूप से बाहर निकलें",
+            "description": "वर्तमान लूप से बाहर निकलता है",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "लूप जारी रखें",
+            "description": "लूप के अगले पुनरावृत्ति पर जाता है",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "संख्या",
+            "description": "एक संख्यात्मक मान",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "अंकगणित",
+            "description": "मूल अंकगणितीय संचालन",
+            "code": "a + b  // जोड़\na - b  // घटाव\na * b  // गुणा\na / b  // भाग\na % b  // मॉड्यूलो (शेष)"
+          },
+          "mathFunctions": {
+            "name": "गणितीय फ़ंक्शन",
+            "description": "सामान्य गणितीय फ़ंक्शन",
+            "code": "Math.abs(x)     // निरपेक्ष मान\nMath.sqrt(x)    // वर्गमूल\nMath.pow(x, y)  // x की y घात\nMath.round(x)   // निकटतम पूर्णांक में गोल करें\nMath.random()   // 0 और 1 के बीच यादृच्छिक संख्या"
+          },
+          "trigFunctions": {
+            "name": "त्रिकोणमितीय फ़ंक्शन",
+            "description": "त्रिकोणमितीय फ़ंक्शन",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "स्थिरांक",
+            "description": "गणितीय स्थिरांक",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "संख्या गुण",
+            "description": "संख्या के गुणों की जांच करता है",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "गोल करें",
+            "description": "एक संख्या को गोल करता है",
+            "code": "Math.round(x)  // गोल करें\nMath.ceil(x)   // ऊपर गोल करें\nMath.floor(x)  // नीचे गोल करें"
+          },
+          "constrain": {
+            "name": "सीमित करें",
+            "description": "एक संख्या को एक सीमा के भीतर सीमित करता है",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "यादृच्छिक पूर्णांक",
+            "description": "दो मानों के बीच एक यादृच्छिक पूर्णांक उत्पन्न करता है",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "यादृच्छिक भिन्न",
+            "description": "0 और 1 के बीच एक यादृच्छिक संख्या उत्पन्न करता है",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "वेरिएबल बनाएं",
+            "description": "एक नया वेरिएबल बनाता है",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "वेरिएबल सेट करें",
+            "description": "एक वेरिएबल का मान बदलता है",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "वेरिएबल प्राप्त करें",
+            "description": "एक वेरिएबल का मान प्राप्त करता है",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "फ़ंक्शन परिभाषित करें",
+            "description": "एक पुन: प्रयोज्य फ़ंक्शन बनाता है",
+            "code": "function functionName(parameter1, parameter2) {\n  // फ़ंक्शन बॉडी\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "फ़ंक्शन कॉल करें",
+            "description": "एक फ़ंक्शन निष्पादित करता है",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "मान लौटाएं",
+            "description": "एक फ़ंक्शन से मान लौटाता है",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "खाली सूची बनाएं",
+            "description": "एक नई खाली सूची बनाता है",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "सूची बनाएं",
+            "description": "आइटम्स के साथ एक नई सूची बनाता है",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "के साथ सूची बनाएं",
+            "description": "दोहराए गए आइटम के साथ सूची बनाता है",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "सूची लंबाई",
+            "description": "सूची में आइटम्स की संख्या प्राप्त करता है",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "सूची खाली है",
+            "description": "जांचता है कि क्या सूची में कोई आइटम नहीं है",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "सूची में आइटम ढूंढें",
+            "description": "सूची में एक आइटम की स्थिति ढूंढता है",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "आइटम प्राप्त करें",
+            "description": "इंडेक्स द्वारा सूची से आइटम प्राप्त करता है",
+            "code": "let item = myList[index];  // इंडेक्स 0 से शुरू होता है"
+          },
+          "setItem": {
+            "name": "आइटम सेट करें",
+            "description": "सूची में एक आइटम का मान बदलता है",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "आइटम प्राप्त करें और हटाएं",
+            "description": "एक आइटम प्राप्त करता है और इसे सूची से हटाता है",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "आइटम हटाएं",
+            "description": "सूची से आइटम हटाता है",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "उपसूची प्राप्त करें",
+            "description": "सूची का एक भाग प्राप्त करता है",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "टेक्स्ट को सूची में विभाजित करें",
+            "description": "विभाजित करके टेक्स्ट को सूची में परिवर्तित करता है",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "सूची को टेक्स्ट में जोड़ें",
+            "description": "जोड़कर सूची को टेक्स्ट में परिवर्तित करता है",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "सूची क्रमबद्ध करें",
+            "description": "सूची को क्रमबद्ध करता है",
+            "code": "myList.sort()  // संख्यात्मक आरोही\nmyList.sort().reverse()  // संख्यात्मक अवरोही\nmyList.sort()  // वर्णानुक्रमिक आरोही\nmyList.sort().reverse()  // वर्णानुक्रमिक अवरोही"
+          },
+          "reverseList": {
+            "name": "सूची उल्टा करें",
+            "description": "सूची में आइटम्स के क्रम को उल्टा करता है",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "टेक्स्ट बनाएं",
+            "description": "एक टेक्स्ट स्ट्रिंग बनाता है",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "टेक्स्ट जोड़ें",
+            "description": "टेक्स्ट स्ट्रिंग्स को जोड़ता है",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "टेक्स्ट जोड़ें",
+            "description": "वेरिएबल के अंत में टेक्स्ट जोड़ता है",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "टेक्स्ट लंबाई",
+            "description": "टेक्स्ट स्ट्रिंग की लंबाई प्राप्त करता है",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "टेक्स्ट खाली है",
+            "description": "जांचता है कि क्या टेक्स्ट खाली है",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "टेक्स्ट ढूंढें",
+            "description": "टेक्स्ट के भीतर टेक्स्ट की स्थिति ढूंढता है",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "वर्ण प्राप्त करें",
+            "description": "टेक्स्ट से एक विशिष्ट वर्ण प्राप्त करता है",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "उपस्ट्रिंग",
+            "description": "टेक्स्ट का एक भाग प्राप्त करता है",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "केस बदलें",
+            "description": "टेक्स्ट को अपरकेस या लोअरकेस में परिवर्तित करता है",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "टेक्स्ट ट्रिम करें",
+            "description": "टेक्स्ट के दोनों ओर से स्पेस हटाता है",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "प्रिंट",
+            "description": "कंसोल पर टेक्स्ट आउटपुट करता है",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "प्रॉम्प्ट",
+            "description": "उपयोगकर्ता से टेक्स्ट इनपुट मांगता है",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

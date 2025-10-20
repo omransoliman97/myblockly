@@ -15,5 +15,332 @@
   "loadProject": "Załaduj Projekt",
   "saveProject": "Zapisz Projekt",
   "discardAll": "Odrzuć Wszystko",
-  "confirmDiscard": "Odrzucić wszystkie bloki? Tej czynności nie można cofnąć."
+  "confirmDiscard": "Odrzucić wszystkie bloki? Tej czynności nie można cofnąć.", 
+  "docs": {
+      "title": "Dokumentacja MyBlockly",
+      "subtitle": "Dowiedz się o wszystkich dostępnych blokach i jak ich używać w swoich projektach.",
+      "home": "Strona główna",
+      "editor": "Edytor",
+      "docs": "Dokumentacja",
+      "categories": "Kategorie",
+      "visualBlock": "Blok wizualny:",
+      "copyXML": "Kopiuj XML",
+      "showXMLCode": "Pokaż kod XML",
+      "generatedCode": "Wygenerowany kod:",
+      "example": "Przykład:",
+      "couldNotRenderBlock": "Nie można wyrenderować bloku",
+      "loadingBlock": "Ładowanie bloku...",
+      "blockCategories": {
+        "logic": "Logika",
+        "loops": "Pętle",
+        "math": "Matematyka",
+        "variables": "Zmienne",
+        "functions": "Funkcje",
+        "lists": "Listy",
+        "text": "Tekst"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "jeśli",
+            "description": "Wykonuje kod, jeśli warunek jest prawdziwy",
+            "code": "if (condition) {\n  // kod do wykonania\n}",
+            "example": "Sprawdź, czy liczba jest dodatnia"
+          },
+          "ifElse": {
+            "name": "jeśli-inaczej",
+            "description": "Wykonuje jeden blok kodu, jeśli warunek jest prawdziwy, i inny, jeśli fałszywy",
+            "code": "if (condition) {\n  // kod jeśli prawda\n} else {\n  // kod jeśli fałsz\n}"
+          },
+          "comparison": {
+            "name": "porównanie",
+            "description": "Porównuje dwie wartości",
+            "code": "a == b  // równe\na != b  // nie równe\na < b   // mniejsze niż\na > b   // większe niż\na <= b  // mniejsze lub równe\na >= b  // większe lub równe"
+          },
+          "logicalOperators": {
+            "name": "operatory logiczne",
+            "description": "Łączy wiele warunków",
+            "code": "condition1 && condition2  // I\ncondition1 || condition2  // LUB\n!condition               // NIE"
+          },
+          "boolean": {
+            "name": "boolean",
+            "description": "Wartość Prawda lub Fałsz",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Reprezentuje pustą lub nieistniejącą wartość",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "operator trójargumentowy",
+            "description": "Zwraca jedną wartość, jeśli warunek jest prawdziwy, inną jeśli fałszywy",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "powtórz",
+            "description": "Powtarza kod określoną liczbę razy",
+            "code": "for (let i = 0; i < times; i++) {\n  // kod do powtórzenia\n}"
+          },
+          "while": {
+            "name": "dopóki",
+            "description": "Powtarza kod, dopóki warunek jest prawdziwy",
+            "code": "while (condition) {\n  // kod do powtórzenia\n}"
+          },
+          "repeatUntil": {
+            "name": "powtarzaj aż",
+            "description": "Powtarza kod, aż warunek stanie się prawdziwy",
+            "code": "do {\n  // kod do powtórzenia\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "licz z",
+            "description": "Pętle ze zmienną licznika od początku do końca",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // kod do powtórzenia\n}"
+          },
+          "forEach": {
+            "name": "dla każdego",
+            "description": "Iteruje po elementach na liście",
+            "code": "for (let item of list) {\n  // kod do wykonania dla każdego elementu\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "przerwij pętlę",
+            "description": "Wychodzi z bieżącej pętli",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "kontynuuj pętlę",
+            "description": "Przechodzi do następnej iteracji pętli",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "liczba",
+            "description": "Wartość numeryczna",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "arytmetyka",
+            "description": "Podstawowe operacje arytmetyczne",
+            "code": "a + b  // dodawanie\na - b  // odejmowanie\na * b  // mnożenie\na / b  // dzielenie\na % b  // modulo (reszta)"
+          },
+          "mathFunctions": {
+            "name": "funkcje matematyczne",
+            "description": "Typowe funkcje matematyczne",
+            "code": "Math.abs(x)     // wartość bezwzględna\nMath.sqrt(x)    // pierwiastek kwadratowy\nMath.pow(x, y)  // x do potęgi y\nMath.round(x)   // zaokrąglij do najbliższej liczby całkowitej\nMath.random()   // liczba losowa między 0 a 1"
+          },
+          "trigFunctions": {
+            "name": "funkcje trygonometryczne",
+            "description": "Funkcje trygonometryczne",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "stałe",
+            "description": "Stałe matematyczne",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "właściwość liczby",
+            "description": "Sprawdza właściwości liczby",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "zaokrąglij",
+            "description": "Zaokrągla liczbę",
+            "code": "Math.round(x)  // zaokrąglij\nMath.ceil(x)   // zaokrąglij w górę\nMath.floor(x)  // zaokrąglij w dół"
+          },
+          "constrain": {
+            "name": "ogranicz",
+            "description": "Ogranicza liczbę do zakresu",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "losowa liczba całkowita",
+            "description": "Generuje losową liczbę całkowitą między dwiema wartościami",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "losowy ułamek",
+            "description": "Generuje losową liczbę między 0 a 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "utwórz zmienną",
+            "description": "Tworzy nową zmienną",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "ustaw zmienną",
+            "description": "Zmienia wartość zmiennej",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "pobierz zmienną",
+            "description": "Pobiera wartość zmiennej",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "zdefiniuj funkcję",
+            "description": "Tworzy funkcję wielokrotnego użytku",
+            "code": "function functionName(parameter1, parameter2) {\n  // ciało funkcji\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "wywołaj funkcję",
+            "description": "Wykonuje funkcję",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "zwróć wartość",
+            "description": "Zwraca wartość z funkcji",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "utwórz pustą listę",
+            "description": "Tworzy nową pustą listę",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "utwórz listę",
+            "description": "Tworzy nową listę z elementami",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "utwórz listę z",
+            "description": "Tworzy listę z powtórzonym elementem",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "długość listy",
+            "description": "Pobiera liczbę elementów na liście",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "lista jest pusta",
+            "description": "Sprawdza, czy lista nie ma elementów",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "znajdź element na liście",
+            "description": "Znajduje pozycję elementu na liście",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "pobierz element",
+            "description": "Pobiera element z listy według indeksu",
+            "code": "let item = myList[index];  // indeks zaczyna się od 0"
+          },
+          "setItem": {
+            "name": "ustaw element",
+            "description": "Zmienia wartość elementu na liście",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "pobierz i usuń element",
+            "description": "Pobiera element i usuwa go z listy",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "usuń element",
+            "description": "Usuwa element z listy",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "pobierz podlistę",
+            "description": "Pobiera część listy",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "podziel tekst na listę",
+            "description": "Konwertuje tekst na listę przez podział",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "połącz listę w tekst",
+            "description": "Konwertuje listę na tekst przez połączenie",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "sortuj listę",
+            "description": "Sortuje listę",
+            "code": "myList.sort()  // numerycznie rosnąco\nmyList.sort().reverse()  // numerycznie malejąco\nmyList.sort()  // alfabetycznie rosnąco\nmyList.sort().reverse()  // alfabetycznie malejąco"
+          },
+          "reverseList": {
+            "name": "odwróć listę",
+            "description": "Odwraca kolejność elementów na liście",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "utwórz tekst",
+            "description": "Tworzy ciąg tekstowy",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "połącz tekst",
+            "description": "Łączy ciągi tekstowe",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "dołącz tekst",
+            "description": "Dodaje tekst na koniec zmiennej",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "długość tekstu",
+            "description": "Pobiera długość ciągu tekstowego",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "tekst jest pusty",
+            "description": "Sprawdza, czy tekst jest pusty",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "znajdź tekst",
+            "description": "Znajduje pozycję tekstu w tekście",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "pobierz znak",
+            "description": "Pobiera konkretny znak z tekstu",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "podciąg",
+            "description": "Pobiera część tekstu",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "zmień wielkość liter",
+            "description": "Konwertuje tekst na wielkie lub małe litery",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "przytnij tekst",
+            "description": "Usuwa spacje z obu stron tekstu",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "drukuj",
+            "description": "Wypisuje tekst do konsoli",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "prompt",
+            "description": "Prosi użytkownika o wprowadzenie tekstu",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

@@ -15,5 +15,332 @@
   "loadProject": "Project Laden",
   "saveProject": "Project Opslaan",
   "discardAll": "Alles Verwijderen",
-  "confirmDiscard": "Alle blokken verwijderen? Dit kan niet ongedaan worden gemaakt."
+  "confirmDiscard": "Alle blokken verwijderen? Dit kan niet ongedaan worden gemaakt.",
+  "docs": {
+      "title": "MyBlockly Documentatie",
+      "subtitle": "Leer over alle beschikbare blokken en hoe ze te gebruiken in je projecten.",
+      "home": "Home",
+      "editor": "Editor",
+      "docs": "Documentatie",
+      "categories": "Categorieën",
+      "visualBlock": "Visueel blok:",
+      "copyXML": "Kopieer XML",
+      "showXMLCode": "Toon XML code",
+      "generatedCode": "Gegenereerde code:",
+      "example": "Voorbeeld:",
+      "couldNotRenderBlock": "Kon blok niet weergeven",
+      "loadingBlock": "Blok laden...",
+      "blockCategories": {
+        "logic": "Logica",
+        "loops": "Lussen",
+        "math": "Wiskunde",
+        "variables": "Variabelen",
+        "functions": "Functies",
+        "lists": "Lijsten",
+        "text": "Tekst"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "als",
+            "description": "Voert code uit als een voorwaarde waar is",
+            "code": "if (condition) {\n  // uit te voeren code\n}",
+            "example": "Controleer of een nummer positief is"
+          },
+          "ifElse": {
+            "name": "als-anders",
+            "description": "Voert één codeblok uit als een voorwaarde waar is, en een ander als onwaar",
+            "code": "if (condition) {\n  // code als waar\n} else {\n  // code als onwaar\n}"
+          },
+          "comparison": {
+            "name": "vergelijking",
+            "description": "Vergelijkt twee waarden",
+            "code": "a == b  // gelijk aan\na != b  // niet gelijk aan\na < b   // kleiner dan\na > b   // groter dan\na <= b  // kleiner dan of gelijk aan\na >= b  // groter dan of gelijk aan"
+          },
+          "logicalOperators": {
+            "name": "logische operatoren",
+            "description": "Combineert meerdere voorwaarden",
+            "code": "condition1 && condition2  // EN\ncondition1 || condition2  // OF\n!condition               // NIET"
+          },
+          "boolean": {
+            "name": "boolean",
+            "description": "Waar of Onwaar waarde",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Vertegenwoordigt een lege of niet-bestaande waarde",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "ternaire operator",
+            "description": "Retourneert één waarde als voorwaarde waar is, een andere als onwaar",
+            "code": "condition ? valueIfTrue : valueIfFalse"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "herhaal",
+            "description": "Herhaalt code een gespecificeerd aantal keren",
+            "code": "for (let i = 0; i < times; i++) {\n  // te herhalen code\n}"
+          },
+          "while": {
+            "name": "terwijl",
+            "description": "Herhaalt code zolang een voorwaarde waar is",
+            "code": "while (condition) {\n  // te herhalen code\n}"
+          },
+          "repeatUntil": {
+            "name": "herhaal tot",
+            "description": "Herhaalt code tot een voorwaarde waar wordt",
+            "code": "do {\n  // te herhalen code\n} while (!condition);"
+          },
+          "countWith": {
+            "name": "tel met",
+            "description": "Lussen met een tellervariabele van start tot eind",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // te herhalen code\n}"
+          },
+          "forEach": {
+            "name": "voor elk",
+            "description": "Itereert over items in een lijst",
+            "code": "for (let item of list) {\n  // uit te voeren code voor elk item\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "breek uit lus",
+            "description": "Verlaat de huidige lus",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "doorgaan met lus",
+            "description": "Slaat over naar de volgende iteratie van de lus",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "nummer",
+            "description": "Een numerieke waarde",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "rekenkunde",
+            "description": "Basis rekenkundige bewerkingen",
+            "code": "a + b  // optelling\na - b  // aftrekking\na * b  // vermenigvuldiging\na / b  // deling\na % b  // modulo (rest)"
+          },
+          "mathFunctions": {
+            "name": "wiskundige functies",
+            "description": "Veelvoorkomende wiskundige functies",
+            "code": "Math.abs(x)     // absolute waarde\nMath.sqrt(x)    // vierkantswortel\nMath.pow(x, y)  // x tot de macht y\nMath.round(x)   // afronden naar dichtstbijzijnde geheel getal\nMath.random()   // willekeurig nummer tussen 0 en 1"
+          },
+          "trigFunctions": {
+            "name": "goniometrische functies",
+            "description": "Goniometrische functies",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "constanten",
+            "description": "Wiskundige constanten",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "nummer eigenschap",
+            "description": "Controleert eigenschappen van een nummer",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "afronden",
+            "description": "Rondt een nummer af",
+            "code": "Math.round(x)  // afronden\nMath.ceil(x)   // naar boven afronden\nMath.floor(x)  // naar beneden afronden"
+          },
+          "constrain": {
+            "name": "beperk",
+            "description": "Beperkt een nummer om binnen een bereik te zijn",
+            "code": "Math.max(low, Math.min(high, x))"
+          },
+          "randomInteger": {
+            "name": "willekeurig geheel getal",
+            "description": "Genereert een willekeurig geheel getal tussen twee waarden",
+            "code": "Math.floor(Math.random() * (max - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "willekeurige breuk",
+            "description": "Genereert een willekeurig nummer tussen 0 en 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "maak variabele",
+            "description": "Maakt een nieuwe variabele",
+            "code": "let variableName = value;"
+          },
+          "setVariable": {
+            "name": "stel variabele in",
+            "description": "Verandert de waarde van een variabele",
+            "code": "variableName = newValue;"
+          },
+          "getVariable": {
+            "name": "krijg variabele",
+            "description": "Krijgt de waarde van een variabele",
+            "code": "variableName"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "definieer functie",
+            "description": "Maakt een herbruikbare functie",
+            "code": "function functionName(parameter1, parameter2) {\n  // functie lichaam\n  return result;\n}"
+          },
+          "callFunction": {
+            "name": "roep functie aan",
+            "description": "Voert een functie uit",
+            "code": "functionName(argument1, argument2);"
+          },
+          "returnValue": {
+            "name": "retourneer waarde",
+            "description": "Retourneert een waarde van een functie",
+            "code": "return value;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "maak lege lijst",
+            "description": "Maakt een nieuwe lege lijst",
+            "code": "let myList = [];"
+          },
+          "createList": {
+            "name": "maak lijst",
+            "description": "Maakt een nieuwe lijst met items",
+            "code": "let myList = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "maak lijst met",
+            "description": "Maakt een lijst met een herhaald item",
+            "code": "Array(count).fill(item)"
+          },
+          "listLength": {
+            "name": "lijst lengte",
+            "description": "Krijgt het aantal items in een lijst",
+            "code": "myList.length"
+          },
+          "listIsEmpty": {
+            "name": "lijst is leeg",
+            "description": "Controleert of lijst geen items heeft",
+            "code": "myList.length === 0"
+          },
+          "findItemInList": {
+            "name": "vind item in lijst",
+            "description": "Vindt de positie van een item in een lijst",
+            "code": "myList.indexOf(item)\nmyList.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "krijg item",
+            "description": "Krijgt een item van een lijst per index",
+            "code": "let item = myList[index];  // index begint bij 0"
+          },
+          "setItem": {
+            "name": "stel item in",
+            "description": "Verandert de waarde van een item in een lijst",
+            "code": "myList[index] = newValue;"
+          },
+          "getAndRemoveItem": {
+            "name": "krijg en verwijder item",
+            "description": "Krijgt een item en verwijdert het uit de lijst",
+            "code": "let item = myList.splice(index, 1)[0];"
+          },
+          "removeItem": {
+            "name": "verwijder item",
+            "description": "Verwijdert een item uit een lijst",
+            "code": "myList.splice(index, 1);"
+          },
+          "getSublist": {
+            "name": "krijg sublijst",
+            "description": "Krijgt een deel van een lijst",
+            "code": "myList.slice(start, end)"
+          },
+          "splitTextIntoList": {
+            "name": "splits tekst in lijst",
+            "description": "Converteert tekst naar een lijst door te splitsen",
+            "code": "text.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "voeg lijst samen in tekst",
+            "description": "Converteert een lijst naar tekst door samen te voegen",
+            "code": "myList.join(\",\")"
+          },
+          "sortList": {
+            "name": "sorteer lijst",
+            "description": "Sorteert een lijst",
+            "code": "myList.sort()  // numeriek oplopend\nmyList.sort().reverse()  // numeriek aflopend\nmyList.sort()  // alfabetisch oplopend\nmyList.sort().reverse()  // alfabetisch aflopend"
+          },
+          "reverseList": {
+            "name": "keer lijst om",
+            "description": "Keert de volgorde van items in een lijst om",
+            "code": "myList.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "maak tekst",
+            "description": "Maakt een tekstreeks",
+            "code": "let text = \"Hello, world!\";"
+          },
+          "joinText": {
+            "name": "voeg tekst samen",
+            "description": "Combineert tekstreeksen",
+            "code": "let combined = text1 + text2;"
+          },
+          "appendText": {
+            "name": "voeg tekst toe",
+            "description": "Voegt tekst toe aan het einde van een variabele",
+            "code": "text += \"more text\";"
+          },
+          "textLength": {
+            "name": "tekst lengte",
+            "description": "Krijgt de lengte van een tekstreeks",
+            "code": "text.length"
+          },
+          "textIsEmpty": {
+            "name": "tekst is leeg",
+            "description": "Controleert of tekst leeg is",
+            "code": "text.length === 0"
+          },
+          "findText": {
+            "name": "vind tekst",
+            "description": "Vindt de positie van tekst binnen tekst",
+            "code": "text.indexOf(\"search\")\ntext.lastIndexOf(\"search\")"
+          },
+          "getCharacter": {
+            "name": "krijg karakter",
+            "description": "Krijgt een specifiek karakter van tekst",
+            "code": "text.charAt(index)"
+          },
+          "substring": {
+            "name": "substring",
+            "description": "Krijgt een deel van tekst",
+            "code": "text.substring(start, end)"
+          },
+          "changeCase": {
+            "name": "verander hoofdletters",
+            "description": "Converteert tekst naar hoofdletters of kleine letters",
+            "code": "text.toUpperCase()\ntext.toLowerCase()\ntext.charAt(0).toUpperCase() + text.slice(1)"
+          },
+          "trimText": {
+            "name": "trim tekst",
+            "description": "Verwijdert spaties van beide kanten van tekst",
+            "code": "text.trim()\ntext.trimLeft()\ntext.trimRight()"
+          },
+          "print": {
+            "name": "print",
+            "description": "Output tekst naar console",
+            "code": "console.log(text);"
+          },
+          "prompt": {
+            "name": "prompt",
+            "description": "Vraagt gebruiker om tekstinvoer",
+            "code": "prompt(\"Enter text:\")"
+          }
+        }
+      }
+    }
+  
 }

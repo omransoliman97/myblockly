@@ -127,8 +127,8 @@
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  gap: 12px;
-  padding: 12px;
+  gap: 0;
+  padding: 0;
 }
 
 .controls {
@@ -304,6 +304,13 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --gradient-text-myblockly: linear-gradient(90deg, #9810FA 0%, #10B981 100%);
+}
+.gradient-text-myblockly {
+  background: var(--gradient-text-myblockly);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @layer base {
@@ -400,37 +407,23 @@
   text-align: right;
 }
 
+/* Mobile Menu Button - Hidden on desktop */
 .mobile-menu-btn {
-        display: none !important;
-      }
-      
-      .mobile-dropdown {
-        display: none;
-        flex-direction: column;
-        gap: 8px;
-        padding: 12px;
-        background: var(--background);
-        border: 1px solid rgba(0,0,0,0.15);
-        border-radius: 8px;
-        margin-top: 8px;
-      }
-      
-      @media (max-width: 768px) {
-        .mobile-menu-btn {
-          display: flex !important;
-        }
-        
-        .controls-container {
-          display: none !important;
-        }
-        
-        .mobile-dropdown-open {
-          display: flex;
-        }
-      }
+  display: none !important;
+}
 
+/* Desktop Controls - Visible on desktop */
 .controls-container {
-  gap: 8px;
-  padding-right: 16px;
-  padding-top: 12px;
+  display: flex !important;
+}
+
+/* Mobile breakpoint */
+@media (max-width: 768px) {
+  .mobile-menu-btn {
+    display: flex !important;
+  }
+  
+  .controls-container {
+    display: none !important;
+  }
 }

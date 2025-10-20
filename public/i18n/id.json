@@ -15,5 +15,332 @@
   "loadProject": "Muat Proyek",
   "saveProject": "Simpan Proyek",
   "discardAll": "Buang Semua",
-  "confirmDiscard": "Buang semua blok? Tindakan ini tidak dapat dibatalkan."
+  "confirmDiscard": "Buang semua blok? Tindakan ini tidak dapat dibatalkan.",
+  "docs": {
+      "title": "Dokumentasi MyBlockly",
+      "subtitle": "Pelajari semua blok yang tersedia dan cara menggunakannya dalam proyek Anda.",
+      "home": "Beranda",
+      "editor": "Editor",
+      "docs": "Dokumentasi",
+      "categories": "Kategori",
+      "visualBlock": "Blok Visual:",
+      "copyXML": "Salin XML",
+      "showXMLCode": "Tampilkan Kode XML",
+      "generatedCode": "Kode yang Dihasilkan:",
+      "example": "Contoh:",
+      "couldNotRenderBlock": "Tidak dapat merender blok",
+      "loadingBlock": "Memuat blok...",
+      "blockCategories": {
+        "logic": "Logika",
+        "loops": "Perulangan",
+        "math": "Matematika",
+        "variables": "Variabel",
+        "functions": "Fungsi",
+        "lists": "Daftar",
+        "text": "Teks"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "jika",
+            "description": "Menjalankan kode jika suatu kondisi benar",
+            "code": "if (kondisi) {\n  // kode yang dijalankan\n}",
+            "example": "Periksa apakah suatu angka positif"
+          },
+          "ifElse": {
+            "name": "jika-lain",
+            "description": "Menjalankan satu blok kode jika kondisi benar, dan blok lain jika salah",
+            "code": "if (kondisi) {\n  // kode jika benar\n} else {\n  // kode jika salah\n}"
+          },
+          "comparison": {
+            "name": "perbandingan",
+            "description": "Membandingkan dua nilai",
+            "code": "a == b  // sama dengan\na != b  // tidak sama dengan\na < b   // kurang dari\na > b   // lebih dari\na <= b  // kurang dari atau sama dengan\na >= b  // lebih dari atau sama dengan"
+          },
+          "logicalOperators": {
+            "name": "operator logika",
+            "description": "Menggabungkan beberapa kondisi",
+            "code": "kondisi1 && kondisi2  // DAN\nkondisi1 || kondisi2  // ATAU\n!kondisi               // BUKAN"
+          },
+          "boolean": {
+            "name": "boolean",
+            "description": "Nilai Benar atau Salah",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Merepresentasikan nilai kosong atau tidak ada",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "operator ternary",
+            "description": "Mengembalikan satu nilai jika kondisi benar, nilai lain jika salah",
+            "code": "kondisi ? nilaiJikaBenar : nilaiJikaSalah"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "ulangi",
+            "description": "Mengulangi kode sebanyak jumlah yang ditentukan",
+            "code": "for (let i = 0; i < kali; i++) {\n  // kode yang diulang\n}"
+          },
+          "while": {
+            "name": "selama",
+            "description": "Mengulangi kode selama suatu kondisi benar",
+            "code": "while (kondisi) {\n  // kode yang diulang\n}"
+          },
+          "repeatUntil": {
+            "name": "ulangi hingga",
+            "description": "Mengulangi kode hingga suatu kondisi menjadi benar",
+            "code": "do {\n  // kode yang diulang\n} while (!kondisi);"
+          },
+          "countWith": {
+            "name": "hitung dengan",
+            "description": "Perulangan dengan variabel penghitung dari awal hingga akhir",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // kode yang diulang\n}"
+          },
+          "forEach": {
+            "name": "untuk setiap",
+            "description": "Iterasi melalui item dalam daftar",
+            "code": "for (let item of daftar) {\n  // kode yang dijalankan untuk setiap item\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "keluar dari perulangan",
+            "description": "Keluar dari perulangan saat ini",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "lanjutkan perulangan",
+            "description": "Melompat ke iterasi berikutnya dari perulangan",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "angka",
+            "description": "Nilai numerik",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "aritmetika",
+            "description": "Operasi aritmetika dasar",
+            "code": "a + b  // penambahan\na - b  // pengurangan\na * b  // perkalian\na / b  // pembagian\na % b  // modulo (sisa bagi)"
+          },
+          "mathFunctions": {
+            "name": "fungsi matematika",
+            "description": "Fungsi matematika umum",
+            "code": "Math.abs(x)     // nilai absolut\nMath.sqrt(x)    // akar kuadrat\nMath.pow(x, y)  // x pangkat y\nMath.round(x)   // bulatkan ke integer terdekat\nMath.random()   // angka acak antara 0 dan 1"
+          },
+          "trigFunctions": {
+            "name": "fungsi trigonometri",
+            "description": "Fungsi trigonometri",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "konstanta",
+            "description": "Konstanta matematika",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "properti angka",
+            "description": "Periksa properti suatu angka",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "pembulatan",
+            "description": "Membulatkan angka",
+            "code": "Math.round(x)  // bulatkan\nMath.ceil(x)   // bulatkan ke atas\nMath.floor(x)  // bulatkan ke bawah"
+          },
+          "constrain": {
+            "name": "batasi",
+            "description": "Membatasi angka dalam suatu rentang",
+            "code": "Math.max(rendah, Math.min(tinggi, x))"
+          },
+          "randomInteger": {
+            "name": "integer acak",
+            "description": "Hasilkan integer acak antara dua nilai",
+            "code": "Math.floor(Math.random() * (maks - min + 1)) + min"
+          },
+          "randomFraction": {
+            "name": "pecahan acak",
+            "description": "Hasilkan angka acak antara 0 dan 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "buat variabel",
+            "description": "Buat variabel baru",
+            "code": "let namaVariabel = nilai;"
+          },
+          "setVariable": {
+            "name": "atur variabel",
+            "description": "Ubah nilai variabel",
+            "code": "namaVariabel = nilaiBaru;"
+          },
+          "getVariable": {
+            "name": "ambil variabel",
+            "description": "Ambil nilai variabel",
+            "code": "namaVariabel"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "definisikan fungsi",
+            "description": "Buat fungsi yang dapat digunakan kembali",
+            "code": "function namaFungsi(parameter1, parameter2) {\n  // isi fungsi\n  return hasil;\n}"
+          },
+          "callFunction": {
+            "name": "panggil fungsi",
+            "description": "Jalankan fungsi",
+            "code": "namaFungsi(argumen1, argumen2);"
+          },
+          "returnValue": {
+            "name": "kembalikan nilai",
+            "description": "Kembalikan nilai dari fungsi",
+            "code": "return nilai;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "buat daftar kosong",
+            "description": "Buat daftar kosong baru",
+            "code": "let daftarSaya = [];"
+          },
+          "createList": {
+            "name": "buat daftar",
+            "description": "Buat daftar baru dengan item",
+            "code": "let daftarSaya = [item1, item2, item3];"
+          },
+          "createListWith": {
+            "name": "buat daftar dengan",
+            "description": "Buat daftar dengan item yang diulang",
+            "code": "Array(jumlah).fill(item)"
+          },
+          "listLength": {
+            "name": "panjang daftar",
+            "description": "Dapatkan jumlah item dalam daftar",
+            "code": "daftarSaya.length"
+          },
+          "listIsEmpty": {
+            "name": "daftar kosong",
+            "description": "Periksa apakah daftar tidak memiliki item",
+            "code": "daftarSaya.length === 0"
+          },
+          "findItemInList": {
+            "name": "cari item dalam daftar",
+            "description": "Temukan posisi item dalam daftar",
+            "code": "daftarSaya.indexOf(item)\ndaftarSaya.lastIndexOf(item)"
+          },
+          "getItem": {
+            "name": "ambil item",
+            "description": "Ambil item dari daftar berdasarkan indeks",
+            "code": "let item = daftarSaya[indeks];  // indeks dimulai dari 0"
+          },
+          "setItem": {
+            "name": "atur item",
+            "description": "Ubah nilai item dalam daftar",
+            "code": "daftarSaya[indeks] = nilaiBaru;"
+          },
+          "getAndRemoveItem": {
+            "name": "ambil dan hapus item",
+            "description": "Ambil item dan hapus dari daftar",
+            "code": "let item = daftarSaya.splice(indeks, 1)[0];"
+          },
+          "removeItem": {
+            "name": "hapus item",
+            "description": "Hapus item dari daftar",
+            "code": "daftarSaya.splice(indeks, 1);"
+          },
+          "getSublist": {
+            "name": "ambil subdaftar",
+            "description": "Ambil sebagian dari daftar",
+            "code": "daftarSaya.slice(awal, akhir)"
+          },
+          "splitTextIntoList": {
+            "name": "pisahkan teks menjadi daftar",
+            "description": "Konversi teks menjadi daftar dengan memisahkan",
+            "code": "teks.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "gabungkan daftar menjadi teks",
+            "description": "Konversi daftar menjadi teks dengan menggabungkan",
+            "code": "daftarSaya.join(\",\")"
+          },
+          "sortList": {
+            "name": "urutkan daftar",
+            "description": "Urutkan daftar",
+            "code": "daftarSaya.sort()  // numerik naik\ndaftarSaya.sort().reverse()  // numerik turun\ndaftarSaya.sort()  // alfabet naik\ndaftarSaya.sort().reverse()  // alfabet turun"
+          },
+          "reverseList": {
+            "name": "balikkan daftar",
+            "description": "Balikkan urutan item dalam daftar",
+            "code": "daftarSaya.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "buat teks",
+            "description": "Buat string teks",
+            "code": "let teks = \"Halo, dunia!\";"
+          },
+          "joinText": {
+            "name": "gabungkan teks",
+            "description": "Gabungkan string teks",
+            "code": "let gabungan = teks1 + teks2;"
+          },
+          "appendText": {
+            "name": "tambahkan teks",
+            "description": "Tambahkan teks ke akhir variabel",
+            "code": "teks += \"teks tambahan\";"
+          },
+          "textLength": {
+            "name": "panjang teks",
+            "description": "Dapatkan panjang string teks",
+            "code": "teks.length"
+          },
+          "textIsEmpty": {
+            "name": "teks kosong",
+            "description": "Periksa apakah teks kosong",
+            "code": "teks.length === 0"
+          },
+          "findText": {
+            "name": "cari teks",
+            "description": "Temukan posisi teks dalam teks",
+            "code": "teks.indexOf(\"pencarian\")\nteks.lastIndexOf(\"pencarian\")"
+          },
+          "getCharacter": {
+            "name": "ambil karakter",
+            "description": "Ambil karakter spesifik dari teks",
+            "code": "teks.charAt(indeks)"
+          },
+          "substring": {
+            "name": "substring",
+            "description": "Ambil sebagian dari teks",
+            "code": "teks.substring(awal, akhir)"
+          },
+          "changeCase": {
+            "name": "ubah huruf",
+            "description": "Konversi teks ke huruf besar atau kecil",
+            "code": "teks.toUpperCase()\nteks.toLowerCase()\nteks.charAt(0).toUpperCase() + teks.slice(1)"
+          },
+          "trimText": {
+            "name": "pangkas teks",
+            "description": "Hapus spasi dari kedua sisi teks",
+            "code": "teks.trim()\nteks.trimLeft()\nteks.trimRight()"
+          },
+          "print": {
+            "name": "cetak",
+            "description": "Keluarkan teks ke konsol",
+            "code": "console.log(teks);"
+          },
+          "prompt": {
+            "name": "prompt",
+            "description": "Minta input teks dari pengguna",
+            "code": "prompt(\"Masukkan teks:\")"
+          }
+        }
+      }
+    }
+  
 }

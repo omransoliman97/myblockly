@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save, Trash2 } from "lucide-react";
 import { Menu, X } from 'lucide-react'; 
+import Link from "next/link";
 
 export default function Home() {
   const blocklyDivRef = useRef<HTMLDivElement | null>(null);
@@ -14,6 +15,9 @@ export default function Home() {
   const workspaceRef = useRef<WorkspaceSvg | null>(null);
   const toolboxXmlRef = useRef<string>("");
   const resizeHandlerRef = useRef<(() => void) | null>(null);
+  const xmlDebounceTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const isApplyingXmlRef = useRef<boolean>(false);
+  const [xmlError, setXmlError] = useState<string>("");
   const [ready, setReady] = useState(false);
   type Tab = "blocks" | "javascript" | "python" | "php" | "xml" | "json";
   const [activeTab, setActiveTab] = useState<Tab>("blocks");
@@ -404,6 +408,7 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
       // Generate initial code and subscribe to workspace changes
       const changeListener = () => {
         updateGeneratedCode();
+        saveWorkspaceToLocalStorage(); // Auto-save on every change
       };
       workspace.addChangeListener(changeListener);
 
@@ -414,6 +419,13 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
           const xml = Blockly.utils.xml.textToDom(saved);
           Blockly.Xml.domToWorkspace(xml, workspace);
           window.localStorage.removeItem("blockly_autosave_xml");
+        } else {
+          // Restore from persistent storage if no language switch save exists
+          const persistent = window.localStorage.getItem("blockly_workspace_xml");
+          if (persistent) {
+            const xml = Blockly.utils.xml.textToDom(persistent);
+            Blockly.Xml.domToWorkspace(xml, workspace);
+          }
         }
       } catch {}
 
@@ -484,6 +496,12 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
     const workspace = workspaceRef.current;
     if (!workspace) return;
     const tab = tabOverride || activeTab;
+    
+    // Don't update XML if we're currently applying XML to avoid infinite loop
+    if (tab === "xml" && isApplyingXmlRef.current) {
+      return;
+    }
+    
     try {
       if (tab === "javascript") {
         const { javascriptGenerator } = await import("blockly/javascript");
@@ -597,6 +615,113 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
   const handleTabClick = async (tab: Tab) => {
     setActiveTab(tab);
     await updateGeneratedCode(tab);
+  };
+
+  // Save workspace to localStorage
+  const saveWorkspaceToLocalStorage = async () => {
+    if (!workspaceRef.current) return;
+    try {
+      const Blockly = await import("blockly/core");
+      const xmlDom = Blockly.Xml.workspaceToDom(workspaceRef.current);
+      const xmlText = Blockly.Xml.domToText(xmlDom);
+      window.localStorage.setItem("blockly_workspace_xml", xmlText);
+    } catch (err) {
+      console.error("Failed to save workspace:", err);
+    }
+  };
+
+  // Handler for XML textarea changes with instant auto-apply
+  const handleXmlChange = async (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const xmlText = e.target.value;
+    setGeneratedCode(xmlText);
+    setXmlError(""); // Clear previous errors
+    
+    // Clear previous timer
+    if (xmlDebounceTimerRef.current) {
+      clearTimeout(xmlDebounceTimerRef.current);
+    }
+    
+    // Auto-apply changes after 300ms (fast but not instant to avoid performance issues)
+    xmlDebounceTimerRef.current = setTimeout(() => {
+      applyXmlToWorkspaceSilent(xmlText);
+    }, 300);
+  };
+
+  // Apply XML to workspace silently (for real-time updates)
+  const applyXmlToWorkspaceSilent = async (xmlText: string) => {
+    if (!workspaceRef.current) return;
+    
+    // Set flag to prevent infinite loop
+    isApplyingXmlRef.current = true;
+    
+    try {
+      const Blockly = await import("blockly/core");
+      
+      if (!xmlText.trim()) {
+        // If XML is empty, clear workspace
+        workspaceRef.current.clear();
+        window.localStorage.setItem("blockly_workspace_xml", "");
+        setXmlError("");
+      } else {
+        // Parse and apply XML
+        const xmlDom = Blockly.utils.xml.textToDom(xmlText);
+        
+        // Clear workspace and apply new XML
+        workspaceRef.current.clear();
+        Blockly.Xml.domToWorkspace(xmlDom, workspaceRef.current);
+        
+        // Auto-save after applying XML
+        saveWorkspaceToLocalStorage();
+        setXmlError(""); // Clear error on success
+      }
+    } catch (err) {
+      // Show error in a non-intrusive way
+      const errorMsg = (err as Error).message || "Invalid XML format";
+      setXmlError("⚠️ XML Error: " + errorMsg);
+      console.warn("XML parsing error:", err);
+    } finally {
+      // Reset flag after a short delay to allow workspace events to complete
+      setTimeout(() => {
+        isApplyingXmlRef.current = false;
+      }, 150);
+    }
+  };
+
+  // Copy XML to clipboard
+  const copyXmlToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(generatedCode);
+      // Show a brief success message
+      const originalText = generatedCode;
+      setGeneratedCode("✓ Copied to clipboard!\n\n" + originalText);
+      setTimeout(() => {
+        setGeneratedCode(originalText);
+      }, 1000);
+    } catch (err) {
+      alert("Failed to copy to clipboard. Please select and copy manually.");
+      console.error("Copy failed:", err);
+    }
+  };
+
+  // Update all tabs when workspace changes (used after XML paste)
+  const updateAllTabs = async () => {
+    const workspace = workspaceRef.current;
+    if (!workspace) return;
+    
+    try {
+      const Blockly = await import("blockly/core");
+      
+      // Generate code for all languages but don't change active tab
+      // This ensures when user switches tabs, the code is already ready
+      const { javascriptGenerator } = await import("blockly/javascript");
+      const { pythonGenerator } = await import("blockly/python");
+      const { phpGenerator } = await import("blockly/php");
+      
+      // Just trigger a workspace change to update the current active tab
+      await updateGeneratedCode();
+    } catch (err) {
+      console.error("Failed updating tabs:", err);
+    }
   };
 
   // Also regenerate when the active tab changes (e.g., initial mount or state changes)
@@ -731,14 +856,17 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
 
     // Restore blocks
     try {
-      const savedXml = Blockly.utils.xml.textToDom(xmlText);
-      Blockly.Xml.domToWorkspace(savedXml, newWorkspace);
+    const savedXml = Blockly.utils.xml.textToDom(xmlText);
+    Blockly.Xml.domToWorkspace(savedXml, newWorkspace);
     } catch {}
 
     workspaceRef.current = newWorkspace as WorkspaceSvg;
-    const changeListener = () => updateGeneratedCode();
-    newWorkspace.addChangeListener(changeListener);
-    const resize = () => Blockly.svgResize(newWorkspace);
+    const changeListener = () => {
+      updateGeneratedCode();
+      saveWorkspaceToLocalStorage(); // Auto-save on every change
+  };
+  newWorkspace.addChangeListener(changeListener);
+  const resize = () => Blockly.svgResize(newWorkspace);
     resizeHandlerRef.current = resize;
     window.addEventListener("resize", resize);
     Blockly.svgResize(newWorkspace);
@@ -888,7 +1016,10 @@ const reinjectWorkspace = async (opts?: { soundsEnabled?: boolean }) => {
   } catch {}
 
   workspaceRef.current = newWorkspace as WorkspaceSvg;
-  const changeListener = () => updateGeneratedCode();
+  const changeListener = () => {
+    updateGeneratedCode();
+    saveWorkspaceToLocalStorage(); // Auto-save on every change
+  };
   newWorkspace.addChangeListener(changeListener);
   const resize = () => Blockly.svgResize(newWorkspace);
   resizeHandlerRef.current = resize;
@@ -912,10 +1043,12 @@ const handleDiscardAll = async () => {
   if (!ok) return;
   ws.clear();
   await updateGeneratedCode();
+  // Save empty workspace
+  saveWorkspaceToLocalStorage();
 };
 
 return (
-  <div className="blockly-page" style={{ display: "flex", flexDirection: "column", gap: 12, minHeight: "100vh" }}>
+  <div className="blockly-page" style={{ display: "flex", flexDirection: "column", gap: 0, minHeight: "100vh" }}>
     {/* Google Analytics */}
     <Script src="https://www.googletagmanager.com/gtag/js?id=G-BNLPSLHQHF" strategy="afterInteractive" />
     <Script id="gtag-init" strategy="afterInteractive">{`
@@ -925,8 +1058,11 @@ return (
       gtag('config', 'G-BNLPSLHQHF');
     `}</Script>
     
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between"}}>
-      <div style={{ fontWeight: 700, fontSize: 22, lineHeight: "20px", color:"#9810FA"}}><a href="/">My Blockly</a></div>
+    {/* Header */}
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
+      <div >
+        <Link href="/" className="font-black text-[24px] leading-[1.1] tracking-[-0.5px] gradient-text-myblockly" >My Blockly</Link>
+      </div>
       
       {/* Mobile menu button */}
       <Button 
@@ -935,106 +1071,109 @@ return (
         size="icon" 
         variant="outline" 
         aria-label="Toggle menu"
-        style={{ minWidth: "auto", padding: "8px 12px" }}
       >
-        {isMobileMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+        {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
       </Button>
 
-      {/* Controls container - visible on desktop, hidden on mobile */}
-      <div className="controls-container">
-       <div style={{ display: "flex",  alignItems: "center",  justifyContent: "flex-end",  gap: 8, paddingBottom: 12 }}>
-    
-    <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-      <label htmlFor="ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>{t?.language || 'Language'}</label>
-      <Select
-        value={uiLang}
-        onValueChange={async (newLang: Language) => {
-          setUiLang(newLang);
-          localStorage.setItem('site-lang', newLang);
-          await changeLocaleAndReload(newLang);
-        }}
-      >
-        <SelectTrigger id="ui-lang" size="sm" aria-label="Language">
-          <SelectValue />
-        </SelectTrigger>
-        <SelectContent align="end">
-          <SelectItem value="en">English</SelectItem>
-          <SelectItem value="fr">Français</SelectItem>
-          <SelectItem value="es">Español</SelectItem>
-          <SelectItem value="it">Italiano</SelectItem>
-          <SelectItem value="pt">Português</SelectItem>
-          <SelectItem value="de">Deutsch</SelectItem>
-          <SelectItem value="nl">Nederlands</SelectItem>
-          <SelectItem value="tr">Türkçe</SelectItem>
-          <SelectItem value="pl">Polski</SelectItem>
-          <SelectItem value="hi">हिन्दी</SelectItem>
-          <SelectItem value="ru">Русский</SelectItem>
-          <SelectItem value="id">Bahasa Indonesia</SelectItem>
-          <SelectItem value="ja">日本語</SelectItem>
-          <SelectItem value="zh">中文</SelectItem>
-          <SelectItem value="ko">한국어</SelectItem>
-          <SelectItem value="vi">Tiếng Việt</SelectItem>
-          <SelectItem value="th">ไทย</SelectItem>
-          <SelectItem value="uk">Українська</SelectItem>
-          <SelectItem value="ar">العربية</SelectItem>
-        </SelectContent>
-      </Select>
-    </div>
-    <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme" style={{ minWidth: "auto", padding: "8px 12px" }}>
-      {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-    </Button>
-    <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound" style={{ minWidth: "auto", padding: "8px 12px" }}>
-      {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
-    </Button>
-  </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-        <Button onClick={handleRun} disabled={!ready}>
-          <Play className="size-4"  />{t?.runProject || 'Run Project'}
-        </Button>
-        <Button onClick={handleOpenFilePicker}>
-          <FolderOpen className="size-4" />{t?.loadProject || 'Load Project'}
-        </Button>
-        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready}>
-          <Save className="size-4" />{t?.saveProject || 'Save Project'}
-        </Button>
-        <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
-          <Trash2 className="size-4"  />{t?.discardAll || 'Discard All'}
-        </Button>
+      {/* Desktop Controls */}
+      <div className="controls-container" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
+        {/* Settings Group */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingRight: "16px", borderRight: "1px solid rgba(0,0,0,0.1)" }}>
+          <Select
+            value={uiLang}
+            onValueChange={async (newLang: Language) => {
+              setUiLang(newLang);
+              localStorage.setItem('site-lang', newLang);
+              await changeLocaleAndReload(newLang);
+            }}
+          >
+            <SelectTrigger id="ui-lang" style={{ width: "140px" }} aria-label="Language">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent align="end">
+              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="fr">Français</SelectItem>
+              <SelectItem value="es">Español</SelectItem>
+              <SelectItem value="it">Italiano</SelectItem>
+              <SelectItem value="pt">Português</SelectItem>
+              <SelectItem value="de">Deutsch</SelectItem>
+              <SelectItem value="nl">Nederlands</SelectItem>
+              <SelectItem value="tr">Türkçe</SelectItem>
+              <SelectItem value="pl">Polski</SelectItem>
+              <SelectItem value="hi">हिन्दी</SelectItem>
+              <SelectItem value="ru">Русский</SelectItem>
+              <SelectItem value="id">Bahasa Indonesia</SelectItem>
+              <SelectItem value="ja">日本語</SelectItem>
+              <SelectItem value="zh">中文</SelectItem>
+              <SelectItem value="ko">한국어</SelectItem>
+              <SelectItem value="vi">Tiếng Việt</SelectItem>
+              <SelectItem value="th">ไทย</SelectItem>
+              <SelectItem value="uk">Українська</SelectItem>
+              <SelectItem value="ar">العربية</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
+            {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
+          </Button>
+          <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound">
+            {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+          </Button>
         </div>
-        <input
-          ref={fileInputRef}
-          type="file"
-          accept=".xml,text/xml,application/xml"
-          onChange={handleLoadFile}
-          style={{ display: "none" }}
-        />
+        
+        {/* Action Buttons Group */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Button onClick={handleRun} disabled={!ready} variant="default">
+            <Play className="size-4" style={{ marginRight: "6px" }} />
+            {t?.runProject || 'Run'}
+          </Button>
+          <Button onClick={handleOpenFilePicker} variant="outline">
+            <FolderOpen className="size-4" style={{ marginRight: "6px" }} />
+            {t?.loadProject || 'Load'}
+          </Button>
+          <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} variant="outline">
+            <Save className="size-4" style={{ marginRight: "6px" }} />
+            {t?.saveProject || 'Save'}
+          </Button>
+          <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
+            <Trash2 className="size-4" style={{ marginRight: "6px" }} />
+            {t?.discardAll || 'Discard'}
+          </Button>
+        </div>
       </div>
+      
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".xml,text/xml,application/xml"
+        onChange={handleLoadFile}
+        style={{ display: "none" }}
+      />
     </div>
 
-    {/* Mobile dropdown menu */}
-    <div className={`mobile-dropdown ${isMobileMenuOpen ? 'mobile-dropdown-open' : ''}`}>
-      <Button onClick={handleRun} disabled={!ready} size="sm">
-        <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run Project'}
-      </Button>
-      <Button onClick={handleOpenFilePicker} size="sm">
-        <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load Project'}
-      </Button>
-      <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} size="sm">
-        <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save Project'}
-      </Button>
-      <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" size="sm">
-        <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard All'}
-      </Button>
-      <Button onClick={toggleDarkMode} size="sm" variant="outline">
-        {isDarkMode ? <Sun className="size-4" style={{ marginRight: 6 }} /> : <Moon className="size-4" style={{ marginRight: 6 }} />}
-        {isDarkMode ? 'Light Mode' : 'Dark Mode'}
-      </Button>
-      <Button onClick={toggleMute} size="sm" variant="outline">
-        {isMuted ? <VolumeX className="size-4" style={{ marginRight: 6 }} /> : <Volume2 className="size-4" style={{ marginRight: 6 }} />}
-        {isMuted ? 'Unmute' : 'Mute'}
-      </Button>
-      <div style={{ display: "flex", alignItems: "center", gap: 8, justifyContent: "center", alignContent: "center" }}>
-        <label htmlFor="mobile-ui-lang" style={{ fontSize: 12, opacity: 0.8 }}>Language</label>
+    {/* Mobile dropdown menu - Only shown when open */}
+    {isMobileMenuOpen && (
+      <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: "8px", backgroundColor: "var(--background)", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
+      {/* Mobile Action Buttons */}
+      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+        <Button onClick={handleRun} disabled={!ready} size="sm" style={{ width: "100%" }}>
+          <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run'}
+        </Button>
+        <Button onClick={handleOpenFilePicker} size="sm" variant="outline" style={{ width: "100%" }}>
+          <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load'}
+        </Button>
+        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} size="sm" variant="outline" style={{ width: "100%" }}>
+          <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save'}
+        </Button>
+        <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" size="sm" style={{ width: "100%" }}>
+          <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard'}
+        </Button>
+      </div>
+      
+      {/* Divider */}
+      <div style={{ height: "1px", backgroundColor: "rgba(0,0,0,0.1)", margin: "4px 0" }}></div>
+      
+      {/* Mobile Settings */}
+      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
         <Select
           value={uiLang}
           onValueChange={async (newLang: Language) => {
@@ -1043,7 +1182,7 @@ return (
             await changeLocaleAndReload(newLang);
           }}
         >
-          <SelectTrigger id="mobile-ui-lang" size="sm">
+          <SelectTrigger id="mobile-ui-lang" size="sm" style={{ width: "100%" }}>
             <SelectValue />
           </SelectTrigger>
           <SelectContent className="z-50000000">
@@ -1068,33 +1207,86 @@ return (
             <SelectItem value="ar">العربية</SelectItem>
           </SelectContent>
         </Select>
+        
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
+          <Button onClick={toggleDarkMode} size="sm" variant="outline" style={{ width: "100%" }}>
+            {isDarkMode ? <Sun className="size-4" style={{ marginRight: 6 }} /> : <Moon className="size-4" style={{ marginRight: 6 }} />}
+            {isDarkMode ? 'Light' : 'Dark'}
+          </Button>
+          <Button onClick={toggleMute} size="sm" variant="outline" style={{ width: "100%" }}>
+            {isMuted ? <VolumeX className="size-4" style={{ marginRight: 6 }} /> : <Volume2 className="size-4" style={{ marginRight: 6 }} />}
+            {isMuted ? 'Unmute' : 'Mute'}
+          </Button>
+        </div>
       </div>
-      
-    </div>
+      </div>
+    )}
 
-    <div style={{ display: "flex", gap: 8 }}>
+    {/* Tabs */}
+    <div style={{ display: "flex", gap: "4px", padding: "0 16px", borderBottom: "1px solid rgba(0,0,0,0.1)", overflowX: "auto" }}>
       {(["blocks","javascript","python","php","xml","json"] as Tab[]).map((tab) => (
         <Button
           key={tab}
           onClick={() => handleTabClick(tab)}
-          style={{ opacity: activeTab === tab ? 1 : 0.6 }}
+          variant={activeTab === tab ? "default" : "ghost"}
+          style={{ 
+            borderRadius: "0",
+            borderBottom: activeTab === tab ? "2px solid #9810FA" : "2px solid transparent",
+            fontWeight: activeTab === tab ? 600 : 400
+          }}
         >
           {tab === "blocks" ? "Blocks" : tab.charAt(0).toUpperCase() + tab.slice(1)}
         </Button>
       ))}
     </div>
-    <div style={{ display: "flex", flexDirection: "column", gap: 12, flex: 1 }}>
+    {/* Main Content Area */}
+    <div style={{ display: "flex", flexDirection: "column", gap: 0, flex: 1, padding: "16px" }}>
       <div className="blocklyArea" style={{ display: activeTab === "blocks" ? "block" : "none", flex: 1 }}>
         <div ref={blocklyDivRef} className="blocklyDiv" />
       </div>
       {activeTab !== "blocks" && (
-        <div style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-          <label style={{ display: "block", marginBottom: 6 }}>Generated code ({activeTab}):</label>
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
+        <label style={{ display: "block", margin: 0 }}>
+        {activeTab === "xml" ? (
+            <span>
+              XML Code (Live Edit) 
+            <span style={{ fontSize: 11, opacity: 0.7, marginLeft: 8 }}>✨ Changes apply automatically as you type</span>
+        </span>
+        ) : `Generated code (${activeTab}):`}
+        </label>
+        {activeTab === "xml" && (
+        <Button onClick={copyXmlToClipboard} size="sm" variant="outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: "4px" }}>
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2"/>
+                <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/>
+              </svg>
+            Copy
+          </Button>
+        )}
+        </div>
+        {activeTab === "xml" && xmlError && (
+        <div style={{ padding: "8px 12px", background: "#fff3cd", color: "#856404", border: "1px solid #ffc107", borderRadius: 4, fontSize: 12, marginBottom: 4 }}>
+            {xmlError}
+            </div>
+          )}
           <textarea
-            readOnly
+            readOnly={activeTab !== "xml"}
             value={generatedCode}
+            onChange={activeTab === "xml" ? handleXmlChange : undefined}
             spellCheck={false}
-            style={{ width: "100%", flex: 1, fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", fontSize: 12, padding: 8, borderRadius: 6, border: "1px solid rgba(0,0,0,0.15)", background: "var(--background)", color: "var(--foreground)" }}
+            style={{ 
+              width: "100%", 
+              flex: 1, 
+              fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace", 
+              fontSize: 12, 
+              padding: 8, 
+              borderRadius: 6, 
+              border: xmlError && activeTab === "xml" ? "1px solid #ffc107" : "1px solid rgba(0,0,0,0.15)", 
+              background: "var(--background)", 
+              color: "var(--foreground)", 
+              resize: "none" 
+            }}
           />
         </div>
       )}

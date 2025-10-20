@@ -15,5 +15,332 @@
   "loadProject": "Tải Dự án",
   "saveProject": "Lưu Dự án",
   "discardAll": "Hủy Bỏ Tất cả",
-  "confirmDiscard": "Hủy bỏ tất cả khối? Hành động này không thể hoàn tác."
+  "confirmDiscard": "Hủy bỏ tất cả khối? Hành động này không thể hoàn tác.",
+  "docs": {
+      "title": "Tài liệu MyBlockly",
+      "subtitle": "Tìm hiểu về tất cả các khối có sẵn và cách sử dụng chúng trong dự án của bạn.",
+      "home": "Trang chủ",
+      "editor": "Trình chỉnh sửa",
+      "docs": "Tài liệu",
+      "categories": "Danh mục",
+      "visualBlock": "Khối trực quan:",
+      "copyXML": "Sao chép XML",
+      "showXMLCode": "Hiển thị mã XML",
+      "generatedCode": "Mã được tạo:",
+      "example": "Ví dụ:",
+      "couldNotRenderBlock": "Không thể hiển thị khối",
+      "loadingBlock": "Đang tải khối...",
+      "blockCategories": {
+        "logic": "Logic",
+        "loops": "Vòng lặp",
+        "math": "Toán học",
+        "variables": "Biến số",
+        "functions": "Hàm",
+        "lists": "Danh sách",
+        "text": "Văn bản"
+      },
+      "blocks": {
+        "logic": {
+          "if": {
+            "name": "nếu",
+            "description": "Thực thi mã nếu điều kiện đúng",
+            "code": "if (điều_kiện) {\n  // mã để thực thi\n}",
+            "example": "Kiểm tra xem một số có phải là số dương không"
+          },
+          "ifElse": {
+            "name": "nếu-nếu không",
+            "description": "Thực thi một khối mã nếu điều kiện đúng, và khối khác nếu sai",
+            "code": "if (điều_kiện) {\n  // mã nếu đúng\n} else {\n  // mã nếu sai\n}"
+          },
+          "comparison": {
+            "name": "so sánh",
+            "description": "So sánh hai giá trị",
+            "code": "a == b  // bằng\na != b  // không bằng\na < b   // nhỏ hơn\na > b   // lớn hơn\na <= b  // nhỏ hơn hoặc bằng\na >= b  // lớn hơn hoặc bằng"
+          },
+          "logicalOperators": {
+            "name": "toán tử logic",
+            "description": "Kết hợp nhiều điều kiện",
+            "code": "điều_kiện1 && điều_kiện2  // VÀ\nđiều_kiện1 || điều_kiện2  // HOẶC\n!điều_kiện               // PHỦ ĐỊNH"
+          },
+          "boolean": {
+            "name": "boolean",
+            "description": "Giá trị Đúng hoặc Sai",
+            "code": "true\nfalse"
+          },
+          "null": {
+            "name": "null",
+            "description": "Đại diện cho giá trị trống hoặc không tồn tại",
+            "code": "null"
+          },
+          "ternary": {
+            "name": "toán tử bậc ba",
+            "description": "Trả về một giá trị nếu điều kiện đúng, giá trị khác nếu sai",
+            "code": "điều_kiện ? giá_trị_nếu_đúng : giá_trị_nếu_sai"
+          }
+        },
+        "loops": {
+          "repeat": {
+            "name": "lặp lại",
+            "description": "Lặp lại mã một số lần nhất định",
+            "code": "for (let i = 0; i < số_lần; i++) {\n  // mã để lặp lại\n}"
+          },
+          "while": {
+            "name": "trong khi",
+            "description": "Lặp lại mã trong khi điều kiện đúng",
+            "code": "while (điều_kiện) {\n  // mã để lặp lại\n}"
+          },
+          "repeatUntil": {
+            "name": "lặp lại cho đến khi",
+            "description": "Lặp lại mã cho đến khi điều kiện trở thành đúng",
+            "code": "do {\n  // mã để lặp lại\n} while (!điều_kiện);"
+          },
+          "countWith": {
+            "name": "đếm với",
+            "description": "Vòng lặp với biến đếm từ đầu đến cuối",
+            "code": "for (let i = 1; i <= 10; i++) {\n  // mã để lặp lại\n}"
+          },
+          "forEach": {
+            "name": "cho mỗi",
+            "description": "Lặp qua các mục trong danh sách",
+            "code": "for (let mục of danh_sách) {\n  // mã để thực thi cho mỗi mục\n}"
+          },
+          "breakOutOfLoop": {
+            "name": "thoát khỏi vòng lặp",
+            "description": "Thoát khỏi vòng lặp hiện tại",
+            "code": "break;"
+          },
+          "continueLoop": {
+            "name": "tiếp tục vòng lặp",
+            "description": "Chuyển đến lần lặp tiếp theo của vòng lặp",
+            "code": "continue;"
+          }
+        },
+        "math": {
+          "number": {
+            "name": "số",
+            "description": "Một giá trị số",
+            "code": "42"
+          },
+          "arithmetic": {
+            "name": "số học",
+            "description": "Các phép toán số học cơ bản",
+            "code": "a + b  // cộng\na - b  // trừ\na * b  // nhân\na / b  // chia\na % b  // modulo (phần dư)"
+          },
+          "mathFunctions": {
+            "name": "hàm toán học",
+            "description": "Các hàm toán học thông dụng",
+            "code": "Math.abs(x)     // giá trị tuyệt đối\nMath.sqrt(x)    // căn bậc hai\nMath.pow(x, y)  // x lũy thừa y\nMath.round(x)   // làm tròn đến số nguyên gần nhất\nMath.random()   // số ngẫu nhiên giữa 0 và 1"
+          },
+          "trigFunctions": {
+            "name": "hàm lượng giác",
+            "description": "Các hàm lượng giác",
+            "code": "Math.sin(x)\nMath.cos(x)\nMath.tan(x)\nMath.asin(x)\nMath.acos(x)\nMath.atan(x)"
+          },
+          "constants": {
+            "name": "hằng số",
+            "description": "Các hằng số toán học",
+            "code": "Math.PI\nMath.E\nMath.SQRT2\nMath.SQRT1_2"
+          },
+          "numberProperty": {
+            "name": "thuộc tính số",
+            "description": "Kiểm tra thuộc tính của một số",
+            "code": "isEven(x)\nisOdd(x)\nisPrime(x)\nisWhole(x)\nisPositive(x)\nisNegative(x)"
+          },
+          "round": {
+            "name": "làm tròn",
+            "description": "Làm tròn một số",
+            "code": "Math.round(x)  // làm tròn\nMath.ceil(x)   // làm tròn lên\nMath.floor(x)  // làm tròn xuống"
+          },
+          "constrain": {
+            "name": "giới hạn",
+            "description": "Giới hạn một số trong một phạm vi",
+            "code": "Math.max(thấp, Math.min(cao, x))"
+          },
+          "randomInteger": {
+            "name": "số nguyên ngẫu nhiên",
+            "description": "Tạo một số nguyên ngẫu nhiên giữa hai giá trị",
+            "code": "Math.floor(Math.random() * (tối_đa - tối_thiểu + 1)) + tối_thiểu"
+          },
+          "randomFraction": {
+            "name": "phân số ngẫu nhiên",
+            "description": "Tạo một số ngẫu nhiên giữa 0 và 1",
+            "code": "Math.random()"
+          }
+        },
+        "variables": {
+          "createVariable": {
+            "name": "tạo biến",
+            "description": "Tạo một biến mới",
+            "code": "let tên_biến = giá_trị;"
+          },
+          "setVariable": {
+            "name": "đặt biến",
+            "description": "Thay đổi giá trị của biến",
+            "code": "tên_biến = giá_trị_mới;"
+          },
+          "getVariable": {
+            "name": "lấy biến",
+            "description": "Lấy giá trị của biến",
+            "code": "tên_biến"
+          }
+        },
+        "functions": {
+          "defineFunction": {
+            "name": "định nghĩa hàm",
+            "description": "Tạo một hàm có thể tái sử dụng",
+            "code": "function tên_hàm(thamsố1, thamsố2) {\n  // thân hàm\n  return kết_quả;\n}"
+          },
+          "callFunction": {
+            "name": "gọi hàm",
+            "description": "Thực thi một hàm",
+            "code": "tên_hàm(đốisố1, đốisố2);"
+          },
+          "returnValue": {
+            "name": "trả về giá trị",
+            "description": "Trả về một giá trị từ hàm",
+            "code": "return giá_trị;"
+          }
+        },
+        "lists": {
+          "createEmptyList": {
+            "name": "tạo danh sách trống",
+            "description": "Tạo danh sách trống mới",
+            "code": "let danh_sách_của_tôi = [];"
+          },
+          "createList": {
+            "name": "tạo danh sách",
+            "description": "Tạo danh sách mới với các mục",
+            "code": "let danh_sách_của_tôi = [mục1, mục2, mục3];"
+          },
+          "createListWith": {
+            "name": "tạo danh sách với",
+            "description": "Tạo danh sách với một mục được lặp lại",
+            "code": "Array(số_lượng).fill(mục)"
+          },
+          "listLength": {
+            "name": "độ dài danh sách",
+            "description": "Lấy số lượng mục trong danh sách",
+            "code": "danh_sách_của_tôi.length"
+          },
+          "listIsEmpty": {
+            "name": "danh sách trống",
+            "description": "Kiểm tra xem danh sách có không có mục nào không",
+            "code": "danh_sách_của_tôi.length === 0"
+          },
+          "findItemInList": {
+            "name": "tìm mục trong danh sách",
+            "description": "Tìm vị trí của một mục trong danh sách",
+            "code": "danh_sách_của_tôi.indexOf(mục)\ndanh_sách_của_tôi.lastIndexOf(mục)"
+          },
+          "getItem": {
+            "name": "lấy mục",
+            "description": "Lấy một mục từ danh sách theo chỉ mục",
+            "code": "let mục = danh_sách_của_tôi[chỉ_mục];  // chỉ mục bắt đầu từ 0"
+          },
+          "setItem": {
+            "name": "đặt mục",
+            "description": "Thay đổi giá trị của một mục trong danh sách",
+            "code": "danh_sách_của_tôi[chỉ_mục] = giá_trị_mới;"
+          },
+          "getAndRemoveItem": {
+            "name": "lấy và xóa mục",
+            "description": "Lấy một mục và xóa nó khỏi danh sách",
+            "code": "let mục = danh_sách_của_tôi.splice(chỉ_mục, 1)[0];"
+          },
+          "removeItem": {
+            "name": "xóa mục",
+            "description": "Xóa một mục khỏi danh sách",
+            "code": "danh_sách_của_tôi.splice(chỉ_mục, 1);"
+          },
+          "getSublist": {
+            "name": "lấy danh sách con",
+            "description": "Lấy một phần của danh sách",
+            "code": "danh_sách_của_tôi.slice(bắt_đầu, kết_thúc)"
+          },
+          "splitTextIntoList": {
+            "name": "tách văn bản thành danh sách",
+            "description": "Chuyển đổi văn bản thành danh sách bằng cách tách",
+            "code": "văn_bản.split(\",\")"
+          },
+          "joinListIntoText": {
+            "name": "nối danh sách thành văn bản",
+            "description": "Chuyển đổi danh sách thành văn bản bằng cách nối",
+            "code": "danh_sách_của_tôi.join(\",\")"
+          },
+          "sortList": {
+            "name": "sắp xếp danh sách",
+            "description": "Sắp xếp một danh sách",
+            "code": "danh_sách_của_tôi.sort()  // số tăng dần\ndanh_sách_của_tôi.sort().reverse()  // số giảm dần\ndanh_sách_của_tôi.sort()  // chữ cái tăng dần\ndanh_sách_của_tôi.sort().reverse()  // chữ cái giảm dần"
+          },
+          "reverseList": {
+            "name": "đảo ngược danh sách",
+            "description": "Đảo ngược thứ tự các mục trong danh sách",
+            "code": "danh_sách_của_tôi.reverse()"
+          }
+        },
+        "text": {
+          "createText": {
+            "name": "tạo văn bản",
+            "description": "Tạo một chuỗi văn bản",
+            "code": "let văn_bản = \"Xin chào, thế giới!\";"
+          },
+          "joinText": {
+            "name": "nối văn bản",
+            "description": "Kết hợp các chuỗi văn bản",
+            "code": "let kết_hợp = văn_bản1 + văn_bản2;"
+          },
+          "appendText": {
+            "name": "thêm văn bản",
+            "description": "Thêm văn bản vào cuối biến",
+            "code": "văn_bản += \"thêm văn bản\";"
+          },
+          "textLength": {
+            "name": "độ dài văn bản",
+            "description": "Lấy độ dài của chuỗi văn bản",
+            "code": "văn_bản.length"
+          },
+          "textIsEmpty": {
+            "name": "văn bản trống",
+            "description": "Kiểm tra xem văn bản có trống không",
+            "code": "văn_bản.length === 0"
+          },
+          "findText": {
+            "name": "tìm văn bản",
+            "description": "Tìm vị trí của văn bản trong văn bản",
+            "code": "văn_bản.indexOf(\"tìm_kiếm\")\nvăn_bản.lastIndexOf(\"tìm_kiếm\")"
+          },
+          "getCharacter": {
+            "name": "lấy ký tự",
+            "description": "Lấy một ký tự cụ thể từ văn bản",
+            "code": "văn_bản.charAt(chỉ_mục)"
+          },
+          "substring": {
+            "name": "chuỗi con",
+            "description": "Lấy một phần của văn bản",
+            "code": "văn_bản.substring(bắt_đầu, kết_thúc)"
+          },
+          "changeCase": {
+            "name": "thay đổi chữ hoa/thường",
+            "description": "Chuyển đổi văn bản thành chữ hoa hoặc chữ thường",
+            "code": "văn_bản.toUpperCase()\nvăn_bản.toLowerCase()\nvăn_bản.charAt(0).toUpperCase() + văn_bản.slice(1)"
+          },
+          "trimText": {
+            "name": "cắt bỏ khoảng trắng",
+            "description": "Loại bỏ khoảng trắng từ cả hai phía của văn bản",
+            "code": "văn_bản.trim()\nvăn_bản.trimLeft()\nvăn_bản.trimRight()"
+          },
+          "print": {
+            "name": "in",
+            "description": "Xuất văn bản ra console",
+            "code": "console.log(văn_bản);"
+          },
+          "prompt": {
+            "name": "nhắc",
+            "description": "Yêu cầu người dùng nhập văn bản",
+            "code": "prompt(\"Nhập văn bản:\")"
+          }
+        }
+      }
+    }
+  
 }
