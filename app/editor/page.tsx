@@ -5,7 +5,7 @@ import Script from "next/script";
 import type { WorkspaceSvg } from "blockly/core";
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save, Trash2 } from "lucide-react";
+import { Moon, Sun, Volume2, VolumeX, Play, FolderOpen, Save, Trash2, StickyNote, Minus, LocateFixed, Download } from "lucide-react";
 import { Menu, X } from 'lucide-react'; 
 import Link from "next/link";
 
@@ -15,6 +15,7 @@ export default function Home() {
   const workspaceRef = useRef<WorkspaceSvg | null>(null);
   const toolboxXmlRef = useRef<string>("");
   const resizeHandlerRef = useRef<(() => void) | null>(null);
+  const workspaceChangeListenerRef = useRef<any>(null);
   const xmlDebounceTimerRef = useRef<NodeJS.Timeout | null>(null);
   const isApplyingXmlRef = useRef<boolean>(false);
   const [xmlError, setXmlError] = useState<string>("");
@@ -30,6 +31,208 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
   const [uiLang, setUiLang] = useState<Language>("en");
   const [t, setT] = useState<any>({});
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+  // Notes panel state
+  const [showNote, setShowNote] = useState<boolean>(false);
+  const [note, setNote] = useState<string>(() => {
+    if (typeof window === 'undefined') return "";
+    const v = localStorage.getItem('editor-note-content');
+    return v ?? "";
+  });
+  const [notePos, setNotePos] = useState<{ x: number; y: number }>(() => {
+    if (typeof window === 'undefined') return { x: 20, y: 120 };
+    try {
+      const v = localStorage.getItem('editor-note-pos');
+      const p = v ? JSON.parse(v) : null;
+      if (p && typeof p.x === 'number' && typeof p.y === 'number') return p;
+    } catch {}
+    return { x: 20, y: 120 };
+  });
+  const [isDraggingNote, setIsDraggingNote] = useState<boolean>(false);
+  const dragOffsetRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const noteInitRef = useRef<boolean>(false);
+  const noteTextAreaRef = useRef<HTMLTextAreaElement | null>(null);
+  const noteGutterRef = useRef<HTMLDivElement | null>(null);
+  const [showLineNumbers, setShowLineNumbers] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return true;
+    const v = localStorage.getItem('editor-note-lines');
+    return v ? v === 'true' : true;
+  });
+  const [fontSize, setFontSize] = useState<number>(() => {
+    if (typeof window === 'undefined') return 14;
+    const v = localStorage.getItem('editor-note-fontSize');
+    return v ? Number(v) || 14 : 14;
+  });
+  const [fontWeight, setFontWeight] = useState<'normal'|'bold'>(() => {
+    if (typeof window === 'undefined') return 'normal';
+    const v = localStorage.getItem('editor-note-fontWeight');
+    return (v === 'bold' ? 'bold' : 'normal');
+  });
+  const [showHighlight, setShowHighlight] = useState<boolean>(() => {
+    if (typeof window === 'undefined') return false;
+    const v = localStorage.getItem('editor-note-highlight');
+    return v ? v === 'true' : false;
+  });
+  const [undoStack, setUndoStack] = useState<string[]>([]);
+  const [redoStack, setRedoStack] = useState<string[]>([]);
+
+  // Mark initialized after first paint, and hydrate showNote from storage
+  useEffect(() => {
+    const v = typeof window !== 'undefined' ? localStorage.getItem('editor-note-visible') : null;
+    if (v != null) setShowNote(v === 'true');
+    noteInitRef.current = true;
+  }, []);
+
+  // Persist notes content/position/visibility
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-content', note); } catch {}
+    // Update gutter line numbers on content change
+    if (noteGutterRef.current) {
+      const lines = Math.max(1, note.split('\n').length);
+      const items = Array.from({ length: lines }, (_, i) => String(i + 1)).join('\n');
+      noteGutterRef.current.textContent = items;
+    }
+  }, [note]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-pos', JSON.stringify(notePos)); } catch {}
+  }, [notePos]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-visible', String(showNote)); } catch {}
+  }, [showNote]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-lines', String(showLineNumbers)); } catch {}
+  }, [showLineNumbers]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-fontSize', String(fontSize)); } catch {}
+  }, [fontSize]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-fontWeight', String(fontWeight)); } catch {}
+  }, [fontWeight]);
+  useEffect(() => {
+    if (!noteInitRef.current) return;
+    try { localStorage.setItem('editor-note-highlight', String(showHighlight)); } catch {}
+  }, [showHighlight]);
+
+  // Drag handlers for notes panel
+  useEffect(() => {
+    const onMove = (e: MouseEvent | TouchEvent) => {
+      if (!isDraggingNote) return;
+      const point = (e as TouchEvent).touches && (e as TouchEvent).touches[0]
+        ? (e as TouchEvent).touches[0]
+        : (e as MouseEvent);
+      const nx = (point as any).clientX - dragOffsetRef.current.x;
+      const ny = (point as any).clientY - dragOffsetRef.current.y;
+      setNotePos({ x: Math.max(0, nx), y: Math.max(64, ny) });
+    };
+    const onUp = () => setIsDraggingNote(false);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('touchend', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove as any);
+      window.removeEventListener('touchend', onUp);
+    };
+  }, [isDraggingNote]);
+
+  // Undo/Redo handling
+  const pushUndo = (value: string) => {
+    setUndoStack((s) => [...s.slice(-99), value]);
+    setRedoStack([]);
+  };
+  const handleNoteChange = (v: string) => {
+    pushUndo(note);
+    setNote(v);
+  };
+  const undoNote = () => {
+    setUndoStack((s) => {
+      if (s.length === 0) return s;
+      const prev = s[s.length - 1];
+      setRedoStack((r) => [...r, note]);
+      setNote(prev);
+      return s.slice(0, -1);
+    });
+  };
+  const redoNote = () => {
+    setRedoStack((r) => {
+      if (r.length === 0) return r;
+      const next = r[r.length - 1];
+      setUndoStack((s) => [...s, note]);
+      setNote(next);
+      return r.slice(0, -1);
+    });
+  };
+
+  // Scroll sync for line numbers gutter
+  const onNoteScroll = () => {
+    if (!noteTextAreaRef.current || !noteGutterRef.current) return;
+    noteGutterRef.current.scrollTop = noteTextAreaRef.current.scrollTop;
+  };
+
+  // Basic highlighter for JS/Python/PHP keywords
+  const highlightHtml = (src: string) => {
+    const escape = (s: string) => s
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+    let out = escape(src);
+    const kw = ['function','return','var','let','const','if','else','for','while','switch','case','break','continue','try','catch','finally','class','new','this','import','from','export','def','elif','lambda','True','False','None','and','or','not','in','is','echo','foreach','endif'];
+    const kwRe = new RegExp('\\b(' + kw.join('|') + ')\\b','g');
+    out = out.replace(kwRe, '<span style="color:#60a5fa">$1</span>');
+    out = out.replace(/("[^"]*"|'[^']*')/g, '<span style="color:#34d399">$1</span>');
+    out = out.replace(/(\/\/.*$)/gm, '<span style="color:#9ca3af">$1</span>');
+    out = out.replace(/(#.*$)/gm, '<span style="color:#9ca3af">$1</span>');
+    out = out.replace(/\b(\d+(?:\.\d+)?)\b/g, '<span style="color:#f59e0b">$1</span>');
+    return out;
+  };
+
+  const startNoteDrag = (e: React.MouseEvent | React.TouchEvent) => {
+    // Ignore drag start when clicking on interactive elements inside header
+    const target = e.target as HTMLElement;
+    if (target && target.closest('.note-no-drag')) {
+      return;
+    }
+    const point = (e as React.TouchEvent).touches && (e as React.TouchEvent).touches[0]
+      ? (e as React.TouchEvent).touches[0]
+      : (e as React.MouseEvent);
+    dragOffsetRef.current = {
+      x: (point as any).clientX - notePos.x,
+      y: (point as any).clientY - notePos.y,
+    };
+    setIsDraggingNote(true);
+    e.preventDefault();
+  };
+
+  // Recenter the note to viewport
+  const recenterNote = () => {
+    const vw = typeof window !== 'undefined' ? window.innerWidth : 800;
+    const vh = typeof window !== 'undefined' ? window.innerHeight : 600;
+    const defaultW = 360; const defaultH = 300;
+    const nx = Math.max(10, (vw - defaultW) / 2);
+    const ny = Math.max(70, (vh - defaultH) / 2 + 64); // offset for navbar/header
+    setNotePos({ x: nx, y: ny });
+  };
+
+  // Download note content as TXT
+  const saveNoteAsTxt = () => {
+    const blob = new Blob([note || ""], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'note.txt';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    URL.revokeObjectURL(url);
+  };
 
   const CATEGORY_LABELS: Record<Language, Record<string, string>> = {
   en: {
@@ -411,6 +614,7 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
         saveWorkspaceToLocalStorage(); // Auto-save on every change
       };
       workspace.addChangeListener(changeListener);
+      workspaceChangeListenerRef.current = changeListener;
 
       // Restore from autosave (used when switching languages via reload)
       try {
@@ -437,7 +641,16 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
 
       cleanup = () => {
         window.removeEventListener("resize", resize);
-        workspace.dispose();
+        try {
+          if (workspaceChangeListenerRef.current) {
+            try { workspace.removeChangeListener(workspaceChangeListenerRef.current); } catch {}
+            workspaceChangeListenerRef.current = null;
+          }
+          workspace.dispose();
+        } catch {}
+        if (workspaceRef.current === workspace) {
+          workspaceRef.current = null;
+        }
       };
     }
 
@@ -935,6 +1148,58 @@ type Language = "en" | "zh" | "es" | "hi" | "ar" | "fr" | "ru" | "pt" | "id" | "
   } catch {}
 };
 
+// Apply current document theme to Blockly workspace (when theme changes externally)
+const applyThemeFromDom = async () => {
+  try {
+    const Blockly = await import("blockly/core");
+    if (workspaceRef.current) {
+      const dark = document.documentElement.classList.contains('dark');
+      const name = dark ? 'MyDark' : 'MyLight';
+      const reg = (Blockly as any).registry;
+      let theme = reg?.getClass?.((Blockly as any).registry.Type.THEME, name);
+      if (!theme) {
+        const base = (dark && (Blockly as any).Themes?.Dark)
+          ? (Blockly as any).Themes.Dark
+          : (Blockly as any).Themes?.Classic || undefined;
+        theme = (Blockly as any).Theme.defineTheme(name, {
+          base,
+          componentStyles: {
+            toolboxForegroundColour: dark ? '#fff' : '#000',
+            flyoutForegroundColour: dark ? '#fff' : '#000',
+            flyoutForegroundOpacity: 1,
+            toolboxBackgroundColour: dark ? '#15171c' : '#e5e7eb',
+            flyoutBackgroundColour: dark ? '#1a1d24' : '#e5e7eb',
+            scrollbarColour: dark ? '#6b7280' : '#9ca3af',
+          },
+        });
+      }
+      // @ts-ignore - setTheme exists on WorkspaceSvg
+      workspaceRef.current.setTheme(theme);
+    }
+  } catch {}
+};
+
+// Listen to Navbar events for language and theme changes
+useEffect(() => {
+  const onLang = async () => {
+    const saved = (localStorage.getItem('site-lang') as Language) || 'en';
+    if (saved && saved !== uiLang) {
+      setUiLang(saved);
+      await changeLocaleAndReload(saved);
+    }
+  };
+  const onTheme = () => {
+    applyThemeFromDom();
+  };
+  window.addEventListener('site-lang-changed', onLang as EventListener);
+  window.addEventListener('theme-changed', onTheme as EventListener);
+  return () => {
+    window.removeEventListener('site-lang-changed', onLang as EventListener);
+    window.removeEventListener('theme-changed', onTheme as EventListener);
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [uiLang]);
+
 // Reinject workspace preserving blocks and respecting current options (lang, sounds, theme)
 const reinjectWorkspace = async (opts?: { soundsEnabled?: boolean }) => {
   if (!workspaceRef.current) return;
@@ -1045,6 +1310,9 @@ const handleDiscardAll = async () => {
   await updateGeneratedCode();
   // Save empty workspace
   saveWorkspaceToLocalStorage();
+  // Also clear notes content
+  setNote('');
+  try { localStorage.removeItem('editor-note-content'); } catch {}
 };
 
 return (
@@ -1058,15 +1326,22 @@ return (
       gtag('config', 'G-BNLPSLHQHF');
     `}</Script>
     
-    {/* Header */}
-    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
-      <div >
-        <Link href="/" className="font-black text-[24px] leading-[1.1] tracking-[-0.5px] gradient-text-myblockly" >My Blockly</Link>
+    {/* Editor Controls Header (no logo, no language/theme) */}
+  <div style={{ position: 'sticky', top: '64px', zIndex: 20, display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 16px", borderBottom: "1px solid rgba(0,0,0,0.1)", background: 'var(--background)', backdropFilter: 'blur(6px)' }}>
+      <div className="flex items-center gap-2">
+        <Button onClick={() => setShowNote((v) => !v)} variant="outline" size="sm" aria-label="Toggle Notes">
+          <StickyNote className="size-4" style={{ marginRight: 6 }} />
+          {showNote ? 'Hide Notes' : 'Notes'}
+        </Button>
+        <Button onClick={recenterNote} variant="outline" size="sm" aria-label="Recenter Notes">
+          <LocateFixed className="size-4" style={{ marginRight: 6 }} />
+          Recenter
+        </Button>
       </div>
-      
-      {/* Mobile menu button */}
+
+      {/* Mobile menu button for actions */}
       <Button 
-        className="mobile-menu-btn"
+        className="mobile-menu-btn md:hidden"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
         size="icon" 
         variant="outline" 
@@ -1075,155 +1350,179 @@ return (
         {isMobileMenuOpen ? <X className="size-5" /> : <Menu className="size-5" />}
       </Button>
 
-      {/* Desktop Controls */}
-      <div className="controls-container" style={{ display: "flex", alignItems: "center", gap: "16px" }}>
-        {/* Settings Group */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px", paddingRight: "16px", borderRight: "1px solid rgba(0,0,0,0.1)" }}>
-          <Select
-            value={uiLang}
-            onValueChange={async (newLang: Language) => {
-              setUiLang(newLang);
-              localStorage.setItem('site-lang', newLang);
-              await changeLocaleAndReload(newLang);
-            }}
-          >
-            <SelectTrigger id="ui-lang" style={{ width: "140px" }} aria-label="Language">
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent align="end" className="z-50000000">
-              <SelectItem value="en">English</SelectItem>
-              <SelectItem value="fr">Français</SelectItem>
-              <SelectItem value="es">Español</SelectItem>
-              <SelectItem value="it">Italiano</SelectItem>
-              <SelectItem value="pt">Português</SelectItem>
-              <SelectItem value="de">Deutsch</SelectItem>
-              <SelectItem value="nl">Nederlands</SelectItem>
-              <SelectItem value="tr">Türkçe</SelectItem>
-              <SelectItem value="pl">Polski</SelectItem>
-              <SelectItem value="hi">हिन्दी</SelectItem>
-              <SelectItem value="ru">Русский</SelectItem>
-              <SelectItem value="id">Bahasa Indonesia</SelectItem>
-              <SelectItem value="ja">日本語</SelectItem>
-              <SelectItem value="zh">中文</SelectItem>
-              <SelectItem value="ko">한국어</SelectItem>
-              <SelectItem value="vi">Tiếng Việt</SelectItem>
-              <SelectItem value="th">ไทย</SelectItem>
-              <SelectItem value="uk">Українська</SelectItem>
-              <SelectItem value="ar">العربية</SelectItem>
-            </SelectContent>
-          </Select>
-          <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
-            {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-          </Button>
-          <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound">
-            {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
-          </Button>
-        </div>
-        
-        {/* Action Buttons Group */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <Button onClick={handleRun} disabled={!ready} variant="default">
-            <Play className="size-4" style={{ marginRight: "6px" }} />
-            {t?.runProject || 'Run'}
-          </Button>
-          <Button onClick={handleOpenFilePicker} variant="outline">
-            <FolderOpen className="size-4" style={{ marginRight: "6px" }} />
-            {t?.loadProject || 'Load'}
-          </Button>
-          <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} variant="outline">
-            <Save className="size-4" style={{ marginRight: "6px" }} />
-            {t?.saveProject || 'Save'}
-          </Button>
-          <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
-            <Trash2 className="size-4" style={{ marginRight: "6px" }} />
-            {t?.discardAll || 'Discard'}
-          </Button>
-        </div>
+      {/* Desktop Actions */}
+      <div className="hidden md:flex items-center gap-2">
+        <Button onClick={handleRun} disabled={!ready} variant="default">
+          <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run'}
+        </Button>
+        <Button onClick={handleOpenFilePicker} variant="outline">
+          <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load'}
+        </Button>
+        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} variant="outline">
+          <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save'}
+        </Button>
+        <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" aria-label="Discard all blocks">
+          <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard'}
+        </Button>
+        <Button onClick={toggleMute} size="icon" variant="outline" aria-label="Toggle sound">
+          {isMuted ? <VolumeX className="size-4" /> : <Volume2 className="size-4" />}
+        </Button>
       </div>
-      
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept=".xml,text/xml,application/xml"
-        onChange={handleLoadFile}
-        style={{ display: "none" }}
-      />
     </div>
+    <input
+      ref={fileInputRef}
+      type="file"
+      accept=".xml,text/xml,application/xml"
+      onChange={handleLoadFile}
+      style={{ display: "none" }}
+    />
 
     {/* Mobile dropdown menu - Only shown when open */}
     {isMobileMenuOpen && (
       <div style={{ padding: "12px 16px", display: "flex", flexDirection: "column", gap: "8px", backgroundColor: "var(--background)", borderBottom: "1px solid rgba(0,0,0,0.1)" }}>
-      {/* Mobile Action Buttons */}
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-        <Button onClick={handleRun} disabled={!ready} size="sm" style={{ width: "100%" }}>
-          <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run'}
-        </Button>
-        <Button onClick={handleOpenFilePicker} size="sm" variant="outline" style={{ width: "100%" }}>
-          <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load'}
-        </Button>
-        <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} size="sm" variant="outline" style={{ width: "100%" }}>
-          <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save'}
-        </Button>
-        <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" size="sm" style={{ width: "100%" }}>
-          <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard'}
-        </Button>
-      </div>
-      
-      {/* Divider */}
-      <div style={{ height: "1px", backgroundColor: "rgba(0,0,0,0.1)", margin: "4px 0" }}></div>
-      
-      {/* Mobile Settings */}
-      <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
-        <Select
-          value={uiLang}
-          onValueChange={async (newLang: Language) => {
-            setUiLang(newLang);
-            localStorage.setItem('site-lang', newLang);
-            await changeLocaleAndReload(newLang);
-          }}
-        >
-          <SelectTrigger id="mobile-ui-lang" size="sm" style={{ width: "100%" }}>
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent className="z-50000000">
-            <SelectItem value="en">English</SelectItem>
-            <SelectItem value="fr">Français</SelectItem>
-            <SelectItem value="es">Español</SelectItem>
-            <SelectItem value="it">Italiano</SelectItem>
-            <SelectItem value="pt">Português</SelectItem>
-            <SelectItem value="de">Deutsch</SelectItem>
-            <SelectItem value="nl">Nederlands</SelectItem>
-            <SelectItem value="tr">Türkçe</SelectItem>
-            <SelectItem value="pl">Polski</SelectItem>
-            <SelectItem value="hi">हिन्दी</SelectItem>
-            <SelectItem value="ru">Русский</SelectItem>
-            <SelectItem value="id">Bahasa Indonesia</SelectItem>
-            <SelectItem value="ja">日本語</SelectItem>
-            <SelectItem value="zh">中文</SelectItem>
-            <SelectItem value="ko">한국어</SelectItem>
-            <SelectItem value="vi">Tiếng Việt</SelectItem>
-            <SelectItem value="th">ไทย</SelectItem>
-            <SelectItem value="uk">Українська</SelectItem>
-            <SelectItem value="ar">العربية</SelectItem>
-          </SelectContent>
-        </Select>
-        
+        {/* Mobile Action Buttons */}
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px" }}>
-          <Button onClick={toggleDarkMode} size="sm" variant="outline" style={{ width: "100%" }}>
-            {isDarkMode ? <Sun className="size-4" style={{ marginRight: 6 }} /> : <Moon className="size-4" style={{ marginRight: 6 }} />}
-            {isDarkMode ? 'Light' : 'Dark'}
+          <Button onClick={handleRun} disabled={!ready} size="sm" style={{ width: "100%" }}>
+            <Play className="size-4" style={{ marginRight: 6 }} />{t?.runProject || 'Run'}
           </Button>
+          <Button onClick={handleOpenFilePicker} size="sm" variant="outline" style={{ width: "100%" }}>
+            <FolderOpen className="size-4" style={{ marginRight: 6 }} />{t?.loadProject || 'Load'}
+          </Button>
+          <Button onClick={() => { setFilename("blockly_project"); setShowSaveModal(true); }} disabled={!ready} size="sm" variant="outline" style={{ width: "100%" }}>
+            <Save className="size-4" style={{ marginRight: 6 }} />{t?.saveProject || 'Save'}
+          </Button>
+          <Button onClick={handleDiscardAll} disabled={!ready} variant="destructive" size="sm" style={{ width: "100%" }}>
+            <Trash2 className="size-4" style={{ marginRight: 6 }} />{t?.discardAll || 'Discard'}
+          </Button>
+        </div>
+        {/* Mobile Sound Toggle */}
+        <div style={{ display: "grid", gridTemplateColumns: "1fr", gap: "8px" }}>
           <Button onClick={toggleMute} size="sm" variant="outline" style={{ width: "100%" }}>
-            {isMuted ? <VolumeX className="size-4" style={{ marginRight: 6 }} /> : <Volume2 className="size-4" style={{ marginRight: 6 }} />}
+            {isMuted ? <VolumeX className="size-4" style={{ marginRight: 6 }} /> : <Volume2 className="size-4" style={{ marginRight: 6 }} />} 
             {isMuted ? 'Unmute' : 'Mute'}
           </Button>
         </div>
       </div>
-      </div>
     )}
 
+    {/* Floating Notes Panel */}
+    {showNote && (
+    <div
+      style={{
+        position: 'fixed',
+        left: notePos.x,
+        top: notePos.y,
+        width: 'min(360px, 92vw)',
+        height: 'min(300px, 65vh)',
+        background: 'var(--background)',
+        color: 'var(--foreground)',
+        border: '1px solid rgba(0,0,0,0.15)',
+        borderRadius: 8,
+        boxShadow: '0 8px 24px rgba(0,0,0,0.2)',
+        zIndex: 50,
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'auto',
+        resize: 'both',
+        minWidth: 220,
+        minHeight: 200,
+        maxWidth: '95vw',
+        maxHeight: '80vh'
+      }}
+    >
+      <div
+        onMouseDown={startNoteDrag}
+        onTouchStart={startNoteDrag}
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6,
+          cursor: isDraggingNote ? 'grabbing' : 'grab',
+          padding: '8px 10px',
+          background: 'var(--accent)',
+          color: 'var(--accent-foreground)'
+        }}
+      >
+        {/* Top row: title + actions */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontWeight: 600 }}>
+          <span>Notes</span>
+          <div className="note-no-drag" style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+            <button
+              className="note-no-drag"
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={saveNoteAsTxt}
+              aria-label="Save notes as text"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 28, height: 28, borderRadius: 6,
+                border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', color: 'inherit', cursor: 'pointer'
+              }}
+            >
+              <Download className="size-4" />
+            </button>
+            <button
+              className="note-no-drag"
+              onMouseDown={(e) => e.stopPropagation()}
+              onClick={() => setShowNote(false)}
+              aria-label="Minimize notes"
+              style={{
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                width: 28, height: 28, borderRadius: 6,
+                border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', color: 'inherit', cursor: 'pointer'
+              }}
+            >
+              <Minus className="size-4" />
+            </button>
+          </div>
+        </div>
+        {/* Toolbar row under */}
+        <div className="note-no-drag" style={{ display: 'flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+          <button className="note-no-drag" onClick={undoNote} aria-label="Undo" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>Undo</button>
+          <button className="note-no-drag" onClick={redoNote} aria-label="Redo" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>Redo</button>
+          <button className="note-no-drag" onClick={() => setFontSize((s) => Math.min(28, s + 1))} aria-label="Increase font" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>A+</button>
+          <button className="note-no-drag" onClick={() => setFontSize((s) => Math.max(10, s - 1))} aria-label="Decrease font" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>A-</button>
+          <button className="note-no-drag" onClick={() => setFontWeight((w) => (w === 'normal' ? 'bold' : 'normal'))} aria-label="Toggle bold" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>Bold</button>
+          <button className="note-no-drag" onClick={() => setShowLineNumbers((v) => !v)} aria-label="Toggle line numbers" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>{showLineNumbers ? 'Hide #' : 'Show #'}</button>
+          <button className="note-no-drag" onClick={() => setShowHighlight((v) => !v)} aria-label="Toggle highlighting" style={{ padding: '4px 8px', borderRadius: 6, border: '1px solid rgba(0,0,0,0.15)', background: 'transparent', cursor: 'pointer' }}>{showHighlight ? 'No HL' : 'HL'}</button>
+        </div>
+      </div>
+      <div style={{ display: 'flex', flex: 1, minHeight: 0 }}>
+        {showLineNumbers && (
+          <div ref={noteGutterRef} aria-hidden style={{ userSelect: 'none', width: 36, padding: '10px 6px', textAlign: 'right', borderRight: '1px solid rgba(0,0,0,0.08)', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize, lineHeight: '1.5', color: 'var(--muted-foreground)', overflow: 'hidden' }} />
+        )}
+        <textarea
+          ref={noteTextAreaRef}
+          value={note}
+          onChange={(e) => handleNoteChange(e.target.value)}
+          onScroll={onNoteScroll}
+          spellCheck={false}
+          placeholder="Write your notes here..."
+          style={{
+            flex: 1,
+            width: '100%',
+            padding: 10,
+            border: 'none',
+            outline: 'none',
+            background: 'transparent',
+            resize: 'none',
+            fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+            fontSize,
+            fontWeight
+          }}
+        />
+      </div>
+      {showHighlight && (
+        <div style={{ borderTop: '1px solid rgba(0,0,0,0.08)', padding: '8px 10px', maxHeight: '40%', overflow: 'auto', fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize }}>
+          <pre style={{ margin: 0 }}>
+            <code dangerouslySetInnerHTML={{ __html: highlightHtml(note) }} />
+          </pre>
+        </div>
+      )}
+    </div>
+  )}
+
     {/* Tabs */}
-    <div style={{ display: "flex", gap: "4px", padding: "0 16px", borderBottom: "1px solid rgba(0,0,0,0.1)", overflowX: "auto" }}>
+  <div style={{ position: 'sticky', top: '113px', zIndex: 19, display: "flex", gap: "4px", padding: "8px 16px", borderBottom: "1px solid rgba(0,0,0,0.1)", background: 'var(--background)', overflowX: "auto" }}>
       {(["blocks","javascript","python","php","xml","json"] as Tab[]).map((tab) => (
         <Button
           key={tab}
@@ -1240,12 +1539,12 @@ return (
       ))}
     </div>
     {/* Main Content Area */}
-    <div style={{ display: "flex", flexDirection: "column", gap: 0, flex: 1, padding: "16px" }}>
-      <div className="blocklyArea" style={{ display: activeTab === "blocks" ? "block" : "none", flex: 1 }}>
-        <div ref={blocklyDivRef} className="blocklyDiv" />
-      </div>
-      {activeTab !== "blocks" && (
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "8px" }}>
+  <div style={{ display: "flex", flexDirection: "column", gap: 0, flex: 1, padding: "16px" }}>
+    <div className="blocklyArea" style={{ display: activeTab === "blocks" ? "block" : "none", flex: 1, minHeight: '60vh' }}>
+      <div ref={blocklyDivRef} className="blocklyDiv" />
+    </div>
+    {activeTab !== "blocks" && (
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: "8px", minHeight: '55vh' }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 6 }}>
         <label style={{ display: "block", margin: 0 }}>
         {activeTab === "xml" ? (
@@ -1355,11 +1654,6 @@ return (
         </div>
       </div>
     )}
-    
-    <footer style={{ position: 'fixed', right: 8, bottom: 2, fontSize: 12, opacity: 0.8 }}>
-      © 2025 <a href="https://www.instagram.com/omran.soliman97/" target="_blank" rel="noopener noreferrer">Omran SOLIMAN</a>. All rights reserved.
-    </footer>
-
   </div>
   );
 }

@@ -16,6 +16,17 @@
   "saveProject": "Simpan Proyek",
   "discardAll": "Buang Semua",
   "confirmDiscard": "Buang semua blok? Tindakan ini tidak dapat dibatalkan.",
+  "nav": {
+    "menu": "Menu navigasi",
+    "home": "Beranda",
+    "editor": "Editor",
+    "docs": "Dokumentasi",
+    "about": "Tentang",
+    "donation": "Donasi",
+    "contact": "Kontak",
+    "exercises": "Latihan",
+    "close": "Tutup menu"
+  },
   "docs": {
       "title": "Dokumentasi MyBlockly",
       "subtitle": "Pelajari semua blok yang tersedia dan cara menggunakannya dalam proyek Anda.",

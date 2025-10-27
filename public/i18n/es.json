@@ -16,6 +16,17 @@
   "saveProject": "Guardar Proyecto",
   "discardAll": "Descartar Todo",
   "confirmDiscard": "¿Descartar todos los bloques? Esto no se puede deshacer.",
+  "nav": {
+    "menu": "Menu de Navegación",
+    "home": "Inicio",
+    "editor": "Editor",
+    "docs": "Documentación",
+    "about": "Acerca de",
+    "donation": "Donación",
+    "contact": "Contacto",
+    "exercises": "Ejercicios",
+    "close": "Cerrar Menu"
+  },
   "docs": {
       "title": "Documentación de MyBlockly",
       "subtitle": "Aprende sobre todos los bloques disponibles y cómo usarlos en tus proyectos.",

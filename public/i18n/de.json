@@ -16,6 +16,17 @@
   "saveProject": "Projekt speichern",
   "discardAll": "Alle verwerfen",
   "confirmDiscard": "Alle Blöcke verwerfen? Dies kann nicht rückgängig gemacht werden.",
+  "nav": {
+    "menu": "Navigationsmenü",
+    "home": "Startseite",
+    "editor": "Editor",
+    "docs": "Dokumentation",
+    "about": "Über",
+    "donation": "Spende",
+    "contact": "Kontakt",
+    "exercises": "Übungen",
+    "close": "Menü schließen"
+  },
   "docs": {
       "title": "MyBlockly Dokumentation",
       "subtitle": "Erfahren Sie mehr über alle verfügbaren Blöcke und wie Sie sie in Ihren Projekten verwenden können.",

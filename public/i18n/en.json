@@ -16,6 +16,17 @@
   "saveProject": "Save Project",
   "discardAll": "Discard All",
   "confirmDiscard": "Discard all blocks? This cannot be undone.",
+  "nav": {
+    "menu": "Navigation Menu",
+    "home": "Home",
+    "editor": "Editor",
+    "docs": "Docs",
+    "about": "About",
+    "donation": "Donation",
+    "contact": "Contact",
+    "exercises": "Exercises",
+    "close": "Close Menu"
+  },
   "docs": {
     "title": "MyBlockly Documentation",
     "subtitle": "Learn about all available blocks and how to use them in your projects.",

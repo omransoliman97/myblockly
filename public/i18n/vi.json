@@ -16,6 +16,17 @@
   "saveProject": "Lưu Dự án",
   "discardAll": "Hủy Bỏ Tất cả",
   "confirmDiscard": "Hủy bỏ tất cả khối? Hành động này không thể hoàn tác.",
+  "nav": {
+    "menu": "Menu điều hướng",
+    "home": "Trang chủ",
+    "editor": "Trình chỉnh sửa",
+    "docs": "Tài liệu",
+    "about": "Giới thiệu",
+    "donation": "Quyên góp",
+    "contact": "Liên hệ",
+    "exercises": "Bài tập",
+    "close": "Đóng menu"
+  },
   "docs": {
       "title": "Tài liệu MyBlockly",
       "subtitle": "Tìm hiểu về tất cả các khối có sẵn và cách sử dụng chúng trong dự án của bạn.",

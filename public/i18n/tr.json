@@ -16,6 +16,17 @@
   "saveProject": "Proje Kaydet",
   "discardAll": "Tümünü At",
   "confirmDiscard": "Tüm bloklar atılsın mı? Bu işlem geri alınamaz.",
+  "nav": {
+    "menu": "Gezinme Menüsü",
+    "home": "Ana Sayfa",
+    "editor": "Editör",
+    "docs": "Dokümantasyon",
+    "about": "Hakkında",
+    "donation": "Bağış",
+    "contact": "İletişim",
+    "exercises": "Alıştırmalar",
+    "close": "Menüyü kapat"
+  },
   "docs": {
       "title": "MyBlockly Dokümantasyonu",
       "subtitle": "Tüm mevcut bloklar ve projelerinizde nasıl kullanılacaklarını öğrenin.",

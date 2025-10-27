@@ -16,6 +16,17 @@
   "saveProject": "Salva Progetto",
   "discardAll": "Scarta Tutto",
   "confirmDiscard": "Scartare tutti i blocchi? Questa azione non può essere annullata.",
+  "nav": {
+    "menu": "Menu di navigazione",
+    "home": "Home",
+    "editor": "Editor",
+    "docs": "Documentazione",
+    "about": "Informazioni",
+    "donation": "Donazione",
+    "contact": "Contatto",
+    "exercises": "Esercizi",
+    "close": "Chiudi menu"
+  },
   "docs": {
       "title": "Documentazione MyBlockly",
       "subtitle": "Scopri tutti i blocchi disponibili e come utilizzarli nei tuoi progetti.",

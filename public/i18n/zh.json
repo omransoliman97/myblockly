@@ -16,6 +16,17 @@
   "saveProject": "保存项目",
   "discardAll": "全部丢弃",
   "confirmDiscard": "丢弃所有积木块？此操作无法撤销。",
+  "nav": {
+    "menu": "导航菜单",
+    "home": "首页",
+    "editor": "编辑器",
+    "docs": "文档",
+    "about": "关于",
+    "donation": "捐赠",
+    "contact": "联系",
+    "exercises": "练习",
+    "close": "关闭菜单"
+  },
   "docs": {
       "title": "MyBlockly 文档",
       "subtitle": "了解所有可用的积木块以及如何在项目中使用它们。",

@@ -2,6 +2,7 @@
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { 
   Code2, 
   Code, 
@@ -13,17 +14,7 @@ import {
   Menu,
   X,
 } from 'lucide-react';
-import Link from 'next/link';
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Moon, Sun } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
 import { useTranslation, SupportedLanguage } from "@/lib/hooks/useTranslation";
 import { loadBlocklyMessages } from "@/lib/blockly-i18n";
@@ -32,7 +23,7 @@ import { loadBlocklyMessages } from "@/lib/blockly-i18n";
 import { blockCategories } from "./blockDefinitions";
 
 // Component to render Blockly blocks with i18n support
-const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string; lang: SupportedLanguage }) => {
+const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string | ((lang: SupportedLanguage) => string); lang: SupportedLanguage }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const workspaceRef = useRef<any>(null);
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
@@ -78,14 +69,16 @@ const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string; lang: Supp
           trashcan: false,
           sounds: false,
           renderer: 'zelos',
-          theme: Blockly.Themes.Classic
+          theme: Blockly.Themes.Classic,
+          rtl: lang === 'ar'
         });
 
         workspaceRef.current = workspace;
 
-        const xmlText = blockXml.trim().startsWith('<xml>') 
-          ? blockXml 
-          : `<xml xmlns="https://developers.google.com/blockly/xml">${blockXml}</xml>`;
+        const xmlSrc = typeof blockXml === 'function' ? blockXml(lang) : blockXml;
+        const xmlText = xmlSrc.trim().startsWith('<xml>') 
+          ? xmlSrc 
+          : `<xml xmlns="https://developers.google.com/blockly/xml">${xmlSrc}</xml>`;
         
         const parser = new DOMParser();
         const xmlDom = parser.parseFromString(xmlText, 'text/xml');
@@ -138,7 +131,6 @@ const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string; lang: Supp
         }
       }
     };
-
     initBlockly();
 
     return () => {
@@ -179,8 +171,15 @@ const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string; lang: Supp
   );
 };
 
-const BlockCard = ({ block }: { block: any }) => {
-  const { t, lang } = useTranslation();
+const BlockCard = ({ block, lang }: { block: any; lang: SupportedLanguage }) => {
+  const { t } = useTranslation();
+  
+  const getXmlString = () => {
+    if (typeof block.blockXml === 'function') {
+      return block.blockXml(lang);
+    }
+    return block.blockXml || '';
+  };
   
   return (
     <Card className="mb-6">
@@ -195,7 +194,8 @@ const BlockCard = ({ block }: { block: any }) => {
               <h4 className="text-sm font-semibold">{t('docs.visualBlock')}</h4>
               <button
                 onClick={() => {
-                  const xmlWithTags = `<xml>${block.blockXml}</xml>`;
+                  const xmlString = getXmlString();
+                  const xmlWithTags = `<xml>${xmlString}</xml>`;
                   navigator.clipboard.writeText(xmlWithTags);
                 }}
                 className="px-3 py-1.5 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
@@ -205,7 +205,7 @@ const BlockCard = ({ block }: { block: any }) => {
             </div>
             
             <div className="mb-3">
-              <BlocklyBlockRenderer blockXml={block.blockXml || ''} lang={lang} />
+              <BlocklyBlockRenderer blockXml={block.blockXml} lang={lang} />
             </div>
             
             <details className="group mt-2">
@@ -214,11 +214,12 @@ const BlockCard = ({ block }: { block: any }) => {
               </summary>
               <div className="mt-2 relative">
                 <pre className="bg-muted p-2 sm:p-4 rounded-md overflow-x-auto text-xs sm:text-sm border">
-                  <code className="text-green-600 whitespace-pre-wrap break-all">{`<xml>\n  ${block.blockXml}\n</xml>`}</code>
+                  <code className="text-green-600 whitespace-pre-wrap break-all">{`<xml>\n  ${getXmlString()}\n</xml>`}</code>
                 </pre>
                 <button
                   onClick={() => {
-                    const xmlWithTags = `<xml>${block.blockXml}</xml>`;
+                    const xmlString = getXmlString();
+                    const xmlWithTags = `<xml>${xmlString}</xml>`;
                     navigator.clipboard.writeText(xmlWithTags);
                   }}
                   className="absolute top-2 right-2 px-2 py-1 text-xs bg-primary text-primary-foreground rounded hover:bg-primary/90 transition-colors"
@@ -247,11 +248,11 @@ const BlockCard = ({ block }: { block: any }) => {
   );
 };
 
-const BlockCategory = ({ category }: { category: any }) => {
+const BlockCategory = ({ category, lang }: { category: any; lang: SupportedLanguage }) => {
   const { t } = useTranslation();
   
   return (
-    <div id={category.id} className="mb-8 sm:mb-12">
+    <div id={category.id} className="mb-8 sm:mb-12 scroll-mt-30">
       <div className="flex items-center gap-2 mb-6">
         <div className="p-2 rounded-md bg-primary/10 text-primary">
           {category.icon}
@@ -260,7 +261,7 @@ const BlockCategory = ({ category }: { category: any }) => {
       </div>
       <div className="space-y-6">
         {category.blocks.map((block: any, i: number) => (
-          <BlockCard key={i} block={block} />
+          <BlockCard key={`${category.id}-${i}`} block={block} lang={lang} />
         ))}
       </div>
     </div>
@@ -269,27 +270,7 @@ const BlockCategory = ({ category }: { category: any }) => {
 
 export default function DocsPage() {
   const { t, lang, changeLanguage, isLoading } = useTranslation();
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  useEffect(() => {
-    const savedTheme = localStorage.getItem("blockly-theme");
-    const dark = savedTheme === "dark";
-    setIsDarkMode(dark);
-    const root = document.documentElement;
-    root.classList.remove(dark ? "light" : "dark");
-    root.classList.add(dark ? "dark" : "light");
-  }, []);
-
-  const toggleDarkMode = () => {
-    const next = !isDarkMode;
-    setIsDarkMode(next);
-    const root = document.documentElement;
-    root.classList.remove(next ? "light" : "dark");
-    root.classList.add(next ? "dark" : "light");
-    localStorage.setItem("blockly-theme", next ? "dark" : "light");
-  };
+  // DocsPage no longer needs to manually sync language; useTranslation handles it globally
 
   if (isLoading) {
     return (
@@ -300,155 +281,7 @@ export default function DocsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-        <div className="container mx-auto px-4">
-          <div className="flex h-16 items-center justify-between">
-            <div className="flex items-center gap-4">
-              <Link href="/" className="font-black text-[24px] leading-[1.1] tracking-[-0.5px] gradient-text-myblockly" >
-                MyBlockly
-              </Link>
-            </div>
-
-            <div className="hidden md:flex items-center gap-4">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                      <Link href="/">{t('docs.home')}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                      <Link href="/editor">{t('docs.editor')}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                  <NavigationMenuItem>
-                    <NavigationMenuLink asChild className={navigationMenuTriggerStyle()}>
-                      <Link href="/docs">{t('docs.docs')}</Link>
-                    </NavigationMenuLink>
-                  </NavigationMenuItem>
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
-
-            <div className="hidden md:flex items-center gap-2">
-              <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
-                {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-              </Button>
-              
-              <Select
-                value={lang}
-                onValueChange={(newLang: SupportedLanguage) => changeLanguage(newLang)}
-              >
-                <SelectTrigger size="sm" aria-label="Language" className="w-32">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent align="end">
-                  <SelectItem value="en">English</SelectItem>
-                  <SelectItem value="fr">Français</SelectItem>
-                  <SelectItem value="es">Español</SelectItem>
-                  <SelectItem value="it">Italiano</SelectItem>
-                  <SelectItem value="pt">Português</SelectItem>
-                  <SelectItem value="de">Deutsch</SelectItem>
-                  <SelectItem value="nl">Nederlands</SelectItem>
-                  <SelectItem value="tr">Türkçe</SelectItem>
-                  <SelectItem value="pl">Polski</SelectItem>
-                  <SelectItem value="hi">हिन्दी</SelectItem>
-                  <SelectItem value="ru">Русский</SelectItem>
-                  <SelectItem value="id">Bahasa Indonesia</SelectItem>
-                  <SelectItem value="ja">日本語</SelectItem>
-                  <SelectItem value="zh">中文</SelectItem>
-                  <SelectItem value="ko">한국어</SelectItem>
-                  <SelectItem value="vi">Tiếng Việt</SelectItem>
-                  <SelectItem value="th">ไทย</SelectItem>
-                  <SelectItem value="uk">Українська</SelectItem>
-                  <SelectItem value="ar">العربية</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="md:hidden flex items-center gap-2">
-              <Button onClick={toggleDarkMode} size="icon" variant="outline" aria-label="Toggle theme">
-                {isDarkMode ? <Sun className="size-4" /> : <Moon className="size-4" />}
-              </Button>
-              <Button 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                size="icon" 
-                variant="outline" 
-                aria-label="Toggle menu"
-              >
-                {isMobileMenuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        {isMobileMenuOpen && (
-          <div className="md:hidden border-t bg-background">
-            <div className="container mx-auto px-4 py-4 space-y-4">
-              <div className="flex flex-col gap-2">
-                <Link 
-                  href="/" 
-                  className="px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('docs.home')}
-                </Link>
-                <Link 
-                  href="/editor" 
-                  className="px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('docs.editor')}
-                </Link>
-                <Link 
-                  href="/docs" 
-                  className="px-3 py-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('docs.docs')}
-                </Link>
-              </div>
-              
-              <div className="pt-4 border-t">
-                <label className="text-sm font-medium mb-2 block">{t('language')}</label>
-                <Select
-                  value={lang}
-                  onValueChange={(newLang: SupportedLanguage) => changeLanguage(newLang)}
-                >
-                  <SelectTrigger aria-label="Language">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="en">English</SelectItem>
-                    <SelectItem value="fr">Français</SelectItem>
-                    <SelectItem value="es">Español</SelectItem>
-                    <SelectItem value="it">Italiano</SelectItem>
-                    <SelectItem value="pt">Português</SelectItem>
-                    <SelectItem value="de">Deutsch</SelectItem>
-                    <SelectItem value="nl">Nederlands</SelectItem>
-                    <SelectItem value="tr">Türkçe</SelectItem>
-                    <SelectItem value="pl">Polski</SelectItem>
-                    <SelectItem value="hi">हिन्दी</SelectItem>
-                    <SelectItem value="ru">Русский</SelectItem>
-                    <SelectItem value="id">Bahasa Indonesia</SelectItem>
-                    <SelectItem value="ja">日本語</SelectItem>
-                    <SelectItem value="zh">中文</SelectItem>
-                    <SelectItem value="ko">한국어</SelectItem>
-                    <SelectItem value="vi">Tiếng Việt</SelectItem>
-                    <SelectItem value="th">ไทย</SelectItem>
-                    <SelectItem value="uk">Українська</SelectItem>
-                    <SelectItem value="ar">العربية</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-        )}
-      </header>
-
+    <div className="min-h-screen bg-background pt-20">
       {/* Main Content */}
       <div className="container mx-auto py-6 px-4">
         <div className="mb-6 sm:mb-8">
@@ -459,51 +292,58 @@ export default function DocsPage() {
         </div>
 
         <div className="flex gap-6">
-          <div className="lg:hidden">
-            <Button 
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              variant="outline"
-              size="sm"
-              className="mb-4"
-            >
-              <Menu className="size-4 mr-2" />
-              {t('docs.categories')}
-            </Button>
+          {/* Mobile categories as a drawer sheet (fixed under navbar) */}
+          <div className="lg:hidden fixed top-16 left-0 right-0 z-40 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b">
+            <div className="container mx-auto px-4 py-2">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="outline" size="sm" className="shadow-sm">
+                    <Menu className="size-4 mr-2" />
+                    {t('docs.categories')}
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side={lang === 'ar' ? 'right' : 'left'} className="z-[80] w-[85vw] sm:w-[360px]">
+                  <SheetTitle className="sr-only">{t('docs.categories')}</SheetTitle>
+                  <div className="pt-2">
+                    <h3 className="text-lg font-semibold mb-4">{t('docs.categories')}</h3>
+                    <ScrollArea className="h-[calc(100vh-160px)] pr-3">
+                      <div className="space-y-2">
+                        {blockCategories.map((category) => (
+                          <div key={category.id}>
+                            <SheetClose asChild>
+                              <a 
+                                href={`#${category.id}`}
+                                className="flex items-center gap-3 p-3 rounded-md border hover:bg-accent hover:text-accent-foreground transition-colors text-sm"
+                              >
+                                <span className="p-2 rounded-md bg-primary/10 text-primary">
+                                  {category.icon}
+                                </span>
+                                <span className="font-medium">{t(category.nameKey)}</span>
+                              </a>
+                            </SheetClose>
+                          </div>
+                        ))}
+                      </div>
+                    </ScrollArea>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
+          {/* Spacer to prevent overlap with fixed bar on mobile */}
+          <div className="lg:hidden h-12" />
 
-          <div className={`
-            ${isSidebarOpen ? 'block' : 'hidden'} 
-            lg:block 
-            lg:w-1/4 
-            w-full 
-            lg:sticky 
-            lg:top-24 
-            lg:h-[calc(100vh-120px)]
-            ${isSidebarOpen ? 'fixed inset-0 z-40 bg-background p-4' : ''}
-          `}>
-            {isSidebarOpen && (
-              <div className="flex justify-between items-center mb-4 lg:hidden">
-                <h3 className="text-lg font-semibold">{t('docs.categories')}</h3>
-                <Button 
-                  onClick={() => setIsSidebarOpen(false)}
-                  size="icon" 
-                  variant="outline"
-                >
-                  <X className="size-4" />
-                </Button>
-              </div>
-            )}
-            
+          {/* Desktop sidebar remains sticky */}
+          <div className="hidden lg:block lg:w-1/4 lg:sticky lg:top-24 lg:h-[calc(100vh-120px)]">
             <div className="lg:sticky lg:top-24">
-              <h3 className="text-lg font-semibold mb-4 hidden lg:block">{t('docs.categories')}</h3>
-              <ScrollArea className={`${isSidebarOpen ? 'h-[calc(100vh-120px)]' : 'h-[calc(100vh-200px)]'} pr-4`}>
+              <h3 className="text-lg font-semibold mb-4">{t('docs.categories')}</h3>
+              <ScrollArea className="h-[calc(100vh-200px)] pr-4">
                 <div className="space-y-2">
                   {blockCategories.map((category) => (
                     <div key={category.id}>
                       <a 
                         href={`#${category.id}`}
                         className="flex items-center gap-2 p-2 rounded-md hover:bg-accent hover:text-accent-foreground transition-colors text-sm"
-                        onClick={() => setIsSidebarOpen(false)}
                       >
                         {category.icon}
                         <span>{t(category.nameKey)}</span>
@@ -517,7 +357,7 @@ export default function DocsPage() {
 
           <div className="flex-1 lg:w-3/4">
             {blockCategories.map((category) => (
-              <BlockCategory key={category.id} category={category} />
+              <BlockCategory key={category.id} category={category} lang={lang} />
             ))}
           </div>
         </div>

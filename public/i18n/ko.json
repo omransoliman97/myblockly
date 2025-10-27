@@ -16,6 +16,17 @@
   "saveProject": "프로젝트 저장",
   "discardAll": "모두 삭제",
   "confirmDiscard": "모든 블록을 삭제하시겠습니까? 이 작업은 취소할 수 없습니다.", 
+  "nav": {
+    "menu": "내비게이션 메뉴",
+    "home": "홈",
+    "editor": "에디터",
+    "docs": "문서",
+    "about": "소개",
+    "donation": "기부",
+    "contact": "문의",
+    "exercises": "연습문제",
+    "close": "메뉴 닫기"
+  },
   "docs": {
       "title": "MyBlockly 문서",
       "subtitle": "사용 가능한 모든 블록과 프로젝트에서 사용하는 방법을 배워보세요.",

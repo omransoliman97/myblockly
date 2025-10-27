@@ -16,6 +16,17 @@
   "saveProject": "Sauvegarder le Projet",
   "discardAll": "Tout Supprimer",
   "confirmDiscard": "Supprimer tous les blocs ? Cette action est irréversible.",
+  "nav": {
+  "menu": "Menu de navigation",
+  "home": "Accueil",
+  "editor": "Éditeur",
+  "docs": "Documentation",
+  "about": "À propos",
+  "donation": "Don",
+  "contact": "Contact",
+  "exercises": "Exercices",
+  "close": "Fermer le menu"
+  },
   "docs": {
     "title": "Documentation MyBlockly",
     "subtitle": "Découvrez tous les blocs disponibles et comment les utiliser dans vos projets.",

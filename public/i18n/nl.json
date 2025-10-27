@@ -16,6 +16,17 @@
   "saveProject": "Project Opslaan",
   "discardAll": "Alles Verwijderen",
   "confirmDiscard": "Alle blokken verwijderen? Dit kan niet ongedaan worden gemaakt.",
+  "nav": {
+    "menu": "Navigatiemenu",
+    "home": "Home",
+    "editor": "Editor",
+    "docs": "Documentatie",
+    "about": "Over",
+    "donation": "Donatie",
+    "contact": "Contact",
+    "exercises": "Oefeningen",
+    "close": "Menu sluiten"
+  },
   "docs": {
       "title": "MyBlockly Documentatie",
       "subtitle": "Leer over alle beschikbare blokken en hoe ze te gebruiken in je projecten.",

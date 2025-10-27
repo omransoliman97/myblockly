@@ -16,6 +16,17 @@
   "saveProject": "プロジェクトを保存",
   "discardAll": "すべて破棄",
   "confirmDiscard": "すべてのブロックを破棄しますか？この操作は元に戻せません。",
+  "nav": {
+    "menu": "ナビゲーションメニュー",
+    "home": "ホーム",
+    "editor": "エディター",
+    "docs": "ドキュメント",
+    "about": "概要",
+    "donation": "寄付",
+    "contact": "お問い合わせ",
+    "exercises": "練習問題",
+    "close": "メニューを閉じる"
+  },
   "docs": {
       "title": "MyBlockly ドキュメント",
       "subtitle": "利用可能なすべてのブロックとプロジェクトでの使用方法について学びましょう。",

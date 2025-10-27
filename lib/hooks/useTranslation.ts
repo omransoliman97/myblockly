@@ -10,7 +10,13 @@ interface TranslationData {
 }
 
 export function useTranslation() {
-  const [lang, setLang] = useState<SupportedLanguage>("en");
+  const [lang, setLang] = useState<SupportedLanguage>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('site-lang') as SupportedLanguage | null;
+      if (saved) return saved;
+    }
+    return 'en';
+  });
   const [translations, setTranslations] = useState<TranslationData>({});
   const [isLoading, setIsLoading] = useState(true);
 
@@ -20,6 +26,32 @@ export function useTranslation() {
     if (savedLang) {
       setLang(savedLang);
     }
+    // Also ensure a default is set for first-time visitors
+    if (!savedLang) {
+      try { localStorage.setItem("site-lang", "en"); } catch {}
+    }
+  }, []);
+
+  // Keep all hook instances in sync with external changes (Navbar, other components, other tabs)
+  useEffect(() => {
+    const onCustomLangChanged = () => {
+      const saved = (localStorage.getItem("site-lang") as SupportedLanguage) || "en";
+      setLang((prev) => (prev !== saved ? saved : prev));
+    };
+
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === "site-lang" && e.newValue) {
+        const saved = e.newValue as SupportedLanguage;
+        setLang((prev) => (prev !== saved ? saved : prev));
+      }
+    };
+
+    window.addEventListener("site-lang-changed", onCustomLangChanged as EventListener);
+    window.addEventListener("storage", onStorage);
+    return () => {
+      window.removeEventListener("site-lang-changed", onCustomLangChanged as EventListener);
+      window.removeEventListener("storage", onStorage);
+    };
   }, []);
 
   // Load translations when language changes
@@ -50,6 +82,16 @@ export function useTranslation() {
     loadTranslations();
   }, [lang]);
 
+  // Reflect language on document for proper layout direction
+  useEffect(() => {
+    if (typeof document !== 'undefined') {
+      try {
+        document.documentElement.setAttribute('lang', lang);
+        document.documentElement.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+      } catch {}
+    }
+  }, [lang]);
+
   // Helper function to get nested translation by path
   const t = (path: string, fallback?: string): string => {
     const keys = path.split('.');
@@ -68,8 +110,11 @@ export function useTranslation() {
 
   // Change language and persist to localStorage
   const changeLanguage = (newLang: SupportedLanguage) => {
+    if (newLang === lang) return;
     setLang(newLang);
     localStorage.setItem("site-lang", newLang);
+    // Notify all listeners (including other hook instances)
+    try { window.dispatchEvent(new CustomEvent("site-lang-changed")); } catch {}
   };
 
   return {

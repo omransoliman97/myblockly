@@ -16,6 +16,17 @@
   "saveProject": "Zapisz Projekt",
   "discardAll": "Odrzuć Wszystko",
   "confirmDiscard": "Odrzucić wszystkie bloki? Tej czynności nie można cofnąć.", 
+  "nav": {
+    "menu": "Menu nawigacji",
+    "home": "Strona główna",
+    "editor": "Edytor",
+    "docs": "Dokumentacja",
+    "about": "O nas",
+    "donation": "Darowizna",
+    "contact": "Kontakt",
+    "exercises": "Ćwiczenia",
+    "close": "Zamknij menu"
+  },
   "docs": {
       "title": "Dokumentacja MyBlockly",
       "subtitle": "Dowiedz się o wszystkich dostępnych blokach i jak ich używać w swoich projektach.",
