@@ -79,13 +79,15 @@ export function BlocklyEditorExample() {
     async function initBlockly() {
       const Blockly = await import('blockly/core');
       const messages = await loadBlocklyMessages(lang);
-      
-      // Set Blockly locale
-      Blockly.setLocale(messages);
+      // Set Blockly locale if available
+      if (typeof (Blockly as any).setLocale === 'function') {
+        (Blockly as any).setLocale(messages as any);
+      }
       
       // Initialize workspace with translated blocks
+      const toolbox = undefined as unknown as any;
       workspaceRef.current = Blockly.inject('blocklyDiv', {
-        toolbox: {/* your toolbox */}
+        toolbox
       });
     }
     

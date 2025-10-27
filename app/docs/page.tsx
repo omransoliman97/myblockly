@@ -49,7 +49,9 @@ const BlocklyBlockRenderer = ({ blockXml, lang }: { blockXml: string | ((lang: S
 
         try {
           const messages = await loadBlocklyMessages(lang);
-          Blockly.setLocale(messages);
+          if (messages && typeof (Blockly as any).setLocale === 'function' && Object.keys(messages as any).length > 0) {
+            (Blockly as any).setLocale(messages as any);
+          }
         } catch (e) {
           console.warn('Failed to load Blockly messages');
         }
