@@ -32,7 +32,7 @@ export default function AboutPage() {
                 Université Lumière Lyon 2
               </p>
               <p className="text-sm sm:text-base text-muted-foreground">
-                First year of Licence in Computer Science
+                Computer Science
               </p>
             </div>
             <div className="rounded-lg border p-4">
