@@ -14,6 +14,7 @@ import { Menu, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useTranslation, SupportedLanguage } from "@/lib/hooks/useTranslation";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
+import Image from "next/image";
 
 type UiLang = "en" | "fr" | "es" | "it" | "pt" | "de" | "nl" | "tr" | "pl" | "hi" | "ru" | "id" | "ja" | "zh" | "ko" | "vi" | "th" | "uk" | "ar";
 
@@ -128,6 +129,13 @@ export function Navbar() {
               </div>
             </SheetContent>
           </Sheet>
+          <Image
+          src="/logo.png"
+          height={30}
+          width={30}
+          alt="Logo"
+          className="items-center"
+          />
           <Link href="/" className="font-black text-[20px] sm:text-[24px] leading-[1.1] tracking-[-0.5px] gradient-text-myblockly">MyBlockly</Link>
         </div>
         <div className="flex-1 hidden md:flex items-center justify-center">

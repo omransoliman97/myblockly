@@ -44,14 +44,14 @@ export default function AboutPage() {
           <div className="flex flex-wrap items-center gap-3 pt-1">
             <Button asChild variant="outline" size="lg">
               <a
-                href="https://www.instagram.com/omrans.soliman97/"
+                href="https://www.instagram.com/omran.soliman97"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="no-underline"
                 aria-label="Instagram @omrans.soliman97"
               >
                 <Instagram className="size-4 mr-2" />
-                @omrans.soliman97
+                @omran.soliman97
               </a>
             </Button>
             <Button asChild variant="outline" size="lg">
